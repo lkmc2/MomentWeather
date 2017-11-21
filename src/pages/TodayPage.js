@@ -6,7 +6,12 @@ import {
     View
 } from 'react-native';
 
-const api = 'http://restapi.amap.com/v3/weather/weatherInfo?key=fab76b6f3301b1804e9ab390eac37dfa&city=110101';
+import TitleBar from '../components/TitleBar.js';
+
+let city = '北京';
+const key = '3ad94afdc775428fb9da709e66d62581';
+const forecast_api = `https://free-api.heweather.com/s6/weather/forecast?location=${city}&key=${key}`;
+const now_api = `https://free-api.heweather.com/s6/weather/now?location=${city}&key=${key}`;
 
 export default class TodayPage extends Component<{}> {
     static navigationOptions = { //页面标题
@@ -20,11 +25,29 @@ export default class TodayPage extends Component<{}> {
 
     state = {
         data: '',
+        province: '', //省份名
+        city: '', //城市名
+        adcode:'', //区域编码
+        weather:'', //天气现象，天气现象对应描述
+        temperature:'', //实时气温，单位：摄氏度
+        winddirection:'', //风向，风向编码对应描述
+        windpower:'', //风力，此处返回的是风力编码，风力编码对应风力级别，单位：级
+        humidity:'', //空气湿度
+        reporttime:'', //数据发布的时间
     };
 
     fetchData = () => {
         return fetch(api) //拼接请求的网址
             .then((response) => response.text())
+            .then((responseText) => {
+                const json = JSON.parse(responseText); //使用JSON对象解析json，出错时可以抛异常
+                this.setState({
+                    // movies: json.subjects, //使用网络电影数据替换本地数据
+                    refreshing: false, //将FlatList的刷新状态设置为false
+                });
+                this.isRefreshing = false; //设置数据不在刷新
+                return json; //返回json数据
+            })
             .catch((error) => {
                 console.error(error);
             })
@@ -32,17 +55,30 @@ export default class TodayPage extends Component<{}> {
 
     async componentDidMount() { //组件挂载时调用的方法
         const result = await this.fetchData(); //加载更多数据，使用await后，下一行代码将等到await行执行完成后才会执行
-        this.setState({
-            data: result, //设置第一次加载数据完成
-        })
+        const {status,infocode,lives} = result;
+
+        // this.setState({
+        //     data: result, //设置第一次加载数据完成
+        // })
     }
 
     render() {
-        const {data} = this.state;
+        // const {data} = this.state;
+        // const {province,city,adcode,weather,temperature,winddirection,windpower,humidity,reporttime} = this.state;
 
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>{data}</Text>
+                {/*<Text style={styles.text}>{data}</Text>*/}
+                {/*<Text style={styles.text}>{province}</Text>*/}
+                {/*<Text style={styles.text}>{city}</Text>*/}
+                {/*<Text style={styles.text}>{adcode}</Text>*/}
+                {/*<Text style={styles.text}>{weather}</Text>*/}
+                {/*<Text style={styles.text}>{temperature}</Text>*/}
+                {/*<Text style={styles.text}>{winddirection}</Text>*/}
+                {/*<Text style={styles.text}>{windpower}</Text>*/}
+                {/*<Text style={styles.text}>{humidity}</Text>*/}
+                {/*<Text style={styles.text}>{reporttime}</Text>*/}
+                <TitleBar city={city}/>
             </View>
         );
     }
@@ -51,13 +87,11 @@ export default class TodayPage extends Component<{}> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
     text: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: 20,
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        fontSize: 18,
     },
 });
