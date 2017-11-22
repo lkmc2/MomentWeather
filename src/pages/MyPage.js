@@ -19,7 +19,6 @@ export default class MyPage extends Component {
     };
 
     render() {
-        alert("PicConfig.ic_edit="+PicConfig.ic_edit);
         return (
             <View style={styles.container}>
                 <TitleBar title="我的" subtitle="Mine" index={2}/>

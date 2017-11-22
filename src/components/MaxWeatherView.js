@@ -6,22 +6,19 @@ import {
     Platform,
     StyleSheet,
     Text,
-    View
+    View,
+    Image,
 } from 'react-native';
 
-import TitleBar from '../components/TitleBar.js'; //标题栏
-
 export default class MaxWeatherView extends Component {
-    static navigationOptions = { //页面标题
-        title: '更多', //标题栏文字
-        // header: null, //隐藏标题栏
-    };
-
     render() {
         return (
             <View style={styles.container}>
-                <TitleBar title="更多" subtitle="More" index={3}/>
-                <Text style={styles.text}>更多页面</Text>
+                <Image source={require('../images/weather/sunny.png')} style={styles.weatherIcon}/>
+                <Text style={styles.updateTime}>当前：下午19:20</Text>
+                <Text style={styles.temperature}>23摄氏度</Text>
+                <Text style={styles.weatherDescription}>阴</Text>
+                <Text style={styles.airCondition}>43 空气质量优</Text>
             </View>
         );
     }
@@ -29,12 +26,29 @@ export default class MaxWeatherView extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#F5FCFF',
-    },
-    text: {
+        height: 370,
+        backgroundColor: '#ff9e7e',
         alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: 20,
+    },
+    weatherIcon: { //天气图标
+        width: 200,
+        height: 200,
+    },
+    updateTime: { //更新时间
+        fontSize: 13,
+    },
+    temperature: { //当前温度
+        fontSize: 22,
+        fontWeight: 'bold',
+    },
+    weatherDescription: { //天气描述
+        fontSize: 34,
+        fontWeight: 'bold',
+    },
+    airCondition: { //空气质量
+        fontSize: 13,
+        backgroundColor: '#b9db62',
+        padding: 3,
+        borderRadius: 5,
     },
 });
