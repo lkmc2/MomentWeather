@@ -20,7 +20,7 @@ export default class MyPage extends Component<{}> {
     render() {
         return (
             <View style={styles.container}>
-                <TitleBar title="更多" subtitle="More"/>
+                <TitleBar title="更多" subtitle="More" index={3}/>
                 <Text style={styles.text}>更多页面</Text>
             </View>
         );

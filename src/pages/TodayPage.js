@@ -79,7 +79,7 @@ export default class TodayPage extends Component<{}> {
                 {/*<Text style={styles.text}>{windpower}</Text>*/}
                 {/*<Text style={styles.text}>{humidity}</Text>*/}
                 {/*<Text style={styles.text}>{reporttime}</Text>*/}
-                <TitleBar title={city} subtitle="Beijing" leftIcon={PicConfig.ic_edit} rightIcon={PicConfig.ic_edit}/>
+                <TitleBar title={city} subtitle="Beijing" index={1}/>
             </View>
         );
     }

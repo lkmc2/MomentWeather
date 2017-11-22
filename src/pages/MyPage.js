@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import TitleBar from '../components/TitleBar.js'; //标题栏
-
+import PicConfig from '../config/PicConfig'; //图片配置信息
 
 export default class MyPage extends Component<{}> {
     static navigationOptions = { //页面标题
@@ -19,9 +19,10 @@ export default class MyPage extends Component<{}> {
     };
 
     render() {
+        alert("PicConfig.ic_edit="+PicConfig.ic_edit);
         return (
             <View style={styles.container}>
-                <TitleBar title="我的" subtitle="Mine" leftIcon={PicConfig.ic_edit} rightIcon={PicConfig.ic_edit}/>
+                <TitleBar title="我的" subtitle="Mine" index={2}/>
                 <Text style={styles.text}>我的页面</Text>
             </View>
         );

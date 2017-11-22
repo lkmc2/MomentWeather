@@ -11,16 +11,35 @@ import {
 
 export default class TitleBar extends Component<{}> {
     render() {
-        const {title, subtitle, leftIcon, rightIcon} = this.props;
+        const {title, subtitle, index} = this.props; //获取标题，子标题，页面下标
+
+        let leftIcon, rightIcon; //标题栏左右图标
+
+        // if (index === 1) { //今日页面
+        //     leftIcon = require('../images/ic_my.png');
+        //     rightIcon = require('../images/ic_share.png');
+        // } else if (index === 2) { //我的页面
+        //     leftIcon = require('../images/ic_edit.png');
+        //     rightIcon = require('../images/ic_plus.png');
+        // } else { //更多页面
+        //     leftIcon = null;
+        //     rightIcon = null;
+        // }
+
+        if (index !== 3) { //标题栏下标不为3
+            leftIcon = index === 1 ? require('../images/ic_my.png') : require('../images/ic_edit.png'); //设置左图标
+            rightIcon = index === 1 ? require('../images/ic_share.png') : require('../images/ic_plus.png'); //设置右图标
+        }
+
 
         return (
             <View style={styles.container}>
-                {leftIcon ? <Image source={require(leftIcon)} style={styles.icon}/> : null}
+                <Image source={leftIcon} style={styles.icon}/>
                 <View style={styles.centerView}>
                     <Text style={styles.text}>{title}</Text>
                     <Text>{subtitle}</Text>
                 </View>
-                {rightIcon ? <Image source={require(rightIcon)} style={styles.icon}/> : null}
+                <Image source={rightIcon} style={styles.icon}/>
             </View>
         );
     }
