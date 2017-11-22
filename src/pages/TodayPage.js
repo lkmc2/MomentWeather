@@ -6,7 +6,8 @@ import {
     View
 } from 'react-native';
 
-import TitleBar from '../components/TitleBar.js';
+import TitleBar from '../components/TitleBar.js'; //标题栏
+import PicConfig from '../config/PicConfig'; //图片配置信息
 
 let city = '北京';
 const key = '3ad94afdc775428fb9da709e66d62581';
@@ -15,7 +16,7 @@ const now_api = `https://free-api.heweather.com/s6/weather/now?location=${city}&
 
 export default class TodayPage extends Component<{}> {
     static navigationOptions = { //页面标题
-        title: '今天', //标题栏文字
+        title: '今日', //标题栏文字
         // header: null, //隐藏标题栏
     };
 
@@ -78,7 +79,7 @@ export default class TodayPage extends Component<{}> {
                 {/*<Text style={styles.text}>{windpower}</Text>*/}
                 {/*<Text style={styles.text}>{humidity}</Text>*/}
                 {/*<Text style={styles.text}>{reporttime}</Text>*/}
-                <TitleBar city={city}/>
+                <TitleBar title={city} subtitle="Beijing" leftIcon={PicConfig.ic_edit} rightIcon={PicConfig.ic_edit}/>
             </View>
         );
     }

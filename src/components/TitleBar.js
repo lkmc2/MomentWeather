@@ -9,14 +9,18 @@ import {
     Image
 } from 'react-native';
 
-
 export default class TitleBar extends Component<{}> {
     render() {
+        const {title, subtitle, leftIcon, rightIcon} = this.props;
+
         return (
             <View style={styles.container}>
-                <Image source={require('../images/my_icon.png')}/>
-                <Text style={styles.text}>{this.props.city}</Text>
-                <Image source={require('../images/share_icon.png')}/>
+                {leftIcon ? <Image source={require(leftIcon)} style={styles.icon}/> : null}
+                <View style={styles.centerView}>
+                    <Text style={styles.text}>{title}</Text>
+                    <Text>{subtitle}</Text>
+                </View>
+                {rightIcon ? <Image source={require(rightIcon)} style={styles.icon}/> : null}
             </View>
         );
     }
@@ -25,12 +29,24 @@ export default class TitleBar extends Component<{}> {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        height: 100,
-        backgroundColor: '#F5FCFF',
+        height: 60,
+        backgroundColor: '#9fbbff',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    centerView: {
+        flex: 7,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     text: {
-        alignItems: 'center',
-        justifyContent: 'center',
         fontSize: 20,
+    },
+    icon: {
+        width: 30,
+        height: 30,
+        flex: 1,
+        marginLeft: 5,
+        marginRight: 5,
     },
 });

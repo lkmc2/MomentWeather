@@ -9,6 +9,7 @@ import {
     View
 } from 'react-native';
 
+import TitleBar from '../components/TitleBar.js'; //标题栏
 
 export default class MyPage extends Component<{}> {
     static navigationOptions = { //页面标题
@@ -19,6 +20,7 @@ export default class MyPage extends Component<{}> {
     render() {
         return (
             <View style={styles.container}>
+                <TitleBar title="更多" subtitle="More"/>
                 <Text style={styles.text}>更多页面</Text>
             </View>
         );
@@ -28,8 +30,6 @@ export default class MyPage extends Component<{}> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
     text: {
