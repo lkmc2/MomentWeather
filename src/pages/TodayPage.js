@@ -14,7 +14,7 @@ const key = '3ad94afdc775428fb9da709e66d62581';
 const forecast_api = `https://free-api.heweather.com/s6/weather/forecast?location=${city}&key=${key}`;
 const now_api = `https://free-api.heweather.com/s6/weather/now?location=${city}&key=${key}`;
 
-export default class TodayPage extends Component<{}> {
+export default class TodayPage extends Component {
     static navigationOptions = { //页面标题
         title: '今日', //标题栏文字
         // header: null, //隐藏标题栏

@@ -11,7 +11,7 @@ import {
 
 import TitleBar from '../components/TitleBar.js'; //标题栏
 
-export default class MyPage extends Component<{}> {
+export default class MyPage extends Component {
     static navigationOptions = { //页面标题
         title: '更多', //标题栏文字
         // header: null, //隐藏标题栏

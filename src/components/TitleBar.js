@@ -9,7 +9,7 @@ import {
     Image
 } from 'react-native';
 
-export default class TitleBar extends Component<{}> {
+export default class TitleBar extends Component {
     render() {
         const {title, subtitle, index} = this.props; //获取标题，子标题，页面下标
 
@@ -27,8 +27,8 @@ export default class TitleBar extends Component<{}> {
         // }
 
         if (index !== 3) { //标题栏下标不为3
-            leftIcon = index === 1 ? require('../images/ic_my.png') : require('../images/ic_edit.png'); //设置左图标
-            rightIcon = index === 1 ? require('../images/ic_share.png') : require('../images/ic_plus.png'); //设置右图标
+            leftIcon = index === 1 ? require('../images/icon/ic_my.png') : require('../images/icon/ic_edit.png'); //设置左图标
+            rightIcon = index === 1 ? require('../images/icon/ic_share.png') : require('../images/icon/ic_plus.png'); //设置右图标
         }
 
 
