@@ -3,12 +3,14 @@ import {
     Platform,
     StyleSheet,
     Text,
-    View
+    View,
+    ScrollView,
 } from 'react-native';
 
 import TitleBar from '../components/TitleBar.js'; //标题栏
 import PicConfig from '../config/PicConfig'; //图片配置信息
-import MaxWeatherView from "../components/MaxWeatherView";  //大视野天气展示窗口
+import MaxWeatherView from '../components/MaxWeatherView';  //大视野天气展示窗口
+import WeeklyList from '../components/WeeklyList.js'; //一周天气列表
 
 let city = '北京';
 const key = '3ad94afdc775428fb9da709e66d62581';
@@ -81,7 +83,10 @@ export default class TodayPage extends Component {
                 {/*<Text style={styles.text}>{humidity}</Text>*/}
                 {/*<Text style={styles.text}>{reporttime}</Text>*/}
                 <TitleBar title={city} subtitle="Beijing" index={1}/>
-                <MaxWeatherView/>
+                <ScrollView style={styles.scrollview}>
+                    <MaxWeatherView/>
+                    <WeeklyList/>
+                </ScrollView>
             </View>
         );
     }
@@ -91,6 +96,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F5FCFF',
+    },
+    scrollview: {
+        flex: 1,
     },
     text: {
         // alignItems: 'center',
