@@ -69,6 +69,7 @@ export default class TodayPage extends Component {
     render() {
         // const {data} = this.state;
         // const {province,city,adcode,weather,temperature,winddirection,windpower,humidity,reporttime} = this.state;
+        const {navigate} = this.props.navigation; //获取导航工具
 
         return (
             <View style={styles.container}>
@@ -82,10 +83,10 @@ export default class TodayPage extends Component {
                 {/*<Text style={styles.text}>{windpower}</Text>*/}
                 {/*<Text style={styles.text}>{humidity}</Text>*/}
                 {/*<Text style={styles.text}>{reporttime}</Text>*/}
-                <TitleBar title={city} subtitle="Beijing" index={1}/>
+                <TitleBar title={city} subtitle="Beijing" index={1} navigate={navigate}/>
                 <ScrollView style={styles.scrollview}>
                     <MaxWeatherView/>
-                    <WeeklyList/>
+
                 </ScrollView>
             </View>
         );

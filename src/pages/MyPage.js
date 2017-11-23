@@ -19,9 +19,11 @@ export default class MyPage extends Component {
     };
 
     render() {
+        const {navigate} = this.props.navigation; //获取导航工具
+
         return (
             <View style={styles.container}>
-                <TitleBar title="我的" subtitle="Mine" index={2}/>
+                <TitleBar title="我的" subtitle="Mine" index={2} navigate={navigate}/>
                 <Text style={styles.text}>我的页面</Text>
             </View>
         );

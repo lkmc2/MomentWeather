@@ -8,18 +8,15 @@ import {
     Text,
     View,
     Image,
+    FlatList,
 } from 'react-native';
 
 export default class WeeklyList extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <Image source={require('../images/weather/sunny.png')} style={styles.weatherIcon}/>
-                <Text style={styles.updateTime}>当前：下午19:20</Text>
-                <Text style={styles.temperature}>23摄氏度</Text>
-                <Text style={styles.weatherDescription}>阴</Text>
-                <Text style={styles.airCondition}>43 空气质量优</Text>
-            </View>
+            <FlatList style={styles.container}>
+
+            </FlatList>
         );
     }
 }
