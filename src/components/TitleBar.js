@@ -38,10 +38,6 @@ export default class TitleBar extends Component {
         }
     };
 
-    setButtonEvent = () => {
-
-    };
-
     render() {
         const {title, subtitle, index, navigate} = this.props; //获取标题，子标题，页面下标
 

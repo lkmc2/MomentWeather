@@ -20,7 +20,10 @@ const App = TabNavigator({ //利用导航底栏生成界面
             fontSize: 16,
         },
         style: {
-            backgroundColor: '#222',
+            backgroundColor: '#9fbbff',
+        },
+        indicatorStyle: {
+            backgroundColor: '#fbff59',
         },
     },
 });

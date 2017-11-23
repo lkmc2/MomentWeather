@@ -31,13 +31,13 @@ export default class TodayPage extends Component {
         data: '',
         province: '', //省份名
         city: '', //城市名
-        adcode:'', //区域编码
-        weather:'', //天气现象，天气现象对应描述
-        temperature:'', //实时气温，单位：摄氏度
-        winddirection:'', //风向，风向编码对应描述
-        windpower:'', //风力，此处返回的是风力编码，风力编码对应风力级别，单位：级
-        humidity:'', //空气湿度
-        reporttime:'', //数据发布的时间
+        adcode: '', //区域编码
+        weather: '', //天气现象，天气现象对应描述
+        temperature: '', //实时气温，单位：摄氏度
+        winddirection: '', //风向，风向编码对应描述
+        windpower: '', //风力，此处返回的是风力编码，风力编码对应风力级别，单位：级
+        humidity: '', //空气湿度
+        reporttime: '', //数据发布的时间
     };
 
     fetchData = () => {
@@ -59,7 +59,7 @@ export default class TodayPage extends Component {
 
     async componentDidMount() { //组件挂载时调用的方法
         const result = await this.fetchData(); //加载更多数据，使用await后，下一行代码将等到await行执行完成后才会执行
-        const {status,infocode,lives} = result;
+        const {status, infocode, lives} = result;
 
         // this.setState({
         //     data: result, //设置第一次加载数据完成
@@ -84,9 +84,10 @@ export default class TodayPage extends Component {
                 {/*<Text style={styles.text}>{humidity}</Text>*/}
                 {/*<Text style={styles.text}>{reporttime}</Text>*/}
                 <TitleBar title={city} subtitle="Beijing" index={1} navigate={navigate}/>
-                <ScrollView style={styles.scrollview}>
-                    <MaxWeatherView/>
 
+                <ScrollView contentContainerStyle={styles.scrollview}>
+                    <MaxWeatherView style={styles.maxWeatherView}/>
+                    <WeeklyList style={styles.weeklyList}/>
                 </ScrollView>
             </View>
         );
@@ -105,5 +106,11 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         // justifyContent: 'center',
         fontSize: 18,
+    },
+    maxWeatherView: {
+        alignItems: 'flex-start',
+    },
+    weeklyList: {
+        alignItems: 'center',
     },
 });

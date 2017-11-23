@@ -14,7 +14,16 @@ import {
 export default class WeeklyList extends Component {
     render() {
         return (
-            <FlatList style={styles.container}>
+            <FlatList contentContainerStyle={styles.container}
+                      horizontal={true}
+                      data={[
+                          {key:'Devin'},
+                          {key:'Jackson'},
+                          {key:'James'},
+                          {key: 'Joel'},
+                          {key:'Jililian'},
+                      ]}
+                      renderItem={({item}) => <Text style={styles.itme}>{item.key}</Text>}>
 
             </FlatList>
         );
@@ -24,8 +33,9 @@ export default class WeeklyList extends Component {
 const styles = StyleSheet.create({
     container: {
         height: 150,
-        backgroundColor: '#aab6ff',
+        backgroundColor: '#ffad26',
         alignItems: 'center',
+        flex: 1,
     },
     weatherIcon: { //天气图标
         width: 200,
