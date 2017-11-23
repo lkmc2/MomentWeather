@@ -1,6 +1,3 @@
-/**
- * Created by lkmc2 on 2017/11/22.
- */
 import React, {Component} from 'react';
 import {
     Platform,
@@ -11,51 +8,47 @@ import {
     FlatList,
 } from 'react-native';
 
+import WeeklyItem from "./WeeklyItem";
+
+const data = [
+    {key:'1',day:'周二',date:'11.23',icon:'',maxTemp:'17',minTemp:'12'},
+    {key:'2',day:'周三',date:'11.24',icon:'',maxTemp:'16',minTemp:'11'},
+    {key:'3',day:'周四',date:'11.25',icon:'',maxTemp:'14',minTemp:'10'},
+    {key:'4',day:'周五',date:'11.26',icon:'',maxTemp:'16',minTemp:'12'},
+    {key:'5',day:'周六',date:'11.27',icon:'',maxTemp:'19',minTemp:'11'},
+    {key:'6',day:'周日',date:'11.28',icon:'',maxTemp:'17',minTemp:'12'},
+    {key:'7',day:'周一',date:'11.29',icon:'',maxTemp:'18',minTemp:'10'},
+    {key:'8',day:'周二',date:'11.23',icon:'',maxTemp:'17',minTemp:'12'},
+    {key:'9',day:'周三',date:'11.24',icon:'',maxTemp:'16',minTemp:'11'},
+    {key:'10',day:'周四',date:'11.25',icon:'',maxTemp:'14',minTemp:'10'},
+    {key:'11',day:'周五',date:'11.26',icon:'',maxTemp:'16',minTemp:'12'},
+    {key:'12',day:'周六',date:'11.27',icon:'',maxTemp:'19',minTemp:'11'},
+    {key:'13',day:'周日',date:'11.28',icon:'',maxTemp:'17',minTemp:'12'},
+];
+
 export default class WeeklyList extends Component {
     render() {
         return (
-            <FlatList contentContainerStyle={styles.container}
-                      horizontal={true}
-                      data={[
-                          {key:'Devin'},
-                          {key:'Jackson'},
-                          {key:'James'},
-                          {key: 'Joel'},
-                          {key:'Jililian'},
-                      ]}
-                      renderItem={({item}) => <Text style={styles.itme}>{item.key}</Text>}>
-
-            </FlatList>
+            <FlatList
+                data={data}
+                horizontal={true}
+                renderItem={
+                    ({item}) =>
+                        <WeeklyItem
+                            day={item.day}
+                            date={item.date}
+                            icon={item.icon}
+                            maxTemp={item.maxTemp}
+                            minTemp={item.minTemp}/>
+                }
+            />
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        height: 150,
         backgroundColor: '#ffad26',
         alignItems: 'center',
-        flex: 1,
-    },
-    weatherIcon: { //天气图标
-        width: 200,
-        height: 200,
-    },
-    updateTime: { //更新时间
-        fontSize: 13,
-    },
-    temperature: { //当前温度
-        fontSize: 22,
-        fontWeight: 'bold',
-    },
-    weatherDescription: { //天气描述
-        fontSize: 34,
-        fontWeight: 'bold',
-    },
-    airCondition: { //空气质量
-        fontSize: 13,
-        backgroundColor: '#b9db62',
-        padding: 3,
-        borderRadius: 5,
     },
 });

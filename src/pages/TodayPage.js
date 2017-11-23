@@ -111,6 +111,6 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
     },
     weeklyList: {
-        alignItems: 'center',
+        // alignItems: 'center',
     },
 });
