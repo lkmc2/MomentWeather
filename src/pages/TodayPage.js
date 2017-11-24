@@ -9,9 +9,10 @@ import {
 
 import TitleBar from '../components/TitleBar.js'; //标题栏
 import PicConfig from '../config/PicConfig'; //图片配置信息
-import MaxWeatherView from '../components/MaxWeatherView';  //大视野天气展示窗口
-import WeeklyList from '../components/WeeklyList.js';
-import LifeSuggestion from "../components/LifeSuggestion"; //一周天气列表
+import MaxWeatherView from '../components/MaxWeatherView.js';  //大视野天气展示窗口
+import WeeklyList from '../components/WeeklyList.js'; //一周天气列表
+import HourlyForecast from "../components/HourlyForecast.js"; //逐小时天气预报
+import LifeSuggestion from "../components/LifeSuggestion.js"; //生活指数
 
 let city = '北京';
 const key = '3ad94afdc775428fb9da709e66d62581';
@@ -91,6 +92,7 @@ export default class TodayPage extends Component {
                     showsVerticalScrollIndicator={false}>
                     <MaxWeatherView style={styles.maxWeatherView}/>
                     <WeeklyList style={styles.weeklyList}/>
+                    <HourlyForecast/>
                     <LifeSuggestion/>
                 </ScrollView>
             </View>
