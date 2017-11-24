@@ -10,7 +10,8 @@ import {
 import TitleBar from '../components/TitleBar.js'; //标题栏
 import PicConfig from '../config/PicConfig'; //图片配置信息
 import MaxWeatherView from '../components/MaxWeatherView';  //大视野天气展示窗口
-import WeeklyList from '../components/WeeklyList.js'; //一周天气列表
+import WeeklyList from '../components/WeeklyList.js';
+import LifeSuggestion from "../components/LifeSuggestion"; //一周天气列表
 
 let city = '北京';
 const key = '3ad94afdc775428fb9da709e66d62581';
@@ -85,9 +86,12 @@ export default class TodayPage extends Component {
                 {/*<Text style={styles.text}>{reporttime}</Text>*/}
                 <TitleBar title={city} subtitle="Beijing" index={1} navigate={navigate}/>
 
-                <ScrollView contentContainerStyle={styles.scrollview}>
+                <ScrollView
+                    contentContainerStyle={styles.scrollview}
+                    showsVerticalScrollIndicator={false}>
                     <MaxWeatherView style={styles.maxWeatherView}/>
                     <WeeklyList style={styles.weeklyList}/>
+                    <LifeSuggestion/>
                 </ScrollView>
             </View>
         );
@@ -100,7 +104,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
     scrollview: {
-        flex: 1,
+
     },
     text: {
         // alignItems: 'center',
@@ -108,7 +112,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     maxWeatherView: {
-        alignItems: 'flex-start',
+        alignItems: 'center',
     },
     weeklyList: {
         // alignItems: 'center',

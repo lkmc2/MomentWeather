@@ -32,6 +32,7 @@ export default class WeeklyList extends Component {
             <FlatList
                 data={data}
                 horizontal={true}
+                showsHorizontalScrollIndicator={false}
                 renderItem={
                     ({item}) =>
                         <WeeklyItem

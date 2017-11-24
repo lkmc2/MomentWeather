@@ -1,5 +1,5 @@
 /**
- * Created by nickming on 2017/5/19.
+ * Created by lkmc2 on 2017/11/23.
  */
 'use strict';
 import React, {Component} from 'react'
