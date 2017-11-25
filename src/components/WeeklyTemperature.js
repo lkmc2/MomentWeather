@@ -18,7 +18,7 @@ export default class WeeklyTemperature extends Component {
 
         return (
             <View style={styles.container}>
-                <Image source={require('../images/small/rain.png')} style={styles.icon}/>
+                <Image source={require('../images/rain.png')} style={styles.icon}/>
                 <Text style={styles.text}>{maxTemp}°</Text>
                 <Text style={styles.text}>{minTemp}°</Text>
             </View>
@@ -28,12 +28,11 @@ export default class WeeklyTemperature extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: 70,
         width: 60,
+        height: 90,
         backgroundColor: '#ffb4a2',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: 10,
     },
     icon: { //天气图标
         width: 30,
