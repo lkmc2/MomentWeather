@@ -11,8 +11,8 @@ import {
     FlatList,
     ScrollView,
 } from 'react-native';
-import WeeklyTemperature from './WeeklyTemperature.js';
-import WeeklyDate from "./WeeklyDate";
+import WeeklyTemperature from '../weekly/WeeklyTemperature.js';
+import WeeklyDate from "../weekly/WeeklyDate";
 import CityList from "./CityList";
 
 const title = [
