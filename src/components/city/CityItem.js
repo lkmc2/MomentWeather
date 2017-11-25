@@ -20,7 +20,7 @@ export default class WeeklyDate extends Component {
                 <Text style={styles.city}>{city}</Text>
                 <Text style={styles.air}>{air}</Text>
                 <View style={styles.wrapperView}>
-                    <Image source={require('../images/rain.png')} style={styles.icon}/>
+                    <Image source={require('../../images/small/rain.png')} style={styles.icon}/>
                     <Text style={styles.temp}>{temperature}℃</Text>
                 </View>
             </View>

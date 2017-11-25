@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import TitleBar from '../components/TitleBar.js'; //标题栏
-import PicConfig from '../config/PicConfig'; //图片配置信息
+import CitiesTemperature from "../components/city/CitiesTemperature";
 
 export default class MyPage extends Component {
     static navigationOptions = { //页面标题
@@ -24,7 +24,7 @@ export default class MyPage extends Component {
         return (
             <View style={styles.container}>
                 <TitleBar title="我的" subtitle="Mine" index={2} navigate={navigate}/>
-                <Text style={styles.text}>我的页面</Text>
+                <CitiesTemperature/>
             </View>
         );
     }

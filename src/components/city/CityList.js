@@ -33,7 +33,6 @@ export default class CityList extends Component {
 
         return (
             <View style={styles.container}>
-                <DateItem/>
                 {renderCityList}
             </View>
         );

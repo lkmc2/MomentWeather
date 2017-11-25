@@ -24,7 +24,7 @@ export default class HourlyItem extends Component {
                     <Text style={styles.temp}>{temp}°</Text>
                 </View>
                 <View style={styles.subView}>
-                    <Image source={require('../images/rain.png')} style={styles.icon}/>
+                    <Image source={require('../../images/small/rain.png')} style={styles.icon}/>
                     <Text style={styles.rainrate}>{rainrate}%</Text>
                 </View>
             </View>

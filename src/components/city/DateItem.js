@@ -10,9 +10,8 @@ import {
     Image,
     FlatList,
 } from 'react-native';
-import CityItem from "./CityItem";
 
-export default class CityList extends Component {
+export default class DateItem extends Component {
     render() {
         return (
             <View style={styles.container}>
@@ -28,7 +27,7 @@ export default class CityList extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        width: 50,
+        width: 60,
         height: 50,
         backgroundColor: '#ffb4a2',
         justifyContent: 'center',

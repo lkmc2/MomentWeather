@@ -11,7 +11,7 @@ import TitleBar from '../components/TitleBar.js'; //标题栏
 import PicConfig from '../config/PicConfig'; //图片配置信息
 import MaxWeatherView from '../components/MaxWeatherView.js';  //大视野天气展示窗口
 import WeeklyList from '../components/weekly/WeeklyList.js'; //一周天气列表
-import HourlyForecast from "../components/Hourly/HourlyForecast.js"; //逐小时天气预报
+import HourlyForecast from "../components/hourly/HourlyForecast.js"; //逐小时天气预报
 import LifeSuggestion from "../components/LifeSuggestion.js"; //生活指数
 
 let city = '北京';

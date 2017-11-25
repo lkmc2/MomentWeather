@@ -15,7 +15,7 @@ export default class MaxWeatherView extends Component {
         return (
             <View style={styles.container}>
                 <Image source={require('../images/weather/sunny.png')} style={styles.weatherIcon}/>
-                <Text style={styles.updateTime}>当前：下午19:20</Text>
+                <Text style={styles.updateTime}>更新：下午19:20</Text>
                 <Text style={styles.temperature}>23℃</Text>
                 <Text style={styles.weatherDescription}>阴</Text>
                 <Text style={styles.airCondition}>43 空气质量优</Text>

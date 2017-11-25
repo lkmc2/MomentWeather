@@ -14,6 +14,7 @@ import {
 import WeeklyTemperature from '../weekly/WeeklyTemperature.js';
 import WeeklyDate from "../weekly/WeeklyDate";
 import CityList from "./CityList";
+import DateItem from "./DateItem";
 
 const title = [
     {day: '周二', date: '11.22'},
@@ -24,7 +25,7 @@ const title = [
     {day: '周日', date: '11.27'},
     {day: '周一', date: '11.28'},
 ];
-const data = [
+const datas = [
     [
         {key: '1', icon: '', maxTemp: '17', minTemp: '12'},
         {key: '2', icon: '', maxTemp: '15', minTemp: '12'},
@@ -69,43 +70,52 @@ const data = [
 
 //城市温度控件
 export default class CitiesTemperature extends Component {
+
     render() {
-        let renderWeeklyTempList = data.map(data =>
+
+        let renderWeeklyTempList = datas.map(data =>
             <FlatList
                 data={data}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 scrollEnabled={true}
                 renderItem={
-                    ({item}) =>
-                        <WeeklyTemperature
-                            icon={item.icon}
-                            maxTemp={item.maxTemp}
-                            minTemp={item.minTemp}
-                            style={styles.weeklyItem}
-                        />
+                    ({item, index}) => {
+                        if (index > 4) return null;
+                        return (
+                            <WeeklyTemperature
+                                icon={item.icon}
+                                maxTemp={item.maxTemp}
+                                minTemp={item.minTemp}
+                            />
+                        )
+                    }
+
                 }
             />
         );
 
+        let renderTitle = title.map(item =>
+            <WeeklyDate
+                day={item.day}
+                date={item.date}/>
+        );
+
         return (
-            <View style={styles.container}>
-                <CityList style={styles.cityList}/>
-                <View style={styles.wrapperView}>
-                    <FlatList
-                        data={title}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        scrollEnabled={false}
-                        renderItem={
-                            ({item}) =>
-                                <WeeklyDate
-                                    day={item.day}
-                                    date={item.date}/>
-                        }
-                    />
-                    {renderWeeklyTempList}
+            <View
+                style={styles.container}>
+                <View style={styles.rowView}>
+                    <DateItem/>
+                    {renderTitle}
                 </View>
+                <ScrollView>
+                    <View style={styles.rowView}>
+                        <CityList style={styles.cityList}/>
+                        <View style={styles.wrapperView}>
+                            {renderWeeklyTempList}
+                        </View>
+                    </View>
+                </ScrollView>
             </View>
         );
     }
@@ -114,6 +124,8 @@ export default class CitiesTemperature extends Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#ffad26',
+    },
+    rowView: {
         flexDirection: 'row',
     },
     cityList: {
@@ -122,9 +134,5 @@ const styles = StyleSheet.create({
     wrapperView: {
         backgroundColor: '#666',
         flex: 1,
-    },
-    weeklyItem: {
-        paddingTop: 10,
-        paddingBottom: 10,
     },
 });

@@ -29,7 +29,7 @@ export default class WeeklyItem extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: 120,
+        height: 140,
         width: 60,
     },
 });

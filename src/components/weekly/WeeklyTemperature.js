@@ -18,7 +18,7 @@ export default class WeeklyTemperature extends Component {
 
         return (
             <View style={styles.container}>
-                <Image source={require('../images/rain.png')} style={styles.icon}/>
+                <Image source={require('../../images/small/rain.png')} style={styles.icon}/>
                 <Text style={styles.text}>{maxTemp}°</Text>
                 <Text style={styles.text}>{minTemp}°</Text>
             </View>
