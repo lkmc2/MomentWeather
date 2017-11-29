@@ -1,5 +1,5 @@
 /**
- * Created by nickming on 2017/5/11.
+ * Created by lkmc2 on 2017/11/29.
  */
 'use strict';
 import { observable, computed, asMap, autorun } from 'mobx';
@@ -25,10 +25,6 @@ class WeatherStore {
 
     ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
-    constructor() {
-
-    }
-
 
     /**
      * 返回每日天气预报ds
@@ -49,7 +45,7 @@ class WeatherStore {
      */
     @computed get hourlyDataSource() {
         let data = this.getCurrentCityWeather();
-        if (data != null) {
+        if (data !== null) {
             let hourlyData = data.hourly;
             return this.ds.cloneWithRows(hourlyData.slice());
         } else {
@@ -70,13 +66,13 @@ class WeatherStore {
         weatherStore.watchId = navigator.geolocation.watchPosition((position) => {
             weatherStore.lastPosition = position
         });
-    }
+    };
 
     /**
      * 通过经纬度获取天气信息
      * @param name
      */
-    requestWeatherByLongitudeAndLatitude(name) {
+    requestWeatherByLongitudeAndLatitude = (name) => {
         this.loading = true;
         return fetch("https://free-api.heweather.com/v5/weather?key=19713447578c4afe8c12a351d46ea922&city=" + name)
             .then((response) => {
@@ -91,13 +87,13 @@ class WeatherStore {
                 this.loading = false;
             })
             .done();
-    }
+    };
 
     /**
      * 根据城市名获取天气
      * @param name
      */
-    requestWeatherByName(name) {
+    requestWeatherByName = (name) => {
         this.loading = true;
         return fetch("https://free-api.heweather.com/v5/weather?key=19713447578c4afe8c12a351d46ea922&city=" + name)
             .then((response) => {
@@ -110,13 +106,13 @@ class WeatherStore {
                 this.loading = false;
             })
             .done();
-    }
+    };
 
     /**
      * 存储天气信息
      * @param jsonData
      */
-    saveWeatherData(jsonData) {
+    saveWeatherData = (jsonData) => {
         let weatherData = jsonData.HeWeather5[0];
         this.weatherMap.set(weatherData.basic.city, new Weather(weatherData));
         this.convertAqiToList(weatherData);
@@ -125,14 +121,14 @@ class WeatherStore {
         let voiceContent = weatherData.basic.city + '现在' + weatherData.now.cond.txt + ',气温' +
             weatherData.now.tmp + '度';
         this.speakWeather(voiceContent);
-    }
+    };
 
     /**
      * 进行语音输出
      * android端采用讯飞云语音合成，ios端采用自带的tts合成
-     * @param {语音输出内容} content 
+     * @param content 语音输出内容
      */
-    speakWeather(content) {
+    speakWeather = (content) => {
         if (!__ANDORID__) {
             MscSpeech.speak(true, content, () => {
                 console.log('ios输出!')
@@ -147,16 +143,16 @@ class WeatherStore {
                     alert('Android需要连接网络才能语音播报!')
             });
         }
-    }
+    };
 
     /**
      * 存储天气数据
-     * @param {*单项天气数据} weatherData 
+     * @param  weatherData  单项天气数据
      */
-    saveCityItem(weatherData) {
+    saveCityItem = (weatherData) => {
         let flag = -1;
         for (let i = 0; i < stateStore.cityList.length; i++) {
-            if (stateStore.cityList[i].cityName == weatherData.basic.city) {
+            if (stateStore.cityList[i].cityName === weatherData.basic.city) {
                 flag = i;
                 break;
             }
@@ -164,16 +160,16 @@ class WeatherStore {
         let weatherItem = new CityItemInfo(weatherData.basic.city,
             weatherData.daily_forecast[0].tmp.min + '~' + weatherData.daily_forecast[0].tmp.max + '°C',
             ApiConfig.iconApi + weatherData.daily_forecast[0].cond.code_d + '.png');
-        if (flag != -1) {
+        if (flag !== -1) {
             stateStore.cityList[flag] = weatherItem;
         } else {
             stateStore.cityList.push(weatherItem);
         }
         stateStore.saveLocalCityData();
-    }
+    };
 
 
-    convertAqiToList(weatherData) {
+    convertAqiToList = (weatherData) => {
         this.aqiList = [];
         let aqi = weatherData.aqi.city;
         this.aqiList.push(new AqiItem('CO', aqi.co, '一氧化碳', 'mg/m³'));
@@ -182,9 +178,9 @@ class WeatherStore {
         this.aqiList.push(new AqiItem('PM10', aqi.pm10, '可吸入颗粒物', 'μg/m²'));
         this.aqiList.push(new AqiItem('PM2.5', aqi.pm25, '可入肺颗粒', 'μg/m³'));
         this.aqiList.push(new AqiItem('PM10', aqi.so2, '二氧化硫', 'μg/m³'));
-    }
+    };
 
-    convertSuggestionList(weatherData) {
+    convertSuggestionList = (weatherData) => {
         this.lifeList = [];
         let suggestion = weatherData.suggestion;
         // 空气信息已丢失，接口问题
@@ -196,44 +192,44 @@ class WeatherStore {
         this.lifeList.push(new SuggestionInfo('运动指数', suggestion.sport.brf, suggestion.sport.txt));
         this.lifeList.push(new SuggestionInfo('旅游指数', suggestion.trav.brf, suggestion.trav.txt));
         this.lifeList.push(new SuggestionInfo('紫外线指数', suggestion.uv.brf, suggestion.uv.txt));
-    }
+    };
 
     /**
      * 通过名字获取天气预报信息
      * @param name
      * @returns {null}
      */
-    getWeatherDataByName(name) {
+    getWeatherDataByName = (name) => {
         if (!this.weatherMap.has(name)) {
             return null;
         } else {
             return this.weatherMap.get(name);
         }
-    }
+    };
 
 
     /**
      * 改变当前城市名
      * @param name
      */
-    changeCurrentCityName(name) {
+    changeCurrentCityName = (name) => {
         this.currentCityName = name;
-        if (this.getCurrentCityWeather() != null) {
+        if (this.getCurrentCityWeather() !== null) {
             this.convertSuggestionList(this.getCurrentCityWeather());
             this.convertAqiToList(this.getCurrentCityWeather());
         } else {
             this.requestWeatherByName(name);
         }
-    }
+    };
 
     /**
      * 获取当前城市天气数据
      * @returns {null}
      */
-    getCurrentCityWeather() {
+    getCurrentCityWeather = () => {
         let weatherData = this.getWeatherDataByName(this.currentCityName);
         return weatherData;
-    }
+    };
 
 
 }

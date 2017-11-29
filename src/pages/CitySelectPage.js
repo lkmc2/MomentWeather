@@ -7,7 +7,7 @@ import {Text, View, StyleSheet, StatusBar, TouchableOpacity} from 'react-native'
 import {observer} from 'mobx-react/native'
 import CITYDATA from '../util/CityData'
 import stateStore from '../stores/state_store'
-import weatherStore from '../stores/weather_store'
+import weatherStore from '../stores/WeatherStore'
 import CitySelect from '../components/city/CitySelect'
 
 @observer

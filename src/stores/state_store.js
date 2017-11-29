@@ -1,10 +1,10 @@
 /**
- * Created by nickming on 2017/5/23.
+ * Created by lkmc2 on 2017/11/29.
  */
 'use strict';
 import {observable, computed, asMap, autorun} from 'mobx';
 import {StyleSheet, ListView} from 'react-native';
-import weatherStore from './weather_store'
+import weatherStore from './WeatherStore'
 import storage from '../config/StorageConfig'
 
 

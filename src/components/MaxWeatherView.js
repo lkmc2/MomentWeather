@@ -9,9 +9,32 @@ import {
     View,
     Image,
 } from 'react-native';
+import WeatherStore from '../stores/WeatherStore.js'; //引入天气存储数据库
 
 export default class MaxWeatherView extends Component {
+
     render() {
+        let weatherData = WeatherStore.getCurrentCityWeather();
+        if (weatherData === null) {
+            return this._renderLoading();
+        } else {
+            return this._renderHeader(weatherData);
+        }
+    }
+
+    _renderLoading = () => {
+        return (
+            <View style={styles.container}>
+                <Image source={require('../images/weather/sunny.png')} style={styles.weatherIcon}/>
+                <Text style={styles.updateTime}>Loading</Text>
+                <Text style={styles.temperature}>Loading</Text>
+                <Text style={styles.weatherDescription}>Loading</Text>
+                <Text style={styles.airCondition}>Loading</Text>
+            </View>
+        )
+    };
+
+    _renderHeader = (weatherData) => {
         return (
             <View style={styles.container}>
                 <Image source={require('../images/weather/sunny.png')} style={styles.weatherIcon}/>
@@ -21,7 +44,7 @@ export default class MaxWeatherView extends Component {
                 <Text style={styles.airCondition}>43 空气质量优</Text>
             </View>
         );
-    }
+    };
 }
 
 const styles = StyleSheet.create({

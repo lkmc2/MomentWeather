@@ -1,10 +1,10 @@
 /**
- * Created by nickming on 2017/5/24.
+ * Created by lkmc2 on 2017/11/29.
  */
 'use strict';
 import {observable, computed} from 'mobx';
 
-export default class AqiItem {
+export default class CityItemInfo {
     @observable cityName;
     @observable tmp;
     @observable iconUrl;
