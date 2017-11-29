@@ -1,5 +1,5 @@
 /**
- * Created by lkmc2 on 2017/11/25.
+ * Created by nickming on 2017/5/11.
  */
 'use strict';
 import { observable, computed, asMap, autorun } from 'mobx';
@@ -8,9 +8,8 @@ import { ListView, NetInfo } from 'react-native';
 import AqiItem from '../model/aqi_item_info';
 import SuggestionInfo from '../model/suggestion_info'
 import CityItemInfo from '../model/city_item_info'
-import stateStore from './StateStore'
+import stateStore from './state_store'
 import ApiConfig from '../config/index'
-import Speech from 'native-speech'
 import MscSpeech from 'react-native-msc-speech'
 
 class WeatherStore {

@@ -19,7 +19,7 @@ import Divider from '../components/Divider.js' //分隔线
 export default class MorePage extends Component {
     static navigationOptions = { //页面标题
         title: '更多', //标题栏文字
-        // header: null, //隐藏标题栏
+        header: null, //隐藏标题栏
     };
 
     showClearDialog = ( )=> {

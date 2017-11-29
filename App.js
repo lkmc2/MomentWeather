@@ -6,7 +6,7 @@ import {
 import TodayPage from './src/pages/TodayPage.js';
 import MyPage from './src/pages/MyPage.js';
 import MorePage from './src/pages/MorePage.js';
-import CitySelect from './src/pages/CitySelect.js';
+import CitySelected from './src/pages/CitySelectPage.js';
 
 const MyTab = TabNavigator({ //利用导航底栏生成界面
     TodayPage: {screen: TodayPage}, //电影列表页
@@ -32,7 +32,7 @@ const MyTab = TabNavigator({ //利用导航底栏生成界面
 
 const App = StackNavigator({ //利用标题导航栏生成界面
     Home: {screen: MyTab}, //底栏生成的界面
-    SelectCity: {screen: CitySelect}, //详情页
+    CitySelected: {screen: CitySelected}, //详情页
 }, {
     headerMode: 'screen', //标题栏模式，内容连同标题栏一起改变
 });

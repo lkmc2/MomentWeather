@@ -2,17 +2,16 @@
  * Created by lkmc2 on 2017/11/25.
  */
 'use strict';
-
-import React, {Component, PropTypes} from 'react'
+import React, { Component,  } from 'react';
 import {Text, View, StyleSheet, StatusBar, TouchableOpacity} from 'react-native'
 import {observer} from 'mobx-react/native'
-import CitySelect from "react-native-city-select"
 import CITYDATA from '../util/CityData'
-import stateStore from '../stores/StateStore'
-import weatherStore from '../stores/WeatherStore'
+import stateStore from '../stores/state_store'
+import weatherStore from '../stores/weather_store'
+import CitySelect from '../components/city/CitySelect'
 
 @observer
-export default class CityScreen extends Component {
+export default class CitySelected extends Component {
 
     static navigationOptions = {
         title: '选择城市'
@@ -29,12 +28,13 @@ export default class CityScreen extends Component {
     }
 
 
-    handleCitySelect = (cityObj) => {
+    handleCitySelect =
+        (cityObj) => {
         stateStore.currentCityEngName = cityObj.cityNameEn.toLowerCase();
         weatherStore.requestWeatherByName(cityObj.cityName);
         let navigation=this.props.navigation;
         navigation.goBack();
-    }
+    };
 
 
     renderCitySelect = () => {
@@ -46,7 +46,7 @@ export default class CityScreen extends Component {
                 style={{flex:1}}
             />
         )
-    }
+    };
 
     render() {
         return (

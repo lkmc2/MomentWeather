@@ -32,8 +32,8 @@ export default class TitleBar extends Component {
             return {
                 leftIcon: require('../images/icon/ic_edit.png'), //标题栏左图标
                 rightIcon: require('../images/icon/ic_plus.png'), //标题栏右图标
-                onPressLeft: () => navigate('TodayPage', {}), //点击左边按钮事件
-                onPressRight: () => navigate('TodayPage', {}), //点击右按钮事件
+                onPressLeft: () => navigate('CitySelected', {}), //点击左边按钮事件
+                onPressRight: () => navigate('CitySelected', {}), //点击右按钮事件
             }
         }
     };

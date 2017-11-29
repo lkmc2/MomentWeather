@@ -15,7 +15,7 @@ import CitiesTemperature from "../components/city/CitiesTemperature";
 export default class MyPage extends Component {
     static navigationOptions = { //页面标题
         title: '我的', //标题栏文字
-        // header: null, //隐藏标题栏
+        header: null, //隐藏标题栏
     };
 
     render() {
