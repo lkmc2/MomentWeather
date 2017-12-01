@@ -3,9 +3,8 @@
  */
 'use strict';
 import React, { Component,  } from 'react';
-import {Text, View, StyleSheet, StatusBar, TouchableOpacity} from 'react-native'
+import { View, StatusBar, } from 'react-native'
 import {observer} from 'mobx-react/native'
-import CITYDATA from '../util/CityData'
 import stateStore from '../stores/StateStore'
 import weatherStore from '../stores/WeatherStore'
 import CitySelect from '../components/city/CitySelect'
@@ -42,7 +41,6 @@ export default class CitySelected extends Component {
             <CitySelect
                 header={false}
                 selectCity={this.handleCitySelect}
-                cityData={CITYDATA}
                 style={{flex:1}}
             />
         )
@@ -51,15 +49,9 @@ export default class CitySelected extends Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                <StatusBar barStyle={'dark-content'}></StatusBar>
+                <StatusBar barStyle={'dark-content'}/>
                 {this.renderCitySelect()}
             </View>
         )
     }
 }
-
-const styles = StyleSheet.create({
-    text: {
-        textAlign: 'center'
-    }
-});

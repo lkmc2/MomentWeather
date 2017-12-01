@@ -1,11 +1,9 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
 import {
     Text,
     View,
     TouchableOpacity,
     StyleSheet,
-    StatusBar,
-    ScrollView,
     Animated,
     Dimensions,
     SectionList,
@@ -16,13 +14,9 @@ const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
 const statusHeight = 20;
-const rowHeight = 44;
-const separatorHeight = 1;
-const headerHeight = 24;
 const sectionWidth = 20;
 const sectionTopBottomHeight = 50;
 const sectionItemHeight = (deviceHeight - 56 - statusHeight - sectionTopBottomHeight * 2) / CITYDATA.length;
-
 const touchDownBGColor = '#999999';
 const touchUpBGColor = 'transparent';
 
@@ -37,13 +31,13 @@ export default class CitySelect extends Component {
 
     componentDidMount() {
         Animated.timing(this.state.modalY, {
-            duration: 500,
+            duration: 50,
             toValue: 0
         }).start()
     }
 
     renderCityItem(cityData) {
-        const cityItem = cityData.map((item, index) => (
+        return cityData.map((item, index) => (
             <TouchableOpacity
                 style={styles.city}
                 key={item.cityId}
@@ -54,8 +48,6 @@ export default class CitySelect extends Component {
                 </Text>
             </TouchableOpacity>
         ));
-
-        return cityItem
     }
 
     renderHeader = () => {
@@ -67,9 +59,7 @@ export default class CitySelect extends Component {
             return (
                 <View style={styles.header}>
                     <TouchableOpacity
-                        style={styles.cancel}
-                        onPress={this.props.cancelCity}
-                    >
+                        style={styles.cancel}>
                         <Text style={cancelText}>
                             {this.props.cancelText}
                         </Text>
@@ -83,7 +73,6 @@ export default class CitySelect extends Component {
     };
 
     renderItem = (info) => {
-        const CITY = CITYDATA;
         return (
             <View key={info.item}>
                 <View style={styles.cityBox}>
@@ -122,7 +111,7 @@ export default class CitySelect extends Component {
     };
 
     /*用户手指离开屏幕*/
-    responderRelease = (event) => {
+    responderRelease = () => {
         this.setState({
             isTouchDown: false,
         })
@@ -174,18 +163,6 @@ export default class CitySelect extends Component {
             </View>
         );
     };
-
-    /*每一项的高度(rowHeight)和其在父组件中的偏移量(offset)和位置(index)
-     * length :  当前rowItem的高度
-     * offset ： 当前rowItem在父组件中的偏移量（包括rowItem的高度 + 分割线的高度 + section的高度）
-     * index  :  当前rowItem的位置
-     *
-     * 如果需要手动的跳转。则必须实现此方法
-     * */
-    itemLayout(data, index) {
-        return {length: rowHeight, offset: (rowHeight + separatorHeight) * index + headerHeight, index};
-    }
-
 
     render() {
         return (
