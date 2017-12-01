@@ -31,7 +31,7 @@ class StateStore {
                 break;
             }
         }
-        if (index != -1) {
+        if (index !== -1) {
             this.cityList.splice(index, 1);
             stateStore.saveLocalCityData();
         }
@@ -66,11 +66,11 @@ class StateStore {
             console.warn(err.message);
             switch (err.name) {
                 case 'NotFoundError':
-                    alert('读取失败')
+                    alert('读取失败');
                     // TODO;
                     break;
                 case 'ExpiredError':
-                    alert('读取失败')
+                    alert('读取失败');
                     // TODO
                     break;
             }
@@ -78,7 +78,7 @@ class StateStore {
     }
 
     removeDuplicatedItem(ar) {
-        var ret = [];
+        let ret = [];
 
         ar.forEach(function (e, i, ar) {
             if (ar.indexOf(e) === i) {

@@ -8,7 +8,7 @@ import { ListView, NetInfo } from 'react-native';
 import AqiItem from '../model/aqi_item_info';
 import SuggestionInfo from '../model/suggestion_info'
 import CityItemInfo from '../model/city_item_info'
-import stateStore from './state_store'
+import stateStore from './StateStore'
 import ApiConfig from '../config/index'
 import MscSpeech from 'react-native-msc-speech'
 
@@ -114,13 +114,16 @@ class WeatherStore {
      */
     saveWeatherData = (jsonData) => {
         let weatherData = jsonData.HeWeather5[0];
+
+        console.log("key="+weatherData.basic.city+",value="+weatherData);
+
         this.weatherMap.set(weatherData.basic.city, new Weather(weatherData));
         this.convertAqiToList(weatherData);
         this.convertSuggestionList(weatherData);
         this.saveCityItem(weatherData);
         let voiceContent = weatherData.basic.city + '现在' + weatherData.now.cond.txt + ',气温' +
             weatherData.now.tmp + '度';
-        this.speakWeather(voiceContent);
+        // this.speakWeather(voiceContent);
     };
 
     /**
@@ -129,7 +132,7 @@ class WeatherStore {
      * @param content 语音输出内容
      */
     speakWeather = (content) => {
-        if (!__ANDORID__) {
+        if (!__ANDROID__) {
             MscSpeech.speak(true, content, () => {
                 console.log('ios输出!')
             });

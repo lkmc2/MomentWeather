@@ -5,14 +5,16 @@ import {
     Text,
     View,
     ScrollView,
+    RefreshControl,
 } from 'react-native';
 
 import TitleBar from '../components/TitleBar.js'; //标题栏
-import PicConfig from '../config/PicConfig'; //图片配置信息
 import MaxWeatherView from '../components/MaxWeatherView.js';  //大视野天气展示窗口
 import WeeklyList from '../components/weekly/WeeklyList.js'; //一周天气列表
 import HourlyForecast from "../components/hourly/HourlyForecast.js"; //逐小时天气预报
 import LifeSuggestion from "../components/LifeSuggestion.js"; //生活指数
+import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
+import StateStore from '../stores/StateStore.js'; //状态存储数据库
 
 let city = '北京';
 const key = '3ad94afdc775428fb9da709e66d62581';
@@ -29,44 +31,14 @@ export default class TodayPage extends Component {
         super(props);
     }
 
-    state = {
-        data: '',
-        province: '', //省份名
-        city: '', //城市名
-        adcode: '', //区域编码
-        weather: '', //天气现象，天气现象对应描述
-        temperature: '', //实时气温，单位：摄氏度
-        winddirection: '', //风向，风向编码对应描述
-        windpower: '', //风力，此处返回的是风力编码，风力编码对应风力级别，单位：级
-        humidity: '', //空气湿度
-        reporttime: '', //数据发布的时间
-    };
-
-    fetchData = () => {
-        return fetch(api) //拼接请求的网址
-            .then((response) => response.text())
-            .then((responseText) => {
-                const json = JSON.parse(responseText); //使用JSON对象解析json，出错时可以抛异常
-                this.setState({
-                    // movies: json.subjects, //使用网络电影数据替换本地数据
-                    refreshing: false, //将FlatList的刷新状态设置为false
-                });
-                this.isRefreshing = false; //设置数据不在刷新
-                return json; //返回json数据
-            })
-            .catch((error) => {
-                console.error(error);
-            })
-    };
-
-    async componentDidMount() { //组件挂载时调用的方法
-        const result = await this.fetchData(); //加载更多数据，使用await后，下一行代码将等到await行执行完成后才会执行
-        const {status, infocode, lives} = result;
-
-        // this.setState({
-        //     data: result, //设置第一次加载数据完成
-        // })
+    componentWillMount() {
+        this._refreshWeatherData();
+        StateStore.loadLocalCityData();
     }
+
+    _refreshWeatherData = () => {
+        WeatherStore.requestWeatherByName(WeatherStore.currentCityName);
+    };
 
     render() {
         // const {data} = this.state;
@@ -89,7 +61,15 @@ export default class TodayPage extends Component {
 
                 <ScrollView
                     contentContainerStyle={styles.scrollview}
-                    showsVerticalScrollIndicator={false}>
+                    showsVerticalScrollIndicator={false}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={WeatherStore.loading}
+                            onRefresh={this._refreshWeatherData}
+                            tintColor={'white'}
+                            titleColor={'white'}
+                            title={WeatherStore.loading?"刷新中...":'下拉刷新'}/>
+                    }>
                     <MaxWeatherView style={styles.maxWeatherView}/>
                     <WeeklyList style={styles.weeklyList}/>
                     <HourlyForecast/>
