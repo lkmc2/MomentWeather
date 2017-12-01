@@ -6,11 +6,11 @@ import {
     Text,
     View,
     StyleSheet,
-    StatusBar,
     ScrollView,
     Switch,
     TouchableOpacity,
     Image,
+    Alert,
 } from 'react-native';
 
 import TitleBar from '../components/TitleBar.js'; //标题栏
@@ -23,7 +23,7 @@ export default class MorePage extends Component {
     };
 
     showClearDialog = ( )=> {
-        alert('清除成功!')
+        Alert.alert('提示','清除成功!')
     };
 
     render() {
