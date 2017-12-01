@@ -64,7 +64,7 @@ class WeatherStore {
             alert(JSON.stringify(error));
         }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
         weatherStore.watchId = navigator.geolocation.watchPosition((position) => {
-            weatherStore.lastPosition = position
+            weatherStore.lastPosition = position;
         });
     };
 
@@ -95,7 +95,7 @@ class WeatherStore {
      */
     requestWeatherByName = (name) => {
         this.loading = true;
-        return fetch("https://free-api.heweather.com/v5/weather?key=19713447578c4afe8c12a351d46ea922&city=" + name)
+        return fetch("https://free-api.heweather.com/s6/weather?key=3ad94afdc775428fb9da709e66d62581&location=" + name)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -113,7 +113,7 @@ class WeatherStore {
      * @param jsonData
      */
     saveWeatherData = (jsonData) => {
-        let weatherData = jsonData.HeWeather5[0];
+        let weatherData = jsonData.HeWeather6[0];
 
         console.log("key="+weatherData.basic.city+",value="+weatherData);
 

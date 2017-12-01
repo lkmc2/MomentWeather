@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {observer} from 'mobx-react/native'
 import WeatherStore from '../stores/WeatherStore.js'; //引入天气存储数据库
+import IconUtil from '../util/IconUtil.js'; //图标工具类
 
 @observer
 export default class MaxWeatherView extends Component {
@@ -27,7 +28,7 @@ export default class MaxWeatherView extends Component {
     _renderLoading = () => {
         return (
             <View style={styles.container}>
-                <Image source={require('../images/weather/sunny.png')} style={styles.weatherIcon}/>
+                <Image source={require('../images/weather/unknown.png')} style={styles.weatherIcon}/>
                 <Text style={styles.updateTime}>Loading</Text>
                 <Text style={styles.temperature}>Loading</Text>
                 <Text style={styles.weatherDescription}>Loading</Text>
@@ -36,13 +37,30 @@ export default class MaxWeatherView extends Component {
         )
     };
 
+    /**
+     * 获取更新时间表述文字
+     * @param time 更新时间
+     */
+    getUpdateTime = (time) => {
+        const hour = new Date(time);
+
+        let str;
+        if (hour < 12) {
+            str = '上午' + time.substring(11);
+        } else {
+            str = '下午' + time.substring(11);
+        }
+    };
+
     _renderHeader = (weatherData) => {
+        const {now:{cond_code, cond_txt, tmp}, update:{loc},} = weatherData;
+
         return (
             <View style={styles.container}>
-                <Image source={require('../images/weather/sunny.png')} style={styles.weatherIcon}/>
-                <Text style={styles.updateTime}>更新：下午19:20</Text>
-                <Text style={styles.temperature}>23℃</Text>
-                <Text style={styles.weatherDescription}>阴</Text>
+                <Image source={IconUtil.loadMaxWeatherIcon(cond_code)} style={styles.weatherIcon}/>
+                <Text style={styles.updateTime}>更新：{this.getUpdateTime(loc)}</Text>
+                <Text style={styles.temperature}>{tmp}℃</Text>
+                <Text style={styles.weatherDescription}>{cond_txt}</Text>
                 <Text style={styles.airCondition}>43 空气质量优</Text>
             </View>
         );

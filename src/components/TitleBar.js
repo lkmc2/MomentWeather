@@ -10,8 +10,10 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
+import StateStore from '../stores/StateStore.js'; //天气状态数据库
+import {observer} from 'mobx-react/native'
 
+@observer
 export default class TitleBar extends Component {
 
     /**
@@ -27,10 +29,12 @@ export default class TitleBar extends Component {
         };
 
         if (index === 1) { //今日页面
-            let weatherData = WeatherStore.getCurrentCityWeather();
+            const cityName = StateStore.currentCityName;
+            const cityEngName= StateStore.currentCityEngName;
+
             return {
-                title: '北京',
-                subtitle: 'Beijing',
+                title: cityName,
+                subtitle: cityEngName,
                 leftIcon: require('../images/icon/ic_my.png'), //标题栏左图标
                 rightIcon: require('../images/icon/ic_share.png'), //标题栏右图标
                 onPressLeft: () => navigate('MyPage', {}), //点击左边按钮事件

@@ -26,10 +26,10 @@ export default class CitySelected extends Component {
         }
     }
 
-
     handleCitySelect =
         (cityObj) => {
-        stateStore.currentCityEngName = cityObj.cityNameEn.toLowerCase();
+        stateStore.currentCityEngName = cityObj.cityNameEn;
+        stateStore.currentCityName = cityObj.cityName;
         weatherStore.requestWeatherByName(cityObj.cityName);
         let navigation=this.props.navigation;
         navigation.goBack();

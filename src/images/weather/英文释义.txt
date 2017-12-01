@@ -15,5 +15,5 @@ warning 警告
 windy 有风的
 dust 有尘
 foggy 有雾
-overcast 多云的
-partly_cloudy 少云
+overcast 阴
+partly_cloudy 晴转多云

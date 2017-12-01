@@ -25,6 +25,7 @@ export default class TodayPage extends Component {
     };
 
     componentWillMount() {
+        // WeatherStore.getCurrentPosition();
         this._refreshWeatherData();
         StateStore.loadLocalCityData();
     }
