@@ -13,16 +13,21 @@ import {
 export default class TitleBar extends Component {
 
     /**
-     * 根据下标获取对应的按钮信息
+     * 根据下标获取对应的标题信息
      * @param index 页面下标
      * @param navigate 导航器
      * @returns {*} 按钮信息对象
      */
-    getButtonInfoByIndex = (index, navigate) => {
-        if (index === 3) return {}; //更多界面返回空对象
+    getTitleInfoByIndex = (index, navigate) => {
+        if (index === 3) return { //更多界面
+            title: '更多',
+            subtitle: 'More',
+        };
 
         if (index === 1) { //今日页面
             return {
+                title: '北京',
+                subtitle: 'Beijing',
                 leftIcon: require('../images/icon/ic_my.png'), //标题栏左图标
                 rightIcon: require('../images/icon/ic_share.png'), //标题栏右图标
                 onPressLeft: () => navigate('MyPage', {}), //点击左边按钮事件
@@ -30,6 +35,8 @@ export default class TitleBar extends Component {
             }
         } else if (index === 2) { //我的页面
             return {
+                title: '我的',
+                subtitle: 'Mine',
                 leftIcon: require('../images/icon/ic_edit.png'), //标题栏左图标
                 rightIcon: require('../images/icon/ic_plus.png'), //标题栏右图标
                 onPressLeft: () => navigate('CitySelected', {}), //点击左边按钮事件
@@ -39,10 +46,10 @@ export default class TitleBar extends Component {
     };
 
     render() {
-        const {title, subtitle, index, navigate} = this.props; //获取标题，子标题，页面下标
+        const {index, navigate} = this.props; //获取标题，子标题，页面下标
 
         //获取标题栏左图标、右图标、左图标点击事件、右图标点击事件
-        const {leftIcon, rightIcon, onPressLeft, onPressRight} = this.getButtonInfoByIndex(index, navigate);
+        const {title, subtitle, leftIcon, rightIcon, onPressLeft, onPressRight} = this.getTitleInfoByIndex(index, navigate);
 
         return (
             <View style={styles.container}>

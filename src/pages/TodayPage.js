@@ -17,9 +17,6 @@ import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
 import StateStore from '../stores/StateStore.js'; //状态存储数据库
 
 let city = '北京';
-const key = '3ad94afdc775428fb9da709e66d62581';
-const forecast_api = `https://free-api.heweather.com/s6/weather/forecast?location=${city}&key=${key}`;
-const now_api = `https://free-api.heweather.com/s6/weather/now?location=${city}&key=${key}`;
 
 export default class TodayPage extends Component {
     static navigationOptions = { //页面标题
@@ -41,26 +38,13 @@ export default class TodayPage extends Component {
     };
 
     render() {
-        // const {data} = this.state;
-        // const {province,city,adcode,weather,temperature,winddirection,windpower,humidity,reporttime} = this.state;
         const {navigate} = this.props.navigation; //获取导航工具
 
         return (
             <View style={styles.container}>
-                {/*<Text style={styles.text}>{data}</Text>*/}
-                {/*<Text style={styles.text}>{province}</Text>*/}
-                {/*<Text style={styles.text}>{city}</Text>*/}
-                {/*<Text style={styles.text}>{adcode}</Text>*/}
-                {/*<Text style={styles.text}>{weather}</Text>*/}
-                {/*<Text style={styles.text}>{temperature}</Text>*/}
-                {/*<Text style={styles.text}>{winddirection}</Text>*/}
-                {/*<Text style={styles.text}>{windpower}</Text>*/}
-                {/*<Text style={styles.text}>{humidity}</Text>*/}
-                {/*<Text style={styles.text}>{reporttime}</Text>*/}
-                <TitleBar title={city} subtitle="Beijing" index={1} navigate={navigate}/>
+                <TitleBar index={1} navigate={navigate}/>
 
                 <ScrollView
-                    contentContainerStyle={styles.scrollview}
                     showsVerticalScrollIndicator={false}
                     refreshControl={
                         <RefreshControl
@@ -70,8 +54,8 @@ export default class TodayPage extends Component {
                             titleColor={'white'}
                             title={WeatherStore.loading?"刷新中...":'下拉刷新'}/>
                     }>
-                    <MaxWeatherView style={styles.maxWeatherView}/>
-                    <WeeklyList style={styles.weeklyList}/>
+                    <MaxWeatherView/>
+                    <WeeklyList/>
                     <HourlyForecast/>
                     <LifeSuggestion/>
                 </ScrollView>
@@ -84,19 +68,5 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F5FCFF',
-    },
-    scrollview: {
-
-    },
-    text: {
-        // alignItems: 'center',
-        // justifyContent: 'center',
-        fontSize: 18,
-    },
-    maxWeatherView: {
-        alignItems: 'center',
-    },
-    weeklyList: {
-        // alignItems: 'center',
     },
 });

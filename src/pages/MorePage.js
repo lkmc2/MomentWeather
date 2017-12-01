@@ -29,7 +29,7 @@ export default class MorePage extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TitleBar title="更多" subtitle="More" index={3}/>
+                <TitleBar index={3}/>
                 <ScrollView>
                     <View style={{flex: 1,backgroundColor:'rgb(239,238,244)'}}>
                         <View style={[styles.itemContainer,{marginTop:20}]}>

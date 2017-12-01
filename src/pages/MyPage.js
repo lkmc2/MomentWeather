@@ -23,7 +23,7 @@ export default class MyPage extends Component {
 
         return (
             <View style={styles.container}>
-                <TitleBar title="我的" subtitle="Mine" index={2} navigate={navigate}/>
+                <TitleBar index={2} navigate={navigate}/>
                 <CitiesTemperature/>
             </View>
         );
