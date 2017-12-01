@@ -42,7 +42,7 @@ export default class MaxWeatherView extends Component {
      * @param time 更新时间
      */
     getUpdateTime = (time) => {
-        const hour = new Date(time);
+        const hour = new Date(time).getHours(); //获取时间
 
         let str;
         if (hour < 12) {
@@ -50,10 +50,14 @@ export default class MaxWeatherView extends Component {
         } else {
             str = '下午' + time.substring(11);
         }
+        return str;
     };
 
     _renderHeader = (weatherData) => {
-        const {now:{cond_code, cond_txt, tmp}, update:{loc},} = weatherData;
+        const {
+            now:{cond_code, cond_txt, tmp},
+            update:{ loc },
+        } = weatherData;
 
         return (
             <View style={styles.container}>

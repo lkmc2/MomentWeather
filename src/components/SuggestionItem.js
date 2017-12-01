@@ -4,29 +4,21 @@
 'use strict';
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, Image, ActivityIndicator} from 'react-native';
-// import weatherStore from '../stores/weather_store';
+import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
+import {observer} from 'mobx-react/native';
 
-const lifeData = [
-    {type:'舒适指数',brf:'舒适',txt:'今天夜间不太热也不太冷'},
-    {type:'洗车指数',brf:'较舒适',txt:'较适宜洗车'},
-    {type:'穿衣指数',brf:'较冷',txt:'建议穿外套加毛衣等服装'},
-    {type:'感冒指数',brf:'较易发',txt:'天气较凉，较易发生感冒'},
-    {type:'运动指数',brf:'较适宜',txt:'适合进行各种室内外运动'},
-    {type:'旅游指数',brf:'适宜',txt:'天气较好，风稍大，但温度适宜'},
-    {type:'紫外线指数',brf:'最弱',txt:'若紫外线辐射天气，无需特别防护'},
-];
-
+@observer
 export default class SuggestionItem extends Component {
 
     render() {
         let itemIndex=this.props.index;
-        return this.renderContent(lifeData[itemIndex]);
 
-        // if (weatherStore.loading) {
-        //     return this.renderLoading();
-        // } else {
-        //     return this.renderContent(weatherStore.lifeList[itemIndex]);
-        // }
+
+        if (WeatherStore.loading) {
+            return this.renderLoading();
+        } else {
+            return this.renderContent(WeatherStore.lifeList[itemIndex]);
+        }
     }
 
     renderLoading = () => {

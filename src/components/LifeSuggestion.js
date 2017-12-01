@@ -5,7 +5,9 @@
 import React, {Component} from 'react'
 import {StyleSheet, View, Text, Image} from 'react-native';
 import SuggestionItem from './SuggestionItem';
+import {observer} from 'mobx-react/native';
 
+@observer
 export default class LifeSuggestion extends Component {
 
     render() {

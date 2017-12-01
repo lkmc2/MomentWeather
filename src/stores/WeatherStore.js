@@ -15,7 +15,7 @@ import MscSpeech from 'react-native-msc-speech'
 class WeatherStore {
 
     @observable weatherMap = observable.map();
-    @observable currentCityName = '东莞';
+    @observable currentCityName = '北京';
     @observable currentPosition = 'unknown';
     @observable lastPosition = 'unknown';
     @observable watchId = 'unknown';
@@ -74,15 +74,15 @@ class WeatherStore {
      */
     requestWeatherByLongitudeAndLatitude = (name) => {
         this.loading = true;
-        return fetch("https://free-api.heweather.com/v5/weather?key=19713447578c4afe8c12a351d46ea922&city=" + name)
+        return fetch("https://free-api.heweather.com/s6/weather?key=3ad94afdc775428fb9da709e66d62581&location=" + name)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
                 }
             })
             .then((jsonData) => {
-                let weatherData = jsonData.HeWeather5[0];
-                this.changeCurrentCityName(weatherData.basic.city);
+                let weatherData = jsonData.HeWeather6[0];
+                this.changeCurrentCityName(weatherData.basic.location);
                 this.saveWeatherData(jsonData);
                 this.loading = false;
             })
@@ -115,13 +115,13 @@ class WeatherStore {
     saveWeatherData = (jsonData) => {
         let weatherData = jsonData.HeWeather6[0];
 
-        console.log("key="+weatherData.basic.city+",value="+weatherData);
+        console.log("key="+weatherData.basic.location+",value="+weatherData);
 
-        this.weatherMap.set(weatherData.basic.city, new Weather(weatherData));
-        this.convertAqiToList(weatherData);
+        this.weatherMap.set(weatherData.basic.location, new Weather(weatherData));
+        // this.convertAqiToList(weatherData);
         this.convertSuggestionList(weatherData);
-        this.saveCityItem(weatherData);
-        let voiceContent = weatherData.basic.city + '现在' + weatherData.now.cond.txt + ',气温' +
+        // this.saveCityItem(weatherData);
+        let voiceContent = weatherData.basic.location + '现在' + weatherData.cond_txt + ',气温' +
             weatherData.now.tmp + '度';
         // this.speakWeather(voiceContent);
     };
@@ -185,16 +185,13 @@ class WeatherStore {
 
     convertSuggestionList = (weatherData) => {
         this.lifeList = [];
-        let suggestion = weatherData.suggestion;
-        // 空气信息已丢失，接口问题
-        // this.lifeList.push(new SuggestionInfo('空气指数', '信息暂无', '信息暂无'));
-        this.lifeList.push(new SuggestionInfo('舒适指数', suggestion.comf.brf, suggestion.comf.txt));
-        this.lifeList.push(new SuggestionInfo('洗车指数', suggestion.cw.brf, suggestion.cw.txt));
-        this.lifeList.push(new SuggestionInfo('穿衣指数', suggestion.drsg.brf, suggestion.drsg.txt));
-        this.lifeList.push(new SuggestionInfo('感冒指数', suggestion.flu.brf, suggestion.flu.txt));
-        this.lifeList.push(new SuggestionInfo('运动指数', suggestion.sport.brf, suggestion.sport.txt));
-        this.lifeList.push(new SuggestionInfo('旅游指数', suggestion.trav.brf, suggestion.trav.txt));
-        this.lifeList.push(new SuggestionInfo('紫外线指数', suggestion.uv.brf, suggestion.uv.txt));
+        let suggestion = weatherData.lifestyle;
+
+        const title = ['舒适指数','洗车指数','穿衣指数','感冒指数','运动指数','旅游指数','紫外线指数','空气污染指数'];
+
+        suggestion.map((item, index) => {
+            this.lifeList.push(new SuggestionInfo(title[index], item.brf, item.txt));
+        });
     };
 
     /**
@@ -219,7 +216,7 @@ class WeatherStore {
         this.currentCityName = name;
         if (this.getCurrentCityWeather() !== null) {
             this.convertSuggestionList(this.getCurrentCityWeather());
-            this.convertAqiToList(this.getCurrentCityWeather());
+            // this.convertAqiToList(this.getCurrentCityWeather());
         } else {
             this.requestWeatherByName(name);
         }

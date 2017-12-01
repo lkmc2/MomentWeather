@@ -9,7 +9,6 @@ export default class SuggestionInfo {
     @observable brf;
     @observable txt;
 
-
     constructor(type, brf, txt) {
         this.type = type;
         this.brf = brf;

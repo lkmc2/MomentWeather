@@ -5,19 +5,20 @@
 import {observable, computed} from 'mobx';
 
 export default class Weather {
-    @observable aqi;
+
     @observable basic;
-    @observable daily;
-    @observable hourly;
+    @observable daily_forecast;
+    @observable lifestyle;
     @observable now;
-    @observable suggestion;
+    @observable update;
+    @observable hourly;
 
     constructor(jsonData) {
-        this.aqi = jsonData.aqi;
         this.basic = jsonData.basic;
-        this.daily = jsonData.daily_forecast;
-        this.hourly = jsonData.hourly_forecast;
+        this.daily_forecast = jsonData.daily_forecast;
+        this.lifestyle = jsonData.lifestyle;
         this.now = jsonData.now;
-        this.suggestion = jsonData.suggestion;
+        this.update = jsonData.update;
+        this.hourly = jsonData.hourly;
     }
 }
