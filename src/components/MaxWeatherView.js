@@ -9,8 +9,10 @@ import {
     View,
     Image,
 } from 'react-native';
+import {observer} from 'mobx-react/native'
 import WeatherStore from '../stores/WeatherStore.js'; //引入天气存储数据库
 
+@observer
 export default class MaxWeatherView extends Component {
 
     render() {

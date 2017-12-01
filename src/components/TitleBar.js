@@ -10,6 +10,8 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
+import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
+
 export default class TitleBar extends Component {
 
     /**
@@ -25,6 +27,7 @@ export default class TitleBar extends Component {
         };
 
         if (index === 1) { //今日页面
+            let weatherData = WeatherStore.getCurrentCityWeather();
             return {
                 title: '北京',
                 subtitle: 'Beijing',
@@ -50,6 +53,7 @@ export default class TitleBar extends Component {
 
         //获取标题栏左图标、右图标、左图标点击事件、右图标点击事件
         const {title, subtitle, leftIcon, rightIcon, onPressLeft, onPressRight} = this.getTitleInfoByIndex(index, navigate);
+
 
         return (
             <View style={styles.container}>

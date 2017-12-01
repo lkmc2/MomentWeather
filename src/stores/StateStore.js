@@ -9,8 +9,8 @@ import storage from '../config/StorageConfig'
 
 
 class StateStore {
-    @observable scrollToEnd = false;
-    @observable currentCityEngName = '';
+    @observable currentCityName = '北京';
+    @observable currentCityEngName = 'Beijing';
     @observable cityList = [];
 
     ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});

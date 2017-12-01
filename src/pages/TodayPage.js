@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
     Text,
     View,
@@ -15,18 +14,15 @@ import HourlyForecast from "../components/hourly/HourlyForecast.js"; //逐小时
 import LifeSuggestion from "../components/LifeSuggestion.js"; //生活指数
 import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
 import StateStore from '../stores/StateStore.js'; //状态存储数据库
+import {observer} from 'mobx-react/native';
 
-let city = '北京';
-
+@observer
 export default class TodayPage extends Component {
+
     static navigationOptions = { //页面标题
         title: '今日', //标题栏文字
         header: null, //隐藏标题栏
     };
-
-    constructor(props) {
-        super(props);
-    }
 
     componentWillMount() {
         this._refreshWeatherData();
@@ -49,10 +45,7 @@ export default class TodayPage extends Component {
                     refreshControl={
                         <RefreshControl
                             refreshing={WeatherStore.loading}
-                            onRefresh={this._refreshWeatherData}
-                            tintColor={'white'}
-                            titleColor={'white'}
-                            title={WeatherStore.loading?"刷新中...":'下拉刷新'}/>
+                            onRefresh={this._refreshWeatherData} />
                     }>
                     <MaxWeatherView/>
                     <WeeklyList/>
