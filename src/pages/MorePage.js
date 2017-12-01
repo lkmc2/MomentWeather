@@ -33,31 +33,31 @@ export default class MorePage extends Component {
                 <ScrollView>
                     <View style={{flex: 1,backgroundColor:'rgb(239,238,244)'}}>
                         <View style={[styles.itemContainer,{marginTop:20}]}>
-                            <Text style={styles.text}>自动定位</Text>
+                            <Text style={styles.title}>自动定位</Text>
                             <Switch style={styles.itemRight}/>
                         </View>
                         <Divider dividerHeight={1}/>
                         <View style={styles.itemContainer}>
-                            <Text style={styles.text}>自动语音播报</Text>
+                            <Text style={styles.title}>自动语音播报</Text>
                             <Switch style={styles.itemRight}/>
                         </View>
                         <Divider dividerHeight={1}/>
                         <TouchableOpacity onPress={this.showClearDialog}>
                             <View style={styles.itemContainer}>
-                                <Text style={styles.text}>清除缓存</Text>
+                                <Text style={styles.title}>清除缓存</Text>
                                 <Image source={require('../images/icon/ic_arrow_right.png')} style={styles.arrow}/>
                             </View>
                         </TouchableOpacity>
 
                         <Divider dividerHeight={1}/>
                         <View style={[styles.itemContainer,{marginTop:40}]}>
-                            <Text style={styles.text}>关于我们</Text>
+                            <Text style={styles.title}>关于我们</Text>
                             <Image source={require('../images/icon/ic_arrow_right.png')} style={styles.arrow}/>
                         </View>
                         <Divider dividerHeight={1}/>
                         <View style={styles.itemContainer}>
-                            <Text style={styles.text}>当前版本</Text>
-                            <Text style={[styles.text,{marginRight:20}]}>V1.0.0</Text>
+                            <Text style={styles.title}>当前版本</Text>
+                            <Text style={[styles.title,{marginRight:20}]}>V1.0.0</Text>
                         </View>
                         <Divider dividerHeight={1}/>
                     </View>
@@ -69,7 +69,7 @@ export default class MorePage extends Component {
 }
 
 const styles = StyleSheet.create({
-    text: {
+    title: {
         textAlign: 'center',
         marginLeft: 20,
         fontSize: 15

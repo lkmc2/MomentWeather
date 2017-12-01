@@ -65,7 +65,7 @@ export default class TitleBar extends Component {
                     <Image source={leftIcon} style={styles.icon}/>
                 </TouchableOpacity>
                 <View style={styles.centerView}>
-                    <Text style={styles.text}>{title}</Text>
+                    <Text style={styles.title}>{title}</Text>
                     <Text>{subtitle}</Text>
                 </View>
                 <TouchableOpacity style={styles.iconWrapper} onPress={onPressRight}>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    text: {
+    title: {
         fontSize: 20,
     },
     icon: {

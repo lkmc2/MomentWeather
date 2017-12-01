@@ -80,7 +80,25 @@ getHoursAndMinsByDate = (date) => {
  * @returns 时间
  */
 getTimeInDate = (date) => {
-    return date.substring(11);
+    const hour = new Date(date).getHours(); //获取时间
+
+    let str;
+
+    if (hour < 7) {
+        str = '凌晨';
+    } else if (hour >= 7 && hour <12) {
+        str = '早上';
+    } else if(hour >= 12 && hour < 13) {
+        str = '中午';
+    } else if (hour >= 13 && hour < 18) {
+        str = '下午';
+    } else if (hour >= 18 && hour < 19) {
+        str = '傍晚';
+    } else {
+        str = '晚上';
+    }
+
+    return str + date.substring(11);
 };
 
 

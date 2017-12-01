@@ -13,7 +13,7 @@ export default class LifeSuggestion extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={[styles.text,{marginLeft:10,fontSize:18,marginBottom:10}]}>今日生活指数</Text>
+                <Text style={styles.title}>今日生活指数</Text>
                 <SuggestionItem index={0}/>
                 <SuggestionItem index={1}/>
                 <SuggestionItem index={2}/>
@@ -33,10 +33,12 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         paddingBottom: 20,
     },
-    text: {
-        fontSize: 15,
+    title: {
+        fontSize: 18,
         color: '#000',
         flex: 1,
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        marginLeft:10,
+        marginBottom:10,
     },
 });

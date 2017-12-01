@@ -17,8 +17,8 @@ export default class DateItem extends Component {
             <View style={styles.container}>
                 <Text style={styles.day}>25</Text>
                 <View>
-                    <Text style={styles.text}>11月</Text>
-                    <Text style={styles.text}>周六</Text>
+                    <Text style={styles.title}>11月</Text>
+                    <Text style={styles.title}>周六</Text>
                 </View>
             </View>
         );
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     day: {
         fontSize: 23,
     },
-    text: {
+    title: {
         fontSize: 12,
         marginLeft: 2,
     }

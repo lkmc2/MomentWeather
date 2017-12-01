@@ -17,8 +17,8 @@ export default class WeeklyDate extends Component {
 
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>{day}</Text>
-                <Text style={styles.text}>{date}</Text>
+                <Text style={styles.title}>{day}</Text>
+                <Text style={styles.title}>{date}</Text>
             </View>
         );
     }

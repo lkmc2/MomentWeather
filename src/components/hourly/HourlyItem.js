@@ -18,7 +18,9 @@ export default class HourlyItem extends Component {
 
         return (
             <View style={styles.container}>
-                <Text>{time}</Text>
+                <View style={styles.subView}>
+                    <Text>{time}</Text>
+                </View>
                 <View style={styles.subView}>
                     <Text>{txt}</Text>
                     <Text style={styles.temp}>{temp}°</Text>
@@ -36,12 +38,13 @@ const styles = StyleSheet.create({
     container: { //主容器
         height: 40,
         flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
         backgroundColor: '#dfc752',
+        alignItems: 'center',
     },
     subView: { //子界面
         flexDirection: 'row',
+        flex: 1,
+        justifyContent: 'center',
     },
     icon: { //天气图标
         width: 20,

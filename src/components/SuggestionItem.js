@@ -32,8 +32,8 @@ export default class SuggestionItem extends Component {
     renderContent = (item) => {
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>{item.type}:{item.brf}</Text>
-                <Text style={[styles.text,styles.textBottom]}>{item.txt}</Text>
+                <Text style={styles.title}>{item.type}:{item.brf}</Text>
+                <Text style={[styles.title,styles.textBottom]}>{item.txt}</Text>
                 <View style={styles.divider}/>
             </View>
         )
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         backgroundColor: 'transparent',
     },
-    text: {
+    title: {
         flex: 1,
         marginLeft: 20,
         marginRight: 20,
