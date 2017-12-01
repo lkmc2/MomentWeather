@@ -3,13 +3,13 @@
  */
 'use strict';
 import { observable, computed, asMap, autorun } from 'mobx';
-import Weather from '../model/weather_info';
+import Weather from '../model/WeatherInfo';
 import { ListView, NetInfo } from 'react-native';
-import AqiItem from '../model/aqi_item_info';
-import SuggestionInfo from '../model/suggestion_info'
-import CityItemInfo from '../model/city_item_info'
+import AqiItem from '../model/AqiItemInfo';
+import SuggestionInfo from '../model/SuggestionInfo'
+import CityItemInfo from '../model/CityItemInfo'
 import stateStore from './StateStore'
-import ApiConfig from '../config/index'
+import ApiConfig from '../config/WebConfig'
 import MscSpeech from 'react-native-msc-speech'
 
 class WeatherStore {

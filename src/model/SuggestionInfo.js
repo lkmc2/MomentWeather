@@ -3,6 +3,7 @@
  */
 'use strict';
 import {observable, computed} from 'mobx';
+
 export default class SuggestionInfo {
     @observable type;
     @observable brf;
