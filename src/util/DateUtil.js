@@ -1,8 +1,6 @@
 /**
  * Created by lkmc2 on 2017/11/29.
  */
-'use strict';
-
 /**
  * 根据日期获取星期
  * @param date
@@ -76,9 +74,19 @@ getHoursAndMinsByDate = (date) => {
     return date.substring(11,date.length);
 };
 
+/**
+ * 获取日期中的时间
+ * @param date 日期
+ * @returns 时间
+ */
+getTimeInDate = (date) => {
+    return date.substring(11);
+};
+
 
 module.exports = {
     getWeekdayByDate: getWeekdayByDate,
     getMonthAndDayByDate: getMonthAndDayByDate,
-    getHoursAndMinsByDate:getHoursAndMinsByDate
+    getHoursAndMinsByDate:getHoursAndMinsByDate,
+    getTimeInDate: getTimeInDate,
 };

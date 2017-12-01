@@ -10,7 +10,10 @@ import {
     Image,
     FlatList,
 } from 'react-native';
-import HourlyItem from './HourlyItem';
+import HourlyItem from './HourlyItem.js'; //逐小时预报子项
+import WeatherStore from '../../stores/WeatherStore.js'; //天气存储数据库
+import DateUtil from '../../util/DateUtil.js'; //日期工具类
+import IconUtil from '../../util/IconUtil.js'; //图标工具类
 
 const data = [
     {key:'1',time:'11:00',txt:'小雨',temp:'12',icon:'',rainrate:'10'},
@@ -27,15 +30,15 @@ export default class HourlyForecast extends Component {
     render() {
         return (
             <FlatList
-                data={data}
+                data={WeatherStore.hourlyDataSource}
                 renderItem={
                     ({item}) =>
                         <HourlyItem
-                            time={item.time}
-                            txt={item.txt}
-                            temp={item.temp}
-                            icon={item.icon}
-                            rainrate={item.rainrate}/>
+                            time={DateUtil.getTimeInDate(item.time)}
+                            txt={item.cond_txt}
+                            temp={item.tmp}
+                            icon={IconUtil.loadMaxWeatherIcon(item.cond_code)}
+                            rainrate={item.pop}/>
                 }
             />
         );

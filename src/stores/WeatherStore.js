@@ -40,16 +40,15 @@ class WeatherStore {
     }
 
     /**
-     * 返回一天内的天气信息ds
-     * @returns {ListViewDataSource}
+     * 返回每3小时的天气信息
+     * @returns 每3小时的天气信息
      */
     @computed get hourlyDataSource() {
         let data = this.getCurrentCityWeather();
         if (data !== null) {
-            let hourlyData = data.hourly;
-            return this.ds.cloneWithRows(hourlyData.slice());
+            return data.hourly;
         } else {
-            return this.ds.cloneWithRows([]);
+            return [];
         }
     }
 
@@ -224,11 +223,10 @@ class WeatherStore {
 
     /**
      * 获取当前城市天气数据
-     * @returns {null}
+     * @returns 当前城市天气数据
      */
     getCurrentCityWeather = () => {
-        let weatherData = this.getWeatherDataByName(this.currentCityName);
-        return weatherData;
+        return this.getWeatherDataByName(this.currentCityName);
     };
 
 
