@@ -164,7 +164,7 @@ class WeatherStore {
                 break;
             }
         }
-        let weatherItem = new CityItemInfo(weatherData.basic.city,
+        let weatherItem = new CityItemInfo(weatherData.basic.location,
             weatherData.now, weatherData.daily_forecast);
         if (flag !== -1) {
             StateStore.cityList[flag] = weatherItem;

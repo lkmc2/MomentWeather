@@ -19,72 +19,32 @@ import WeatherStore from '../../stores/WeatherStore.js'; //天气存储数据库
 import StateStore from '../../stores/StateStore.js'; //天气状态数据库
 import {observer} from 'mobx-react/native';
 
-const title = [
-    {day: '周二', date: '11.22'},
-    {day: '周三', date: '11.23'},
-    {day: '周四', date: '11.24'},
-    {day: '周五', date: '11.25'},
-    {day: '周六', date: '11.26'},
-    {day: '周日', date: '11.27'},
-    {day: '周一', date: '11.28'},
-];
-const datas = [
-    [
-        {key: '1', icon: '', maxTemp: '17', minTemp: '12'},
-        {key: '2', icon: '', maxTemp: '15', minTemp: '12'},
-        {key: '3', icon: '', maxTemp: '17', minTemp: '12'},
-        {key: '4', icon: '', maxTemp: '17', minTemp: '12'},
-        {key: '5', icon: '', maxTemp: '17', minTemp: '12'},
-        {key: '6', icon: '', maxTemp: '15', minTemp: '12'},
-        {key: '7', icon: '', maxTemp: '16', minTemp: '12'},
-        {key: '8', icon: '', maxTemp: '17', minTemp: '12'},
-    ],
-    [
-        {key: '1', icon: '', maxTemp: '17', minTemp: '12'},
-        {key: '2', icon: '', maxTemp: '19', minTemp: '10'},
-        {key: '3', icon: '', maxTemp: '18', minTemp: '16'},
-        {key: '4', icon: '', maxTemp: '22', minTemp: '20'},
-        {key: '5', icon: '', maxTemp: '17', minTemp: '10'},
-        {key: '6', icon: '', maxTemp: '16', minTemp: '12'},
-        {key: '7', icon: '', maxTemp: '18', minTemp: '14'},
-        {key: '8', icon: '', maxTemp: '17', minTemp: '12'},
-    ],
-    [
-        {key: '1', icon: '', maxTemp: '15', minTemp: '12'},
-        {key: '2', icon: '', maxTemp: '17', minTemp: '11'},
-        {key: '3', icon: '', maxTemp: '19', minTemp: '10'},
-        {key: '4', icon: '', maxTemp: '17', minTemp: '12'},
-        {key: '5', icon: '', maxTemp: '15', minTemp: '10'},
-        {key: '6', icon: '', maxTemp: '17', minTemp: '12'},
-        {key: '7', icon: '', maxTemp: '18', minTemp: '10'},
-        {key: '8', icon: '', maxTemp: '17', minTemp: '12'},
-    ],
-    [
-        {key: '1', icon: '', maxTemp: '15', minTemp: '12'},
-        {key: '2', icon: '', maxTemp: '17', minTemp: '11'},
-        {key: '3', icon: '', maxTemp: '19', minTemp: '10'},
-        {key: '4', icon: '', maxTemp: '17', minTemp: '12'},
-        {key: '5', icon: '', maxTemp: '15', minTemp: '10'},
-        {key: '6', icon: '', maxTemp: '17', minTemp: '12'},
-        {key: '7', icon: '', maxTemp: '18', minTemp: '10'},
-        {key: '8', icon: '', maxTemp: '17', minTemp: '12'},
-    ],
-];
 
 //城市温度控件
-
-
 @observer
 export default class CitiesTemperature extends Component {
 
+    /**
+     * 生成key迭代器
+     * @param item 迭代的项
+     * @param index 下标
+     */
+    createKeyExtractor = (item, index) => item.tmp_max + index;
+
+    /**
+     * 生成一周天气列表
+     * @param weatherData 天气信息
+     */
     renderWeeklyTempList = (weatherData) => {
         if (weatherData !== null && weatherData.length > 0) {
             return weatherData.map(data =>
                 <FlatList
                     data={data.daily_forecast}
                     horizontal={true}
+                    key={data.cityName}
                     showsHorizontalScrollIndicator={false}
                     scrollEnabled={true}
+                    keyExtractor={this.createKeyExtractor}
                     renderItem={
                         ({item, index}) => {
                             if (index > 4) return null;
@@ -103,10 +63,14 @@ export default class CitiesTemperature extends Component {
         }
     };
 
+    /**
+     * 生成一周标题
+     * @param weatherData 天气信息
+     */
     renderTitle = (weatherData) => {
         if (weatherData !== null && weatherData.length > 0) {
             return weatherData[0].daily_forecast.map(item =>
-                <WeeklyDate date={item.date}/>
+                <WeeklyDate date={item.date} key={item.date}/>
             );
         }
     };
@@ -146,6 +110,9 @@ const styles = StyleSheet.create({
     },
     wrapperView: {
         backgroundColor: '#666',
+        flex: 1,
+    },
+    scrollView: {
         flex: 1,
     },
 });

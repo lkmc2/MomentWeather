@@ -7,12 +7,12 @@ import {StyleSheet, View, Text, Image, ActivityIndicator} from 'react-native';
 import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
 import {observer} from 'mobx-react/native';
 
+//生活指数项
 @observer
 export default class SuggestionItem extends Component {
 
     render() {
         let itemIndex=this.props.index;
-
 
         if (WeatherStore.loading) {
             return this.renderLoading();

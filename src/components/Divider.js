@@ -9,7 +9,7 @@ export default class Divider extends Component {
 
     render() {
         let dividerHeight = this.props.dividerHeight;
-        if (dividerHeight===null)
+        if (dividerHeight === null)
             dividerHeight=1;
         return (
             <View style={[styles.container,{height:dividerHeight}]}>

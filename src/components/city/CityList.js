@@ -3,37 +3,41 @@
  */
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
-    Text,
     View,
-    Image,
-    FlatList,
 } from 'react-native';
-import CityItem from "./CityItem";
-import DateItem from "./DateItem";
+import CityItem from "./CityItem.js"; //城市控件
+import StateStore from '../../stores/StateStore.js'; //天气状态数据库
+import {observer} from 'mobx-react/native';
 
-const citiesData = [
-    {city:'南宁', air:'22 优', icon:'', temperature:'11'},
-    {city:'上海', air:'57 良', icon:'', temperature:'15'},
-    {city:'北京', air:'53 良', icon:'', temperature:'14'},
-    {city:'纽约', air:'22 优', icon:'', temperature:'15'},
-];
-
+//城市列表
+@observer
 export default class CityList extends Component {
+
+    /**
+     * 生成城市列表
+     * @param weatherData 城市天气数据
+     */
+    renderCityList = (weatherData) => {
+        if (weatherData !== null && weatherData.length > 0) {
+            return weatherData.map(item =>
+                <CityItem
+                    city={item.cityName}
+                    air={item.now.hum}
+                    key={item.cityName}
+                    weatherCode={item.now.cond_code}
+                    temperature={item.now.tmp}
+                />
+            );
+        }
+    };
+
     render() {
-        let renderCityList = citiesData.map(item =>
-            <CityItem
-                city={item.city}
-                air={item.air}
-                icon={item.icon}
-                temperature={item.temperature}
-            />
-        );
+        const weatherData = StateStore.cityDataSource; //获取城市数据
 
         return (
             <View style={styles.container}>
-                {renderCityList}
+                {this.renderCityList(weatherData)}
             </View>
         );
     }
