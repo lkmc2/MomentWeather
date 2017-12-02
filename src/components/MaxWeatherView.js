@@ -40,7 +40,7 @@ export default class MaxWeatherView extends Component {
 
     _renderHeader = (weatherData) => {
         const {
-            now:{cond_code, cond_txt, tmp},
+            now:{cond_code, cond_txt, tmp, hum},
             update:{ loc },
         } = weatherData;
 
@@ -50,7 +50,7 @@ export default class MaxWeatherView extends Component {
                 <Text style={styles.updateTime}>更新：{DateUtil.getTimeHaveWeekInDate(loc)}</Text>
                 <Text style={styles.temperature}>{tmp}℃</Text>
                 <Text style={styles.weatherDescription}>{cond_txt}</Text>
-                <Text style={styles.airCondition}>43 空气质量优</Text>
+                <Text style={styles.airCondition}>{hum} 空气质量{hum < 50 ? '优':'良'}</Text>
             </View>
         );
     };
