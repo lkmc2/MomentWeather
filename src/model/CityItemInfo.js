@@ -4,14 +4,15 @@
 'use strict';
 import {observable, computed} from 'mobx';
 
+//城市信息
 export default class CityItemInfo {
-    @observable cityName;
-    @observable tmp;
-    @observable iconUrl;
+    @observable cityName; //城市名
+    @observable now; //当前天气
+    @observable daily_forecast; //一周天气
 
-    constructor(cityName, tmp, iconUrl) {
+    constructor(cityName, now, daily_forecast) {
         this.cityName = cityName;
-        this.tmp = tmp;
-        this.iconUrl = iconUrl;
+        this.now = now;
+        this.daily_forecast = daily_forecast;
     }
 }

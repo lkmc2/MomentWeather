@@ -8,7 +8,7 @@ import { ListView, NetInfo } from 'react-native';
 import AqiItem from '../model/AqiItemInfo';
 import SuggestionInfo from '../model/SuggestionInfo'
 import CityItemInfo from '../model/CityItemInfo'
-import stateStore from './StateStore'
+import StateStore from './StateStore'
 import ApiConfig from '../config/WebConfig'
 import MscSpeech from 'react-native-msc-speech'
 
@@ -16,13 +16,13 @@ class WeatherStore {
 
     @observable weatherMap = observable.map();
     @observable currentCityName = '北京';
+    @observable currentCityNameEng = 'Beijing';
     @observable currentPosition = 'unknown';
     @observable lastPosition = 'unknown';
     @observable watchId = 'unknown';
     @observable aqiList = [];
     @observable lifeList = [];
     @observable loading = true;
-
 
     /**
      * 返回一周天气预报
@@ -106,6 +106,13 @@ class WeatherStore {
     };
 
     /**
+     * 请求所有城市的天气预报
+     */
+    requestAllCityWeather = () => {
+
+    };
+
+    /**
      * 存储天气信息
      * @param jsonData
      */
@@ -117,7 +124,7 @@ class WeatherStore {
         this.weatherMap.set(weatherData.basic.location, new Weather(weatherData));
         // this.convertAqiToList(weatherData);
         this.convertSuggestionList(weatherData);
-        // this.saveCityItem(weatherData);
+        this.saveCityItem(weatherData);
         let voiceContent = weatherData.basic.location + '现在' + weatherData.cond_txt + ',气温' +
             weatherData.now.tmp + '度';
         // this.speakWeather(voiceContent);
@@ -151,21 +158,20 @@ class WeatherStore {
      */
     saveCityItem = (weatherData) => {
         let flag = -1;
-        for (let i = 0; i < stateStore.cityList.length; i++) {
-            if (stateStore.cityList[i].cityName === weatherData.basic.city) {
+        for (let i = 0; i < StateStore.cityList.length; i++) {
+            if (StateStore.cityList[i].cityName === weatherData.basic.location) {
                 flag = i;
                 break;
             }
         }
         let weatherItem = new CityItemInfo(weatherData.basic.city,
-            weatherData.daily_forecast[0].tmp.min + '~' + weatherData.daily_forecast[0].tmp.max + '°C',
-            ApiConfig.iconApi + weatherData.daily_forecast[0].cond.code_d + '.png');
+            weatherData.now, weatherData.daily_forecast);
         if (flag !== -1) {
-            stateStore.cityList[flag] = weatherItem;
+            StateStore.cityList[flag] = weatherItem;
         } else {
-            stateStore.cityList.push(weatherItem);
+            StateStore.cityList.push(weatherItem);
         }
-        stateStore.saveLocalCityData();
+        StateStore.saveLocalCityData();
     };
 
 

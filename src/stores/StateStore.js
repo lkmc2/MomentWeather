@@ -4,26 +4,26 @@
 'use strict';
 import {observable, computed, asMap, autorun} from 'mobx';
 import {StyleSheet, ListView} from 'react-native';
-import weatherStore from './WeatherStore'
 import storage from '../config/StorageConfig'
 
 
 class StateStore {
-    @observable currentCityName = '北京';
-    @observable currentCityEngName = 'Beijing';
-    @observable cityList = [];
 
-    ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    @observable cityList = []; //城市列表
 
-    constructor() {
-
-    }
-
+    /**
+     * 获取城市数据
+     * @returns 城市数据
+     */
     @computed get cityDataSource() {
-        return this.ds.cloneWithRows(this.cityList.slice());
+        return this.cityList;
     }
 
-    removeCityByName(name) {
+    /**
+     * 根据名字移除城市
+     * @param name 城市名
+     */
+    removeCityByName = (name) => {
         let index = -1;
         for (let i = 0; i < this.cityList.length; i++) {
             if (this.cityList[i].cityName === name) {
@@ -35,17 +35,23 @@ class StateStore {
             this.cityList.splice(index, 1);
             stateStore.saveLocalCityData();
         }
-    }
+    };
 
-    saveLocalCityData() {
+    /**
+     * 保存本地城市信息
+     */
+    saveLocalCityData = () => {
         storage.save({
             key: 'cities',
             data: JSON.stringify(this.cityList)
         })
-    }
+    };
 
 
-    loadLocalCityData() {
+    /**
+     * 加载本地城市信息
+     */
+    loadLocalCityData = () => {
         storage.load({
             key: 'cities',
             // autoSync(默认为true)意味着在没有找到数据或数据过期时自动调用相应的sync方法
@@ -66,23 +72,28 @@ class StateStore {
             console.warn(err.message);
             switch (err.name) {
                 case 'NotFoundError':
-                    alert('读取失败');
+                    // alert('读取失败');
                     // TODO;
                     break;
                 case 'ExpiredError':
-                    alert('读取失败');
+                    // alert('读取失败');
                     // TODO
                     break;
             }
         });
-    }
+    };
 
-    removeDuplicatedItem(ar) {
+    /**
+     * 移除数据中重复的项目
+     * @param array 数组
+     * @returns 移除重复项目后的数据
+     */
+    removeDuplicatedItem(array) {
         let ret = [];
 
-        ar.forEach(function (e, i, ar) {
-            if (ar.indexOf(e) === i) {
-                ret.push(e);
+        array.forEach(function (value, index, ar) {
+            if (ar.indexOf(value) === index) {
+                ret.push(value);
             }
         });
 

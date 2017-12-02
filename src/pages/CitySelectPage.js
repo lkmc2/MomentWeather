@@ -5,10 +5,10 @@
 import React, { Component,  } from 'react';
 import { View, StatusBar, } from 'react-native'
 import {observer} from 'mobx-react/native'
-import StateStore from '../stores/StateStore'
-import WeatherStore from '../stores/WeatherStore'
-import CitySelect from '../components/city/CitySelect'
+import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
+import CitySelect from '../components/city/CitySelect.js'; //城市选择器
 
+//城市选择界面
 @observer
 export default class CitySelected extends Component {
 
@@ -16,40 +16,27 @@ export default class CitySelected extends Component {
         title: '选择城市'
     };
 
-    // 构造
-    constructor(props) {
-        super(props);
-        // 初始状态
-        this.state = {
-            cityText: '',
-            cityId: '',
-        }
-    }
 
+    /**
+     * 处理CitySelect控件选择城市后的回调方法
+     * @param cityObj 城市对象
+     */
     handleCitySelect = (cityObj) => {
-        StateStore.currentCityEngName = cityObj.cityNameEn;
-        StateStore.currentCityName = cityObj.cityName;
+        WeatherStore.currentCityEngName = cityObj.cityNameEn;
+        WeatherStore.currentCityName = cityObj.cityName;
         WeatherStore.requestWeatherByName(cityObj.cityName);
         let navigation=this.props.navigation;
         navigation.goBack();
     };
 
-
-    renderCitySelect = () => {
-        return (
-            <CitySelect
-                header={false}
-                selectCity={this.handleCitySelect}
-                style={{flex:1}}
-            />
-        )
-    };
-
     render() {
         return (
             <View style={{flex: 1}}>
-                <StatusBar barStyle={'dark-content'}/>
-                {this.renderCitySelect()}
+                <CitySelect
+                    header={false}
+                    selectCity={this.handleCitySelect}
+                    style={{flex:1}}
+                />
             </View>
         )
     }

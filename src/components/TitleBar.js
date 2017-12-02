@@ -10,7 +10,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-import StateStore from '../stores/StateStore.js'; //天气状态数据库
+import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
 import {observer} from 'mobx-react/native'
 
 @observer
@@ -29,8 +29,8 @@ export default class TitleBar extends Component {
         };
 
         if (index === 1) { //今日页面
-            const cityName = StateStore.currentCityName;
-            const cityEngName= StateStore.currentCityEngName;
+            const cityName = WeatherStore.currentCityName;
+            const cityEngName= WeatherStore.currentCityNameEng;
 
             return {
                 title: cityName,
