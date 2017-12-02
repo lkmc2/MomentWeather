@@ -34,7 +34,7 @@ export default class HourlyForecast extends Component {
                 renderItem={
                     ({item}) =>
                         <HourlyItem
-                            time={DateUtil.getTimeInDate(item.time)}
+                            time={DateUtil.getTimeHaveWeekInDate(item.time)}
                             txt={item.cond_txt}
                             temp={item.tmp}
                             icon={IconUtil.loadMaxWeatherIcon(item.cond_code)}

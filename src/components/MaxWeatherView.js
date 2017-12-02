@@ -47,7 +47,7 @@ export default class MaxWeatherView extends Component {
         return (
             <View style={styles.container}>
                 <Image source={IconUtil.loadMaxWeatherIcon(cond_code)} style={styles.weatherIcon}/>
-                <Text style={styles.updateTime}>更新：{DateUtil.getTimeInDate(loc)}</Text>
+                <Text style={styles.updateTime}>更新：{DateUtil.getTimeHaveWeekInDate(loc)}</Text>
                 <Text style={styles.temperature}>{tmp}℃</Text>
                 <Text style={styles.weatherDescription}>{cond_txt}</Text>
                 <Text style={styles.airCondition}>43 空气质量优</Text>

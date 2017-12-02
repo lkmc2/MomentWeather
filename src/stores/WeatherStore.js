@@ -23,19 +23,17 @@ class WeatherStore {
     @observable lifeList = [];
     @observable loading = true;
 
-    ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-
 
     /**
-     * 返回每日天气预报ds
-     * @returns {ListViewDataSource}
+     * 返回一周天气预报
+     * @returns 一周天气预报
      */
     @computed get dailyDataSource() {
         let data = this.getCurrentCityWeather();
         if (data !== null) {
-            return this.ds.cloneWithRows(data.daily.slice());
+            return data.daily_forecast;
         } else {
-            return this.ds.cloneWithRows([]);
+            return [];
         }
     }
 

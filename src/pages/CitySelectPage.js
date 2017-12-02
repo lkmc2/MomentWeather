@@ -5,8 +5,8 @@
 import React, { Component,  } from 'react';
 import { View, StatusBar, } from 'react-native'
 import {observer} from 'mobx-react/native'
-import stateStore from '../stores/StateStore'
-import weatherStore from '../stores/WeatherStore'
+import StateStore from '../stores/StateStore'
+import WeatherStore from '../stores/WeatherStore'
 import CitySelect from '../components/city/CitySelect'
 
 @observer
@@ -26,11 +26,10 @@ export default class CitySelected extends Component {
         }
     }
 
-    handleCitySelect =
-        (cityObj) => {
-        stateStore.currentCityEngName = cityObj.cityNameEn;
-        stateStore.currentCityName = cityObj.cityName;
-        weatherStore.requestWeatherByName(cityObj.cityName);
+    handleCitySelect = (cityObj) => {
+        StateStore.currentCityEngName = cityObj.cityNameEn;
+        StateStore.currentCityName = cityObj.cityName;
+        WeatherStore.requestWeatherByName(cityObj.cityName);
         let navigation=this.props.navigation;
         navigation.goBack();
     };

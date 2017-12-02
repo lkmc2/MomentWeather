@@ -10,15 +10,16 @@ import {
     Image,
     FlatList,
 } from 'react-native';
+import IconUtil from '../../util/IconUtil.js'; //图片工具类
 
 export default class WeeklyTemperature extends Component {
 
     render() {
-        const {icon, maxTemp, minTemp} = this.props;
+        const {weatherCode, maxTemp, minTemp} = this.props;
 
         return (
             <View style={styles.container}>
-                <Image source={require('../../images/small/rain.png')} style={styles.icon}/>
+                <Image source={IconUtil.loadMaxWeatherIcon(weatherCode)} style={styles.icon}/>
                 <Text style={styles.title}>{maxTemp}°</Text>
                 <Text style={styles.title}>{minTemp}°</Text>
             </View>

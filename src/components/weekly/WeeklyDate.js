@@ -10,15 +10,19 @@ import {
     Image,
     FlatList,
 } from 'react-native';
+import DateUtil from '../../util/DateUtil.js'; //日期工具类
 
 export default class WeeklyDate extends Component {
     render() {
-        const {day, date} = this.props; //获取星期几、日期
+        const {date} = this.props; //获取日期
+
+        const day = DateUtil.getTimeInDate(date);
+        const date1 = DateUtil.getWeekdayByDate(date);
 
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>{day}</Text>
-                <Text style={styles.title}>{date}</Text>
+                <Text style={styles.title}>{date1}</Text>
             </View>
         );
     }

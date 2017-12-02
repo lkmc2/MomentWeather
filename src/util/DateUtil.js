@@ -11,7 +11,7 @@ getWeekdayByDate = (date) => {
     let day = new Date(date).getDay();
     let today = getNowFormatDate();
     let tomorrow = getTomorrowFormatDate();
-    if (today === date)
+    if (date === today)
         return '今天';
     else if (date === tomorrow)
         return '明天';
@@ -80,6 +80,15 @@ getHoursAndMinsByDate = (date) => {
  * @returns 时间
  */
 getTimeInDate = (date) => {
+    return date.substring(5).replace('-', '.');
+};
+
+/**
+ * 获取日期中带星期几的时间
+ * @param date 日期
+ * @returns 时间
+ */
+getTimeHaveWeekInDate = (date) => {
     const hour = new Date(date).getHours(); //获取时间
 
     let str;
@@ -106,5 +115,6 @@ module.exports = {
     getWeekdayByDate: getWeekdayByDate,
     getMonthAndDayByDate: getMonthAndDayByDate,
     getHoursAndMinsByDate:getHoursAndMinsByDate,
+    getTimeHaveWeekInDate: getTimeHaveWeekInDate,
     getTimeInDate: getTimeInDate,
 };

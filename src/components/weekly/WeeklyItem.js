@@ -16,12 +16,12 @@ import WeeklyTemperature from "./WeeklyTemperature";
 
 export default class WeeklyItem extends Component {
     render() {
-        const {day, date, icon, maxTemp, minTemp} = this.props; //获取星期几、日期
+        const {date, weatherCode, maxTemp, minTemp} = this.props; //获取星期几、日期
 
         return (
             <View style={styles.container}>
-                <WeeklyDate day={day} date={date}/>
-                <WeeklyTemperature icon={icon} maxTemp={maxTemp} minTemp={minTemp}/>
+                <WeeklyDate date={date}/>
+                <WeeklyTemperature weatherCode={weatherCode} maxTemp={maxTemp} minTemp={minTemp}/>
             </View>
         );
     }
