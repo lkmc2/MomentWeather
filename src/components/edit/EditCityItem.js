@@ -17,8 +17,8 @@ const deviceWidth = Dimensions.get('window').width; //屏幕宽
 //编辑城市列表的子项
 export default class EditCityItem extends Component {
     render() {
-        //城市名、最低温度、最高温度、天气代码
-        const {cityName, minTemp, maxTemp, weatherCode} = this.props;
+        //城市名、当前温度、天气代码
+        const {cityName, tmp, weatherCode} = this.props;
 
         return (
             <View style={styles.container}>
@@ -30,7 +30,7 @@ export default class EditCityItem extends Component {
                         <Text>{cityName}</Text>
                     </View>
                     <View style={styles.subView}>
-                        <Text>{minTemp}-{maxTemp}℃</Text>
+                        <Text>{tmp}℃</Text>
                     </View>
                     <View style={styles.subView}>
                         <Image source={IconUtil.loadMaxWeatherIcon(weatherCode)} style={styles.iconWeather}/>

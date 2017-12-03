@@ -10,16 +10,10 @@ import {
     Image,
     FlatList,
 } from 'react-native';
-import EditCityItem from "./EditCityItem";
+import EditCityItem from "./EditCityItem.js"; //编辑城市控件
+import StateStore from '../../stores/StateStore.js'; //城市状态数据库
 
-const data = [
-    {cityName: '南宁', minTemp: '18', maxTemp: '22', weatherCode: '101'},
-    {cityName: '北海', minTemp: '14', maxTemp: '23', weatherCode: '104'},
-    {cityName: '广州', minTemp: '16', maxTemp: '22', weatherCode: '102'},
-    {cityName: '福州', minTemp: '2', maxTemp: '10', weatherCode: '101'},
-    {cityName: '山东', minTemp: '15', maxTemp: '28', weatherCode: '103'},
-];
-
+//编辑城市列表
 export default class EditCityList extends Component {
 
     /**
@@ -32,15 +26,14 @@ export default class EditCityList extends Component {
     render() {
         return (
             <FlatList
-                data={data}
+                data={StateStore.cityDataSource}
                 keyExtractor={this.createKeyExtractor}
                 renderItem={
                     ({item}) =>
                         <EditCityItem
                             cityName={item.cityName}
-                            minTemp={item.minTemp}
-                            maxTemp={item.maxTemp}
-                            weatherCode={item.weatherCode}
+                            tmp={item.now.tmp}
+                            weatherCode={item.now.cond_code}
                         />
                 }
             />
