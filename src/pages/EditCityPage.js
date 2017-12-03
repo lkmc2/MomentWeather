@@ -6,18 +6,19 @@ import {
     Platform,
     StyleSheet,
     Text,
-    View,
-    Image,
-    FlatList,
+    View
 } from 'react-native';
-import IconUtil from '../../util/IconUtil.js'; //图标工具类
+import EditCityList from "../components/edit/EditCityList.js"; //编辑城市列表
 
-export default class EditCityPage extends Component {
+export default class App extends Component<{}> {
+    static navigationOptions = {
+        title: '编辑城市'
+    };
+
     render() {
-
         return (
             <View style={styles.container}>
-
+                <EditCityList/>
             </View>
         );
     }
@@ -25,8 +26,8 @@ export default class EditCityPage extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#ffb4a2',
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#ffc591',
     },
 });

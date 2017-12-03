@@ -10,15 +10,40 @@ import {
     Image,
     FlatList,
 } from 'react-native';
-import IconUtil from '../../util/IconUtil.js'; //图标工具类
+import EditCityItem from "./EditCityItem";
 
-export default class EditCityPage extends Component {
+const data = [
+    {cityName: '南宁', minTemp: '18', maxTemp: '22', weatherCode: '101'},
+    {cityName: '北海', minTemp: '14', maxTemp: '23', weatherCode: '104'},
+    {cityName: '广州', minTemp: '16', maxTemp: '22', weatherCode: '102'},
+    {cityName: '福州', minTemp: '2', maxTemp: '10', weatherCode: '101'},
+    {cityName: '山东', minTemp: '15', maxTemp: '28', weatherCode: '103'},
+];
+
+export default class EditCityList extends Component {
+
+    /**
+     * 生成key迭代器
+     * @param item 迭代的项
+     * @param index 下标
+     */
+    createKeyExtractor = (item, index) => item.cityName + index;
+
     render() {
-
         return (
-            <View style={styles.container}>
-
-            </View>
+            <FlatList
+                data={data}
+                keyExtractor={this.createKeyExtractor}
+                renderItem={
+                    ({item}) =>
+                        <EditCityItem
+                            cityName={item.cityName}
+                            minTemp={item.minTemp}
+                            maxTemp={item.maxTemp}
+                            weatherCode={item.weatherCode}
+                        />
+                }
+            />
         );
     }
 }
@@ -28,5 +53,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffb4a2',
         justifyContent: 'center',
         alignItems: 'center',
+        flex: 1,
     },
 });

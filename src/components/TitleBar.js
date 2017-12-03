@@ -46,7 +46,7 @@ export default class TitleBar extends Component {
                 subtitle: 'Mine',
                 leftIcon: require('../images/icon/ic_edit.png'), //标题栏左图标
                 rightIcon: require('../images/icon/ic_plus.png'), //标题栏右图标
-                onPressLeft: () => navigate('CitySelected', {}), //点击左边按钮事件
+                onPressLeft: () => navigate('EditCityPage', {}), //点击左边按钮事件
                 onPressRight: () => navigate('CitySelected', {}), //点击右按钮事件
             }
         }
@@ -57,7 +57,6 @@ export default class TitleBar extends Component {
 
         //获取标题栏左图标、右图标、左图标点击事件、右图标点击事件
         const {title, subtitle, leftIcon, rightIcon, onPressLeft, onPressRight} = this.getTitleInfoByIndex(index, navigate);
-
 
         return (
             <View style={styles.container}>
