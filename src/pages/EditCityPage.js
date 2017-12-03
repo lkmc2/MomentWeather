@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import EditCityList from "../components/edit/EditCityList.js"; //编辑城市列表
 
-export default class App extends Component<{}> {
+export default class EditCityPage extends Component {
+
     static navigationOptions = {
         title: '编辑城市'
     };
