@@ -27,8 +27,8 @@ export default class EditCityItem extends Component {
                     <TouchableOpacity style={styles.subView} onPress={() => StateStore.removeCityByName(cityName)}>
                         <Image source={require('../../images/icon/ic_delete.png')} style={styles.iconDelete}/>
                     </TouchableOpacity>
-                    <View style={styles.subView}>
-                        <Text>{cityName}</Text>
+                    <View style={styles.subCityView}>
+                        <Text style={styles.cityName}>{cityName}</Text>
                     </View>
                     <View style={styles.subView}>
                         <Text>{tmp}℃</Text>
@@ -58,6 +58,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         justifyContent: 'center',
+    },
+    subCityView: { //城市子界面
+        flexDirection: 'row',
+        flex: 2,
+        justifyContent: 'center',
+    },
+    cityName: { //城市名
+        fontSize: 18,
     },
     iconWeather: { //天气图标
         width: 30,
