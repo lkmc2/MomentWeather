@@ -4,7 +4,8 @@
 'use strict';
 import {observable, computed, asMap, autorun} from 'mobx';
 import {StyleSheet, ListView} from 'react-native';
-import storage from '../config/StorageConfig'
+import storage from '../config/StorageConfig.js'; //存储器
+import WeatherStore from './WeatherStore.js'; //天气存储数据库
 
 
 class StateStore {
@@ -24,6 +25,8 @@ class StateStore {
      * @param name 城市名
      */
     removeCityByName = (name) => {
+        if (this.cityList.length <= 1) return; //列表只剩最后一项不删除
+
         let index = -1;
         for (let i = 0; i < this.cityList.length; i++) {
             if (this.cityList[i].cityName === name) {
@@ -34,6 +37,7 @@ class StateStore {
         if (index !== -1) {
             this.cityList.splice(index, 1);
             stateStore.saveLocalCityData();
+            WeatherStore.currentCityName = this.cityList[0].cityName;
         }
     };
 

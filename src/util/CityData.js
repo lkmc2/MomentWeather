@@ -22,11 +22,6 @@ const CITY = [
             cityNameEn: 'Ali',
         },
         {
-            cityId: '38',
-            cityName: '阿拉善',
-            cityNameEn: 'Alashan',
-        },
-        {
             cityId: '370',
             cityName: '阿勒泰',
             cityNameEn: 'Aletai',

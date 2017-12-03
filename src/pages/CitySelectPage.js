@@ -22,7 +22,7 @@ export default class CitySelected extends Component {
      * @param cityObj 城市对象
      */
     handleCitySelect = (cityObj) => {
-        WeatherStore.currentCityEngName = cityObj.cityNameEn;
+        WeatherStore.currentCityNameEng = cityObj.cityNameEn;
         WeatherStore.currentCityName = cityObj.cityName;
         WeatherStore.requestWeatherByName(cityObj.cityName);
         let navigation=this.props.navigation;

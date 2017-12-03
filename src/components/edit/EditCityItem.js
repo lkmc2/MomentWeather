@@ -10,8 +10,9 @@ import {
     Dimensions,
     TouchableOpacity,
 } from 'react-native';
-import IconUtil from '../../util/IconUtil.js';
+import IconUtil from '../../util/IconUtil.js'; //图标工具
 import Divider from "../Divider"; //图标工具
+import StateStore from '../../stores/StateStore.js'; //天气状态数据库
 const deviceWidth = Dimensions.get('window').width; //屏幕宽
 
 //编辑城市列表的子项
@@ -23,7 +24,7 @@ export default class EditCityItem extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.subContainer}>
-                    <TouchableOpacity style={styles.subView}>
+                    <TouchableOpacity style={styles.subView} onPress={() => StateStore.removeCityByName(cityName)}>
                         <Image source={require('../../images/icon/ic_delete.png')} style={styles.iconDelete}/>
                     </TouchableOpacity>
                     <View style={styles.subView}>
