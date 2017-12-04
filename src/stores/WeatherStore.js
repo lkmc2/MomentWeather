@@ -10,7 +10,7 @@ import SuggestionInfo from '../model/SuggestionInfo'
 import CityItemInfo from '../model/CityItemInfo'
 import StateStore from './StateStore'
 import ApiConfig from '../config/WebConfig'
-import MscSpeech from 'react-native-msc-speech'
+// import MscSpeech from 'react-native-msc-speech'
 
 class WeatherStore {
 
@@ -137,22 +137,22 @@ class WeatherStore {
      * android端采用讯飞云语音合成，ios端采用自带的tts合成
      * @param content 语音输出内容
      */
-    speakWeather = (content) => {
-        if (!__ANDROID__) {
-            MscSpeech.speak(true, content, () => {
-                console.log('ios输出!')
-            });
-        } else {
-            NetInfo.isConnected.fetch().done((isConnected) => {
-                if (isConnected)
-                    MscSpeech.speak(false, content, () => {
-                        console.log('android输出')
-                    });
-                else
-                    alert('Android需要连接网络才能语音播报!')
-            });
-        }
-    };
+    // speakWeather = (content) => {
+    //     if (!__ANDROID__) {
+    //         MscSpeech.speak(true, content, () => {
+    //             console.log('ios输出!')
+    //         });
+    //     } else {
+    //         NetInfo.isConnected.fetch().done((isConnected) => {
+    //             if (isConnected)
+    //                 MscSpeech.speak(false, content, () => {
+    //                     console.log('android输出')
+    //                 });
+    //             else
+    //                 alert('Android需要连接网络才能语音播报!')
+    //         });
+    //     }
+    // };
 
     /**
      * 存储天气数据
