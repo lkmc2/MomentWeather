@@ -44,10 +44,12 @@ export default class MaxWeatherView extends Component {
             update:{ loc },
         } = weatherData;
 
+
+
         return (
             <View style={styles.container}>
                 <Image source={IconUtil.loadMaxWeatherIcon(cond_code)} style={styles.weatherIcon}/>
-                <Text style={styles.updateTime}>更新：{DateUtil.getTimeHaveWeekInDate(loc)}</Text>
+                <Text style={styles.updateTime}>更新：{DateUtil.getHoursAndMinsByDate(loc)}</Text>
                 <Text style={styles.temperature}>{tmp}℃</Text>
                 <Text style={styles.weatherDescription}>{cond_txt}</Text>
                 <Text style={styles.airCondition}>{hum} 空气质量{hum < 50 ? '优':'良'}</Text>
