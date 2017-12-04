@@ -31,7 +31,7 @@ export default class CitySelect extends Component {
 
     componentDidMount() {
         Animated.timing(this.state.modalY, {
-            duration: 500,
+            duration: 50,
             toValue: 0
         }).start()
     }

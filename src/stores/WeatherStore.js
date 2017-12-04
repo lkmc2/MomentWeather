@@ -88,18 +88,19 @@ class WeatherStore {
 
     /**
      * 根据城市名获取天气
-     * @param name
+     * @param cityName 城市名
+     * @param cityNameEng 城市英文名
      */
-    requestWeatherByName = (name) => {
+    requestWeatherByName = (cityName, cityNameEng) => {
         this.loading = true;
-        return fetch("https://free-api.heweather.com/s6/weather?key=3ad94afdc775428fb9da709e66d62581&location=" + name)
+        return fetch("https://free-api.heweather.com/s6/weather?key=3ad94afdc775428fb9da709e66d62581&location=" + cityName)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
                 }
             })
             .then((jsonData) => {
-                this.saveWeatherData(jsonData);
+                this.saveWeatherData(jsonData, cityNameEng);
                 this.loading = false;
             })
             .done();
@@ -114,9 +115,10 @@ class WeatherStore {
 
     /**
      * 存储天气信息
-     * @param jsonData
+     * @param jsonData 天气数据
+     * @param cityNameEng 城市英文名
      */
-    saveWeatherData = (jsonData) => {
+    saveWeatherData = (jsonData, cityNameEng) => {
         let weatherData = jsonData.HeWeather6[0];
 
         console.log("key="+weatherData.basic.location+",value="+weatherData);
@@ -124,7 +126,7 @@ class WeatherStore {
         this.weatherMap.set(weatherData.basic.location, new Weather(weatherData));
         // this.convertAqiToList(weatherData);
         this.convertSuggestionList(weatherData);
-        this.saveCityItem(weatherData);
+        this.saveCityItem(weatherData, cityNameEng);
         let voiceContent = weatherData.basic.location + '现在' + weatherData.cond_txt + ',气温' +
             weatherData.now.tmp + '度';
         // this.speakWeather(voiceContent);
@@ -155,8 +157,9 @@ class WeatherStore {
     /**
      * 存储天气数据
      * @param  weatherData  单项天气数据
+     * @param cityNameEng 城市英文名
      */
-    saveCityItem = (weatherData) => {
+    saveCityItem = (weatherData, cityNameEng) => {
         let flag = -1;
         for (let i = 0; i < StateStore.cityList.length; i++) {
             if (StateStore.cityList[i].cityName === weatherData.basic.location) {
@@ -164,7 +167,7 @@ class WeatherStore {
                 break;
             }
         }
-        let weatherItem = new CityItemInfo(weatherData.basic.location,
+        let weatherItem = new CityItemInfo(weatherData.basic.location, cityNameEng,
             weatherData.now, weatherData.daily_forecast);
         if (flag !== -1) {
             StateStore.cityList[flag] = weatherItem;

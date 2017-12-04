@@ -31,7 +31,7 @@ export default class TodayPage extends Component {
     }
 
     _refreshWeatherData = () => {
-        WeatherStore.requestWeatherByName(WeatherStore.currentCityName);
+        WeatherStore.requestWeatherByName(WeatherStore.currentCityName, WeatherStore.currentCityNameEng);
     };
 
     render() {

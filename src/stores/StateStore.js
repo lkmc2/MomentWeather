@@ -41,6 +41,7 @@ class StateStore {
             this.cityList.splice(index, 1);
             stateStore.saveLocalCityData();
             WeatherStore.currentCityName = this.cityList[0].cityName;
+            WeatherStore.currentCityNameEng = this.cityList[0].cityNameEng;
         }
     };
 
