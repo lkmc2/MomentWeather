@@ -6,6 +6,7 @@ import {
     StyleSheet,
     Text,
     View,
+    Alert,
     Image,
     Dimensions,
     TouchableOpacity,
@@ -17,6 +18,23 @@ const deviceWidth = Dimensions.get('window').width; //屏幕宽
 
 //编辑城市列表的子项
 export default class EditCityItem extends Component {
+
+    /**
+     * 提示用户是否删除选中的城市
+     * @param cityName 城市名
+     */
+    alertIfRemoveCity = (cityName) => {
+        Alert.alert(
+            '提示',
+            '确认删除？',
+            [
+                {text: '取消', onPress: () => {}, style: 'cancel'},
+                {text: '确定', onPress: () => StateStore.removeCityByName(cityName)},
+            ],
+            { cancelable: false }
+        );
+    };
+
     render() {
         //城市名、当前温度、天气代码
         const {cityName, tmp, weatherCode} = this.props;
@@ -24,7 +42,7 @@ export default class EditCityItem extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.subContainer}>
-                    <TouchableOpacity style={styles.subView} onPress={() => StateStore.removeCityByName(cityName)}>
+                    <TouchableOpacity style={styles.subView} onPress={() => this.alertIfRemoveCity(cityName)}>
                         <Image source={require('../../images/icon/ic_delete.png')} style={styles.iconDelete}/>
                     </TouchableOpacity>
                     <View style={styles.subCityView}>

@@ -31,7 +31,7 @@ export default class CitySelect extends Component {
 
     componentDidMount() {
         Animated.timing(this.state.modalY, {
-            duration: 50,
+            duration: 500,
             toValue: 0
         }).start()
     }
@@ -173,6 +173,7 @@ export default class CitySelect extends Component {
                 <SectionList
                     ref="sectionList"
                     sections={CITYDATA}
+                    stickySectionHeadersEnabled={true}
                     renderItem={this.renderItem}
                     renderSectionHeader={this.renderSectionHeader}
                     keyExtractor={this.extraUniqueKey}/>
