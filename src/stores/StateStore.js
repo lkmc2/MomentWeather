@@ -17,7 +17,7 @@ class StateStore {
      * @returns 城市数据
      */
     @computed get cityDataSource() {
-        return this.cityList;
+        return this.cityList.slice(0);
     }
 
     /**
