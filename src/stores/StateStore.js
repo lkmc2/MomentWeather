@@ -3,9 +3,9 @@
  */
 'use strict';
 import {observable, computed, asMap, autorun} from 'mobx';
-import {StyleSheet, ListView} from 'react-native';
+import {Alert} from 'react-native';
 import storage from '../config/StorageConfig.js'; //存储器
-import WeatherStore from './WeatherStore.js'; //天气存储数据库
+import WeatherStore from './WeatherStore.js';//天气存储数据库
 
 
 class StateStore {
@@ -25,7 +25,10 @@ class StateStore {
      * @param name 城市名
      */
     removeCityByName = (name) => {
-        if (this.cityList.length <= 1) return; //列表只剩最后一项不删除
+        if (this.cityList.length <= 1) {//列表只剩最后一项不删除
+            Alert.alert('提示', '最后一项无法删除!', [{text: '确定', onPress: () => {}}]);
+            return;
+        }
 
         let index = -1;
         for (let i = 0; i < this.cityList.length; i++) {

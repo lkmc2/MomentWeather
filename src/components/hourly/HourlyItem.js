@@ -22,12 +22,11 @@ export default class HourlyItem extends Component {
                     <Text>{time}</Text>
                 </View>
                 <View style={styles.subView}>
-                    <Text>{txt}</Text>
-                    <Text style={styles.temp}>{temp}°</Text>
+                    <Image source={icon} style={styles.icon}/>
+                    <Text style={styles.txt}>{txt}</Text>
                 </View>
                 <View style={styles.subView}>
-                    <Image source={icon} style={styles.icon}/>
-                    <Text style={styles.rainrate}>{rainrate}%</Text>
+                    <Text style={styles.temp}>{temp}℃</Text>
                 </View>
             </View>
         );
@@ -53,7 +52,7 @@ const styles = StyleSheet.create({
     temp: { //温度文字
         marginLeft: 10,
     },
-    rainrate: { //降雨概率文字
-        marginLeft: 5,
+    txt: {
+        marginLeft: 10,
     },
 });

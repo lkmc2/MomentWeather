@@ -22,8 +22,9 @@ export default class MorePage extends Component {
         header: null, //隐藏标题栏
     };
 
+    //展示清除成功弹窗
     showClearDialog = ( )=> {
-        Alert.alert('提示','清除成功!')
+        Alert.alert('提示', '清除成功!', [{text: '确定', onPress: () => {}}]);
     };
 
     render() {
