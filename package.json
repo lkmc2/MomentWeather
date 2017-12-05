@@ -12,6 +12,7 @@
 		"mobx-react": "^4.3.5",
 		"react": "^16.0.0",
 		"react-native": "^0.50.4",
+		"react-native-baidu-map": "^0.6.0",
 		"react-native-storage": "^0.2.2",
 		"react-navigation": "^1.0.0-beta.21"
 	},

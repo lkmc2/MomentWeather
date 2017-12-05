@@ -5,6 +5,7 @@ import {
     View,
     ScrollView,
     RefreshControl,
+    Alert
 } from 'react-native';
 
 import TitleBar from '../components/TitleBar.js'; //标题栏
@@ -15,6 +16,7 @@ import LifeSuggestion from "../components/LifeSuggestion.js"; //生活指数
 import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
 import StateStore from '../stores/StateStore.js'; //状态存储数据库
 import {observer} from 'mobx-react/native';
+import { Geolocation } from 'react-native-baidu-map';
 
 @observer
 export default class TodayPage extends Component {
@@ -28,6 +30,21 @@ export default class TodayPage extends Component {
         // WeatherStore.getCurrentPosition();
         this._refreshWeatherData();
         StateStore.loadLocalCityData();
+        this.getLocation();
+    }
+
+    //获取位置
+    getLocation() {
+        Geolocation.getCurrentPosition().then(
+            (data) => {
+                Alert.alert(
+                    '提示',
+                    '城市:'+data.city+'\n'+'精度:'+data.longitude+'\n纬度:'+data.latitude+'\n地址:'+data.address
+                );
+            }
+        ).catch(error => {
+            Alert.alert('error');
+        });
     }
 
     _refreshWeatherData = () => {
