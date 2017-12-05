@@ -9,22 +9,44 @@ import {
     View,
     Image,
     FlatList,
+    TouchableHighlight
 } from 'react-native';
 import IconUtil from '../../util/IconUtil.js'; //图标工具类
+import WeatherStore from '../../stores/WeatherStore.js'; //天气存储数据库
 
 export default class WeeklyDate extends Component {
+
+    /**
+     * 选择某个城市的天气
+     * @param cityName
+     * @param cityNameEng
+     * @param navigate 导航器
+     */
+    chooseCityWeather = (cityName, cityNameEng, navigate) => {
+        WeatherStore.currentCityName = cityName;
+        WeatherStore.currentCityNameEng = cityNameEng;
+        navigate('TodayPage', {}); //跳转到今天页面
+    };
+
     render() {
-        const {city, air, weatherCode, temperature} = this.props; //获取星期几、日期
+        //城市名、城市英文名、空气质量、天气代码、温度、导航器
+        const {cityName, cityNameEng, air, weatherCode, temperature, navigate} = this.props;
 
         return (
-            <View style={styles.container}>
-                <Text style={styles.city}>{city}</Text>
-                <Text style={styles.air}>{air}{air < 50 ? '优':'良'}</Text>
-                <View style={styles.wrapperView}>
-                    <Image source={IconUtil.loadMaxWeatherIcon(weatherCode)} style={styles.icon}/>
-                    <Text style={styles.temp}>{temperature}℃</Text>
+            <TouchableHighlight
+                key={cityNameEng}
+                activeOpacity={0.7}
+                underlayColor='green'
+                onPress={() => this.chooseCityWeather(cityName, cityNameEng, navigate)}>
+                <View style={styles.container}>
+                    <Text style={styles.city}>{cityName}</Text>
+                    <Text style={styles.air}>{air}{air < 50 ? '优' : '良'}</Text>
+                    <View style={styles.wrapperView}>
+                        <Image source={IconUtil.loadMaxWeatherIcon(weatherCode)} style={styles.icon}/>
+                        <Text style={styles.temp}>{temperature}℃</Text>
+                    </View>
                 </View>
-            </View>
+            </TouchableHighlight>
         );
     }
 }

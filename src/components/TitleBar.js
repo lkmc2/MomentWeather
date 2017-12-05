@@ -53,7 +53,7 @@ export default class TitleBar extends Component {
     };
 
     render() {
-        const {index, navigate} = this.props; //获取标题，子标题，页面下标
+        const {index, navigate} = this.props; //获取页面下标，导航器
 
         //获取标题栏左图标、右图标、左图标点击事件、右图标点击事件
         const {title, subtitle, leftIcon, rightIcon, onPressLeft, onPressRight} = this.getTitleInfoByIndex(index, navigate);

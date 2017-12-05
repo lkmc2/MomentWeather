@@ -10,6 +10,7 @@ import {
     Image,
     FlatList,
     ScrollView,
+    TouchableHighlight,
 } from 'react-native';
 import WeeklyTemperature from '../weekly/WeeklyTemperature.js'; //每周天气控件
 import WeeklyDate from "../weekly/WeeklyDate.js"; //每周日期控件
@@ -25,6 +26,17 @@ import {observer} from 'mobx-react/native';
 export default class CitiesTemperature extends Component {
 
     /**
+     * 选择某个城市的天气
+     * @param data 城市天气数据
+     * @param navigate 导航器
+     */
+    chooseCityWeather = (data, navigate) => {
+        WeatherStore.currentCityName = data.cityName;
+        WeatherStore.currentCityNameEng = data.cityNameEng;
+        navigate('TodayPage', {}); //跳转到今天页面
+    };
+
+    /**
      * 生成key迭代器
      * @param item 迭代的项
      * @param index 下标
@@ -34,31 +46,37 @@ export default class CitiesTemperature extends Component {
     /**
      * 生成一周天气列表
      * @param weatherData 天气信息
+     * @param navigate 导航器
      */
-    renderWeeklyTempList = (weatherData) => {
+    renderWeeklyTempList = (weatherData, navigate) => {
         if (weatherData !== null && weatherData.length > 0) {
             return weatherData.map(data =>
-                <FlatList
-                    data={data.daily_forecast}
-                    horizontal={true}
-                    key={data.cityName}
-                    showsHorizontalScrollIndicator={false}
-                    scrollEnabled={true}
-                    keyExtractor={this.createKeyExtractor}
-                    renderItem={
-                        ({item, index}) => {
-                            if (index > 4) return null;
-                            return (
-                                <WeeklyTemperature
-                                    weatherCode={item.cond_code_d}
-                                    maxTemp={item.tmp_max}
-                                    minTemp={item.tmp_min}
-                                />
-                            )
+                <TouchableHighlight
+                    key={data.cityNameEng}
+                    activeOpacity={0.7}
+                    underlayColor='green'
+                    onPress={() => this.chooseCityWeather(data, navigate)}>
+                    <FlatList
+                        data={data.daily_forecast}
+                        horizontal={true}
+                        key={data.cityName}
+                        showsHorizontalScrollIndicator={false}
+                        scrollEnabled={true}
+                        keyExtractor={this.createKeyExtractor}
+                        renderItem={
+                            ({item, index}) => {
+                                if (index > 4) return null;
+                                return (
+                                    <WeeklyTemperature
+                                        weatherCode={item.cond_code_d}
+                                        maxTemp={item.tmp_max}
+                                        minTemp={item.tmp_min}
+                                    />
+                                )
+                            }
                         }
-
-                    }
-                />
+                    />
+                </TouchableHighlight>
             );
         }
     };
@@ -76,6 +94,7 @@ export default class CitiesTemperature extends Component {
     };
 
     render() {
+        const {navigate} = this.props; //获取导航器
         const weatherData = StateStore.cityDataSource; //获取城市数据
 
         return (
@@ -87,9 +106,9 @@ export default class CitiesTemperature extends Component {
                 </View>
                 <ScrollView>
                     <View style={styles.rowView}>
-                        <CityList style={styles.cityList}/>
+                        <CityList navigate={navigate} style={styles.cityList}/>
                         <View style={styles.wrapperView}>
-                            {this.renderWeeklyTempList(weatherData)}
+                            {this.renderWeeklyTempList(weatherData, navigate)}
                         </View>
                     </View>
                 </ScrollView>

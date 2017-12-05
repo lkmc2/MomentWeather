@@ -17,14 +17,17 @@ export default class CityList extends Component {
     /**
      * 生成城市列表
      * @param weatherData 城市天气数据
+     * @param navigate 导航器
      */
-    renderCityList = (weatherData) => {
+    renderCityList = (weatherData, navigate) => {
         if (weatherData !== null && weatherData.length > 0) {
             return weatherData.map(item =>
                 <CityItem
-                    city={item.cityName}
+                    cityName={item.cityName}
+                    cityNameEng={item.cityNameEng}
                     air={item.now.hum}
                     key={item.cityName}
+                    navigate={navigate}
                     weatherCode={item.now.cond_code}
                     temperature={item.now.tmp}
                 />
@@ -33,11 +36,12 @@ export default class CityList extends Component {
     };
 
     render() {
+        const {navigate} = this.props; //获取导航器
         const weatherData = StateStore.cityDataSource; //获取城市数据
 
         return (
             <View style={styles.container}>
-                {this.renderCityList(weatherData)}
+                {this.renderCityList(weatherData, navigate)}
             </View>
         );
     }

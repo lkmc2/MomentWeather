@@ -24,7 +24,7 @@ export default class MyPage extends Component {
         return (
             <View style={styles.container}>
                 <TitleBar index={2} navigate={navigate}/>
-                <CitiesTemperature/>
+                <CitiesTemperature navigate={navigate}/>
             </View>
         );
     }

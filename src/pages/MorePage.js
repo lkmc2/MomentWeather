@@ -22,9 +22,34 @@ export default class MorePage extends Component {
         header: null, //隐藏标题栏
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            locationAble: true,
+            voiceAble: true
+        }
+    }
+
     //展示清除成功弹窗
-    showClearDialog = ( )=> {
-        Alert.alert('提示', '清除成功!', [{text: '确定', onPress: () => {}}]);
+    showClearDialog = () => {
+        Alert.alert('提示', '清除成功!', [{
+            text: '确定', onPress: () => {
+            }
+        }]);
+    };
+
+    //改变定位按钮的状态
+    changeLocationSwitchState = () => {
+        this.setState({
+            locationAble: !this.state.locationAble
+        })
+    };
+
+    //改变语音按钮的状态
+    changeVoiceSwitchState = () => {
+        this.setState({
+            voiceAble: !this.state.voiceAble
+        })
     };
 
     render() {
@@ -32,15 +57,20 @@ export default class MorePage extends Component {
             <View style={styles.container}>
                 <TitleBar index={3}/>
                 <ScrollView>
-                    <View style={{flex: 1,backgroundColor:'rgb(239,238,244)'}}>
-                        <View style={[styles.itemContainer,{marginTop:20}]}>
+                    <View style={{flex: 1, backgroundColor: 'rgb(239,238,244)'}}>
+                        <View style={[styles.itemContainer, {marginTop: 20}]}>
                             <Text style={styles.title}>自动定位</Text>
-                            <Switch style={styles.itemRight}/>
+                            <Switch style={styles.itemRight}
+                                    value={this.state.locationAble}
+                                    onValueChange={this.changeLocationSwitchState}/>
                         </View>
                         <Divider dividerHeight={1}/>
                         <View style={styles.itemContainer}>
                             <Text style={styles.title}>自动语音播报</Text>
-                            <Switch style={styles.itemRight}/>
+                            <Switch
+                                style={styles.itemRight}
+                                value={this.state.voiceAble}
+                                onValueChange={this.changeVoiceSwitchState}/>
                         </View>
                         <Divider dividerHeight={1}/>
                         <TouchableOpacity onPress={this.showClearDialog}>
@@ -51,14 +81,14 @@ export default class MorePage extends Component {
                         </TouchableOpacity>
 
                         <Divider dividerHeight={1}/>
-                        <View style={[styles.itemContainer,{marginTop:40}]}>
+                        <View style={[styles.itemContainer, {marginTop: 40}]}>
                             <Text style={styles.title}>关于我们</Text>
                             <Image source={require('../images/icon/ic_arrow_right.png')} style={styles.arrow}/>
                         </View>
                         <Divider dividerHeight={1}/>
                         <View style={styles.itemContainer}>
                             <Text style={styles.title}>当前版本</Text>
-                            <Text style={[styles.title,{marginRight:20}]}>V1.0.0</Text>
+                            <Text style={[styles.title, {marginRight: 20}]}>V1.0.0</Text>
                         </View>
                         <Divider dividerHeight={1}/>
                     </View>
@@ -83,7 +113,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center'
     },
-
     itemRight: {
         marginRight: 20
     },
