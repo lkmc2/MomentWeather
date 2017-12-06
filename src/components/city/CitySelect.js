@@ -26,6 +26,7 @@ export default class CitySelect extends Component {
         super(props);
         this.state = {
             modalY: new Animated.Value(deviceHeight),
+            alreadyTouch: false,
         }
     }
 
@@ -33,7 +34,7 @@ export default class CitySelect extends Component {
         Animated.timing(this.state.modalY, {
             duration: 50,
             toValue: 0
-        }).start()
+        }).start();
     }
 
     renderCityItem(cityData) {
