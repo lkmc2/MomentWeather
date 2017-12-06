@@ -2,7 +2,7 @@
  * Created by lkmc2 on 2017/11/29.
  */
 'use strict';
-import {observable, computed} from 'mobx';
+import {observable} from 'mobx';
 
 //城市信息
 export default class CityItemInfo {
