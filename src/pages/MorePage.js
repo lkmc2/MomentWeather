@@ -15,6 +15,7 @@ import {
 
 import TitleBar from '../components/TitleBar.js'; //标题栏
 import Divider from '../components/Divider.js' //分隔线
+import StateStore from '../stores/StateStore.js'; //天气状态数据库
 
 export default class MorePage extends Component {
     static navigationOptions = { //页面标题
@@ -30,6 +31,10 @@ export default class MorePage extends Component {
         }
     }
 
+    componentWillMount() {
+        StateStore.locate = this.state.locationAble;
+    }
+
     //展示清除成功弹窗
     showClearDialog = () => {
         Alert.alert('提示', '清除成功!', [{
@@ -40,9 +45,10 @@ export default class MorePage extends Component {
 
     //改变定位按钮的状态
     changeLocationSwitchState = () => {
+        StateStore.locate = !this.state.locationAble;
         this.setState({
             locationAble: !this.state.locationAble
-        })
+        });
     };
 
     //改变语音按钮的状态

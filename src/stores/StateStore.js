@@ -12,6 +12,7 @@ import pinyin from 'pinyin'; //汉字转英文工具
 class StateStore {
 
     @observable cityList = []; //城市列表
+    @observable locate = true; //是否定位
 
     /**
      * 获取城市数据
@@ -20,6 +21,16 @@ class StateStore {
     @computed get cityDataSource() {
         return this.cityList.slice(0);
     }
+
+    @computed get isLocaton() {
+        return this.locate;
+    }
+
+    switchLocation = () => {
+        this.locate = !this.locate;
+        Alert.alert(this.locate);
+        console.log('locate='+this.locate)
+    };
 
     /**
      * 根据名字移除城市
