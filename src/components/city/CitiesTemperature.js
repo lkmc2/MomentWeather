@@ -32,7 +32,7 @@ export default class CitiesTemperature extends Component {
      */
     chooseCityWeather = (data, navigate) => {
         WeatherStore.currentCityName = data.cityName;
-        WeatherStore.currentCityNameEng = data.cityNameEng;
+        WeatherStore.currentCityNameEng = StateStore.getFullCityName(data.cityName);
         navigate('TodayPage', {}); //跳转到今天页面
     };
 

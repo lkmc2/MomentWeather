@@ -6,6 +6,7 @@ import React, { Component,  } from 'react';
 import { View, StatusBar, } from 'react-native'
 import {observer} from 'mobx-react/native'
 import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
+import StateStore from '../../stores/StateStore.js'; //天气状态数据库
 import CitySelect from '../components/city/CitySelect.js'; //城市选择器
 
 //城市选择界面
@@ -22,8 +23,8 @@ export default class CitySelected extends Component {
      * @param cityObj 城市对象
      */
     handleCitySelect = (cityObj) => {
-        WeatherStore.currentCityNameEng = cityObj.cityNameEn;
         WeatherStore.currentCityName = cityObj.cityName;
+        WeatherStore.currentCityNameEng = StateStore.getFullCityName(cityObj.cityName);
         WeatherStore.requestWeatherByName(cityObj.cityName, cityObj.cityNameEn);
         let navigation=this.props.navigation;
         navigation.goBack();

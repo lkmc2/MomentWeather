@@ -13,18 +13,18 @@ import {
 } from 'react-native';
 import IconUtil from '../../util/IconUtil.js'; //图标工具类
 import WeatherStore from '../../stores/WeatherStore.js'; //天气存储数据库
+import StateStore from '../../stores/StateStore.js'; //天气状态数据库
 
 export default class WeeklyDate extends Component {
 
     /**
      * 选择某个城市的天气
      * @param cityName
-     * @param cityNameEng
      * @param navigate 导航器
      */
-    chooseCityWeather = (cityName, cityNameEng, navigate) => {
+    chooseCityWeather = (cityName, navigate) => {
         WeatherStore.currentCityName = cityName;
-        WeatherStore.currentCityNameEng = cityNameEng;
+        WeatherStore.currentCityNameEng = StateStore.getFullCityName(cityName);
         navigate('TodayPage', {}); //跳转到今天页面
     };
 

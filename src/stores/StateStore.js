@@ -39,10 +39,10 @@ class StateStore {
             }
         }
         if (index !== -1) {
-            this.cityList.splice(index, 1);
+            this.cityList.splice(index, 1); //在cityList中从index位置删除一个数据
             stateStore.saveLocalCityData();
             WeatherStore.currentCityName = this.cityList[0].cityName;
-            WeatherStore.currentCityNameEng = this.cityList[0].cityNameEng;
+            WeatherStore.currentCityNameEng = this.getFullCityName(this.cityList[0].cityName);
         }
     };
 
@@ -62,7 +62,7 @@ class StateStore {
      * @returns 城市英文名
      */
     getFullCityName = (cityName) => {
-        let array = pinyin(cityName, {style: pinyin.STYLE_NORMAL});
+        let array = pinyin(cityName, {style: pinyin.STYLE_NORMAL}); //将中文转换成英文数组
         let fullCityName = "";
 
         if (array !== undefined && array.length > 0) {
