@@ -15,7 +15,7 @@ import IconUtil from '../../util/IconUtil.js'; //图标工具类
 import WeatherStore from '../../stores/WeatherStore.js'; //天气存储数据库
 import StateStore from '../../stores/StateStore.js'; //天气状态数据库
 
-export default class WeeklyDate extends Component {
+export default class CityItem extends Component {
 
     /**
      * 选择某个城市的天气
@@ -30,14 +30,14 @@ export default class WeeklyDate extends Component {
 
     render() {
         //城市名、城市英文名、空气质量、天气代码、温度、导航器
-        const {cityName, cityNameEng, air, weatherCode, temperature, navigate} = this.props;
+        const {cityName, air, weatherCode, temperature, navigate} = this.props;
 
         return (
             <TouchableHighlight
-                key={cityNameEng}
+                key={cityName}
                 activeOpacity={0.7}
                 underlayColor='green'
-                onPress={() => this.chooseCityWeather(cityName, cityNameEng, navigate)}>
+                onPress={() => this.chooseCityWeather(cityName, navigate)}>
                 <View style={styles.container}>
                     <Text style={styles.city}>{cityName}</Text>
                     <Text style={styles.air}>{air}{air < 50 ? '优' : '良'}</Text>

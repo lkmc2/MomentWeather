@@ -40,7 +40,7 @@ export default class CitySelect extends Component {
         return cityData.map((item, index) => (
             <TouchableOpacity
                 style={styles.city}
-                key={item.cityId}
+                key={item.cityName}
                 onPress={this.props.selectCity.bind(this,item)}
             >
                 <Text style={styles.cityText}>

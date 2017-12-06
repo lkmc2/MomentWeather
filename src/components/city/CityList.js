@@ -24,7 +24,6 @@ export default class CityList extends Component {
             return weatherData.map(item =>
                 <CityItem
                     cityName={item.cityName}
-                    cityNameEng={item.cityNameEng}
                     air={item.now.hum}
                     key={item.cityName}
                     navigate={navigate}

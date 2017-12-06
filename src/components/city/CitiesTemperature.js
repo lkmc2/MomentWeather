@@ -52,7 +52,7 @@ export default class CitiesTemperature extends Component {
         if (weatherData !== null && weatherData.length > 0) {
             return weatherData.map(data =>
                 <TouchableHighlight
-                    key={data.cityNameEng}
+                    key={data.cityName}
                     activeOpacity={0.7}
                     underlayColor='green'
                     onPress={() => this.chooseCityWeather(data, navigate)}>
