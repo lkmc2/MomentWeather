@@ -27,28 +27,40 @@ export default class TodayPage extends Component {
     };
 
     componentWillMount() {
+        if (StateStore.isLocaton) { //开启定位
+            this.getLocation(); //进行定位
+        }
+
         // WeatherStore.getCurrentPosition();
-        this._refreshWeatherData();
-        StateStore.loadLocalCityData();
-        this.getLocation();
+        // this._refreshWeatherData();
+        // StateStore.loadLocalCityData();
+
     }
+
+    /**
+     * 获取正确的坐标
+     * @param str 字符串
+     */
+    getRightPoint = (str) => {
+        let point = str.toString();
+        return point.substring(0, point.indexOf('.') + 4);
+    };
 
     //获取位置
-    getLocation() {
+    getLocation = () => {
         Geolocation.getCurrentPosition().then(
             (data) => {
-                Alert.alert(
-                    '提示',
-                    '城市:'+data.city+'\n'+'精度:'+data.longitude+'\n纬度:'+data.latitude+'\n地址:'+data.address
-                );
+                // Alert.alert('提示', '城市:'+data.city+'\n'+'精度:'+data.longitude+'\n纬度:'+data.latitude+'\n地址:'+data.address);
+                WeatherStore.requestWeatherByLongitudeAndLatitude(this.getRightPoint(data.longitude),
+                    this.getRightPoint(data.latitude));
             }
         ).catch(error => {
-            Alert.alert('error');
+            Alert.alert('提示', '定位失败');
         });
-    }
+    };
 
     _refreshWeatherData = () => {
-        WeatherStore.requestWeatherByName(WeatherStore.currentCityName, WeatherStore.currentCityNameEng);
+        WeatherStore.requestWeatherByName(WeatherStore.currentCityName);
     };
 
     render() {

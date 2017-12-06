@@ -50,6 +50,16 @@ class WeatherStore {
         }
     }
 
+
+    /**
+     * 改变当前城市名
+     * @param cityName 城市名
+     */
+    changeCurrentCityName = (cityName) => {
+        this.currentCityName = cityName;
+        this.currentCityNameEng = StateStore.getFullCityName(cityName);
+    };
+
     /**
      * 获取地理位置信息并且通过经纬度获取天气信息
      */
@@ -67,20 +77,21 @@ class WeatherStore {
 
     /**
      * 通过经纬度获取天气信息
-     * @param name
+     * @param longitude 经度
+     * @param latitude 纬度
      */
-    requestWeatherByLongitudeAndLatitude = (name) => {
+    requestWeatherByLongitudeAndLatitude = (longitude, latitude) => {
         this.loading = true;
-        return fetch("https://free-api.heweather.com/s6/weather?key=3ad94afdc775428fb9da709e66d62581&location=" + name)
+        return fetch("https://free-api.heweather.com/s6/weather?key=3ad94afdc775428fb9da709e66d62581&location="
+            + longitude + ',' + latitude)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
                 }
             })
             .then((jsonData) => {
-                let weatherData = jsonData.HeWeather6[0];
-                this.changeCurrentCityName(weatherData.basic.location);
-                this.saveWeatherData(jsonData);
+                this.changeCurrentCityName(jsonData.HeWeather6[0].basic.location); //改变当前城市名
+                this.saveWeatherData(jsonData); //保存天气数据
                 this.loading = false;
             })
             .done();
@@ -211,19 +222,19 @@ class WeatherStore {
     };
 
 
-    /**
-     * 改变当前城市名
-     * @param name
-     */
-    changeCurrentCityName = (name) => {
-        this.currentCityName = name;
-        if (this.getCurrentCityWeather() !== null) {
-            this.convertSuggestionList(this.getCurrentCityWeather());
-            // this.convertAqiToList(this.getCurrentCityWeather());
-        } else {
-            this.requestWeatherByName(name);
-        }
-    };
+    // /**
+    //  * 改变当前城市名
+    //  * @param name
+    //  */
+    // changeCurrentCityName = (name) => {
+    //     this.currentCityName = name;
+    //     if (this.getCurrentCityWeather() !== null) {
+    //         this.convertSuggestionList(this.getCurrentCityWeather());
+    //         // this.convertAqiToList(this.getCurrentCityWeather());
+    //     } else {
+    //         this.requestWeatherByName(name);
+    //     }
+    // };
 
     /**
      * 获取当前城市天气数据

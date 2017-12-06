@@ -26,11 +26,6 @@ class StateStore {
         return this.locate;
     }
 
-    switchLocation = () => {
-        this.locate = !this.locate;
-        Alert.alert(this.locate);
-        console.log('locate='+this.locate)
-    };
 
     /**
      * 根据名字移除城市
@@ -73,6 +68,8 @@ class StateStore {
      * @returns 城市英文名
      */
     getFullCityName = (cityName) => {
+        if (cityName === '邕宁') return 'Yongning';
+
         let array = pinyin(cityName, {style: pinyin.STYLE_NORMAL}); //将中文转换成英文数组
         let fullCityName = "";
 

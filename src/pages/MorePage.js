@@ -26,14 +26,11 @@ export default class MorePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            locationAble: true,
+            locationAble: StateStore.isLocaton,
             voiceAble: true
         }
     }
 
-    componentWillMount() {
-        StateStore.locate = this.state.locationAble;
-    }
 
     //展示清除成功弹窗
     showClearDialog = () => {
