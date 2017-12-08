@@ -2,8 +2,11 @@
  * Created by lkmc2 on 2017/11/29.
  */
 'use strict';
-import {observable, computed, asMap, autorun} from 'mobx';
-import {Alert} from 'react-native';
+import {observable, computed} from 'mobx';
+import {
+    Alert,
+    AsyncStorage,
+} from 'react-native';
 import storage from '../config/StorageConfig.js'; //存储器
 import WeatherStore from './WeatherStore.js';//天气存储数据库
 import pinyin from 'pinyin'; //汉字转英文工具
@@ -33,7 +36,10 @@ class StateStore {
      */
     removeCityByName = (name) => {
         if (this.cityList.length <= 1) {//列表只剩最后一项不删除
-            Alert.alert('提示', '最后一项无法删除!', [{text: '确定', onPress: () => {}}]);
+            Alert.alert('提示', '最后一项无法删除!', [{
+                text: '确定', onPress: () => {
+                }
+            }]);
             return;
         }
 
@@ -56,10 +62,17 @@ class StateStore {
      * 保存本地城市信息
      */
     saveLocalCityData = () => {
-        storage.save({
-            key: 'cities',
-            data: JSON.stringify(this.cityList)
-        })
+        // storage.save({
+        //     key: 'cities',
+        //     data: JSON.stringify(this.cityList)
+        // });
+        AsyncStorage.setItem('cities', JSON.stringify(this.cityList), (error) => {
+            if (error) {
+                Alert.alert('提示', '存储数据失败!');
+            } else {
+                Alert.alert('提示', '数据存储成功');
+            }
+        });
     };
 
     /**
@@ -87,35 +100,46 @@ class StateStore {
      * 加载本地城市信息
      */
     loadLocalCityData = () => {
-        return storage.load({
-            key: 'cities',
-            // autoSync(默认为true)意味着在没有找到数据或数据过期时自动调用相应的sync方法
-            autoSync: true,
-            // syncInBackground(默认为true)意味着如果数据过期，
-            // 在调用sync方法的同时先返回已经过期的数据。
-            // 设置为false的话，则始终强制返回sync方法提供的最新数据(当然会需要更多等待时间)。
-            syncInBackground: true,
-        }).then(ret => {
-            let array = JSON.parse(ret);
-            for (let i = 0; i < array.length; i++) {
-                this.cityList.push(array[i]);
-            }
-            this.cityList = this.removeDuplicatedItem(this.cityList);
-        }).catch(err => {
-            //如果没有找到数据且没有sync方法，
-            //或者有其他异常，则在catch中返回
-            console.warn(err.message);
-            switch (err.name) {
-                case 'NotFoundError':
-                    // alert('读取失败');
-                    // TODO;
-                    break;
-                case 'ExpiredError':
-                    // alert('读取失败');
-                    // TODO
-                    break;
+        return AsyncStorage.getItem('cities', (error, result) => {
+            if (error) {
+                Alert.alert('提示', '数据获取失败!');
+            } else {
+                Alert.alert('提示', '数据库获取成功!');
+                let array = JSON.parse(result);
+                for (let i = 0; i < array.length; i++) {
+                    this.cityList.push(array[i]);
+                }
             }
         }).done();
+        // return storage.load({
+        //     key: 'cities',
+        //     // autoSync(默认为true)意味着在没有找到数据或数据过期时自动调用相应的sync方法
+        //     autoSync: true,
+        //     // syncInBackground(默认为true)意味着如果数据过期，
+        //     // 在调用sync方法的同时先返回已经过期的数据。
+        //     // 设置为false的话，则始终强制返回sync方法提供的最新数据(当然会需要更多等待时间)。
+        //     syncInBackground: true,
+        // }).then(ret => {
+        //     let array = JSON.parse(ret);
+        //     for (let i = 0; i < array.length; i++) {
+        //         this.cityList.push(array[i]);
+        //     }
+        //     this.cityList = this.removeDuplicatedItem(this.cityList);
+        // }).catch(err => {
+        //     //如果没有找到数据且没有sync方法，
+        //     //或者有其他异常，则在catch中返回
+        //     console.warn(err.message);
+        //     switch (err.name) {
+        //         case 'NotFoundError':
+        //             // alert('读取失败');
+        //             // TODO;
+        //             break;
+        //         case 'ExpiredError':
+        //             // alert('读取失败');
+        //             // TODO
+        //             break;
+        //     }
+        // }).done();
     };
 
     /**
