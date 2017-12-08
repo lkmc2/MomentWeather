@@ -7,7 +7,6 @@ import {
     Alert,
     AsyncStorage,
 } from 'react-native';
-import storage from '../config/StorageConfig.js'; //存储器
 import WeatherStore from './WeatherStore.js';//天气存储数据库
 import pinyin from 'pinyin'; //汉字转英文工具
 
@@ -44,7 +43,7 @@ class StateStore {
         }
 
         let index = -1;
-        for (let i = 0; i < this.cityList.length; i++) {
+        for (let i = 0; i < this.cityList.length; i++) { //找到城市列表中同名的下标
             if (this.cityList[i].cityName === name) {
                 index = i;
                 break;
@@ -52,9 +51,8 @@ class StateStore {
         }
         if (index !== -1) {
             this.cityList.splice(index, 1); //在cityList中从index位置删除一个数据
-            stateStore.saveLocalCityData();
-            WeatherStore.currentCityName = this.cityList[0].cityName;
-            WeatherStore.currentCityNameEng = this.getFullCityName(this.cityList[0].cityName);
+            WeatherStore.changeCurrentCityName(this.cityList[0].cityName); //改变当前城市名
+            stateStore.saveLocalCityData(); //存储当前城市列表数据
         }
     };
 
@@ -62,10 +60,6 @@ class StateStore {
      * 保存本地城市信息
      */
     saveLocalCityData = () => {
-        // storage.save({
-        //     key: 'cities',
-        //     data: JSON.stringify(this.cityList)
-        // });
         AsyncStorage.setItem('cities', JSON.stringify(this.cityList), (error) => {
             if (error) {
                 Alert.alert('提示', '存储数据失败!');
@@ -111,53 +105,24 @@ class StateStore {
                 }
             }
         }).done();
-        // return storage.load({
-        //     key: 'cities',
-        //     // autoSync(默认为true)意味着在没有找到数据或数据过期时自动调用相应的sync方法
-        //     autoSync: true,
-        //     // syncInBackground(默认为true)意味着如果数据过期，
-        //     // 在调用sync方法的同时先返回已经过期的数据。
-        //     // 设置为false的话，则始终强制返回sync方法提供的最新数据(当然会需要更多等待时间)。
-        //     syncInBackground: true,
-        // }).then(ret => {
-        //     let array = JSON.parse(ret);
-        //     for (let i = 0; i < array.length; i++) {
-        //         this.cityList.push(array[i]);
-        //     }
-        //     this.cityList = this.removeDuplicatedItem(this.cityList);
-        // }).catch(err => {
-        //     //如果没有找到数据且没有sync方法，
-        //     //或者有其他异常，则在catch中返回
-        //     console.warn(err.message);
-        //     switch (err.name) {
-        //         case 'NotFoundError':
-        //             // alert('读取失败');
-        //             // TODO;
-        //             break;
-        //         case 'ExpiredError':
-        //             // alert('读取失败');
-        //             // TODO
-        //             break;
-        //     }
-        // }).done();
     };
 
-    /**
-     * 移除数据中重复的项目
-     * @param array 数组
-     * @returns 移除重复项目后的数据
-     */
-    removeDuplicatedItem(array) {
-        let ret = [];
-
-        array.forEach(function (value, index, ar) {
-            if (ar.indexOf(value) === index) {
-                ret.push(value);
-            }
-        });
-
-        return ret;
-    }
+    // /**
+    //  * 移除数据中重复的项目
+    //  * @param array 数组
+    //  * @returns 移除重复项目后的数据
+    //  */
+    // removeDuplicatedItem(array) {
+    //     let ret = [];
+    //
+    //     array.forEach((value, index, ar) => {
+    //         if (ar.indexOf(value) === index) {
+    //             ret.push(value);
+    //         }
+    //     });
+    //
+    //     return ret;
+    // }
 
 }
 
