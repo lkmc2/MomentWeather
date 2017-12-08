@@ -3,12 +3,13 @@
  */
 'use strict';
 import { observable, computed, asMap, autorun } from 'mobx';
-import Weather from '../model/WeatherInfo';
 import { ListView, NetInfo } from 'react-native';
-import AqiItem from '../model/AqiItemInfo';
-import SuggestionInfo from '../model/SuggestionInfo'
-import CityItemInfo from '../model/CityItemInfo'
-import StateStore from './StateStore'
+import Weather from '../model/WeatherInfo.js'; //天气信息
+import AqiItem from '../model/AqiItemInfo.js'; //空气质量数据
+import SuggestionInfo from '../model/SuggestionInfo.js'; //今日生活指数
+import CityItemInfo from '../model/CityItemInfo.js'; //城市天气信息子控件
+import StateStore from './StateStore.js'; //天气状态
+import { Geolocation } from 'react-native-baidu-map'; //定位器
 import ApiConfig from '../config/WebConfig'
 // import MscSpeech from 'react-native-msc-speech'
 
@@ -60,19 +61,27 @@ class WeatherStore {
         this.currentCityNameEng = StateStore.getFullCityName(cityName);
     };
 
-    /**
-     * 获取地理位置信息并且通过经纬度获取天气信息
-     */
-    getCurrentPosition = () => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            weatherStore.currentPosition = position;
-            this.requestWeatherByLongitudeAndLatitude(position.coords.longitude + ',' + position.coords.latitude);
-        }, (error) => {
-            alert(JSON.stringify(error));
-        }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 });
-        weatherStore.watchId = navigator.geolocation.watchPosition((position) => {
-            weatherStore.lastPosition = position;
+    //获取位置
+    getLocation = () => {
+        Geolocation.getCurrentPosition().then(
+            (data) => {
+                // Alert.alert('提示', '城市:'+data.city+'\n'+'精度:'+data.longitude+'\n纬度:'+data.latitude+'\n地址:'+data.address);
+                this.requestWeatherByLongitudeAndLatitude(this.getRightPoint(data.longitude),
+                    this.getRightPoint(data.latitude)); //根据经纬度进行天气请求
+            }
+        ).catch(error => {
+            Alert.alert('提示', '定位失败');
+            this.requestWeatherByName(WeatherStore.currentCityName); //根据设置的城市名进行天气请求
         });
+    };
+
+    /**
+     * 获取正确的坐标
+     * @param str 字符串
+     */
+    getRightPoint = (str) => {
+        let point = str.toString();
+        return point.substring(0, point.indexOf('.') + 4);
     };
 
     /**
@@ -119,8 +128,16 @@ class WeatherStore {
     /**
      * 请求所有城市的天气预报
      */
-    requestAllCityWeather = () => {
+    requestAllCityWeather = async () => {
+        const cityList = StateStore.cityDataSource; //获取城市数据列表
 
+        for (let [cityName] of cityList) {
+            await this.requestWeatherByName(cityName);
+        }
+
+        // cityList.map((data) => {
+        //     this.requestWeatherByName(data.cityName);
+        // })
     };
 
     /**

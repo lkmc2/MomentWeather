@@ -16,7 +16,7 @@ import LifeSuggestion from "../components/LifeSuggestion.js"; //生活指数
 import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
 import StateStore from '../stores/StateStore.js'; //状态存储数据库
 import {observer} from 'mobx-react/native';
-import { Geolocation } from 'react-native-baidu-map';
+
 
 @observer
 export default class TodayPage extends Component {
@@ -26,41 +26,19 @@ export default class TodayPage extends Component {
         header: null, //隐藏标题栏
     };
 
-    componentWillMount() {
+    async componentWillMount() {
+        // await StateStore.loadLocalCityData(); //等待加载本地数据
         if (StateStore.isLocaton) { //开启定位
-            this.getLocation(); //进行定位
+            WeatherStore.getLocation(); //进行定位
+        } else { //未开启定位
+            this.refreshWeatherData(); //刷新天气数据
         }
-
-        // WeatherStore.getCurrentPosition();
-        // this._refreshWeatherData();
-        // StateStore.loadLocalCityData();
-
     }
 
-    /**
-     * 获取正确的坐标
-     * @param str 字符串
-     */
-    getRightPoint = (str) => {
-        let point = str.toString();
-        return point.substring(0, point.indexOf('.') + 4);
-    };
-
-    //获取位置
-    getLocation = () => {
-        Geolocation.getCurrentPosition().then(
-            (data) => {
-                // Alert.alert('提示', '城市:'+data.city+'\n'+'精度:'+data.longitude+'\n纬度:'+data.latitude+'\n地址:'+data.address);
-                WeatherStore.requestWeatherByLongitudeAndLatitude(this.getRightPoint(data.longitude),
-                    this.getRightPoint(data.latitude));
-            }
-        ).catch(error => {
-            Alert.alert('提示', '定位失败');
-        });
-    };
-
-    _refreshWeatherData = () => {
-        WeatherStore.requestWeatherByName(WeatherStore.currentCityName);
+    //刷新天气数据
+    refreshWeatherData = () => {
+        WeatherStore.requestWeatherByName(WeatherStore.currentCityName); //根据当前设置的城市名请求数据
+        // WeatherStore.requestAllCityWeather(); //请求所有天气的数据
     };
 
     render() {
@@ -75,7 +53,7 @@ export default class TodayPage extends Component {
                     refreshControl={
                         <RefreshControl
                             refreshing={WeatherStore.loading}
-                            onRefresh={this._refreshWeatherData} />
+                            onRefresh={this.refreshWeatherData} />
                     }>
                     <MaxWeatherView/>
                     <WeeklyList/>

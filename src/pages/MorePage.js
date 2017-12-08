@@ -16,6 +16,7 @@ import {
 import TitleBar from '../components/TitleBar.js'; //标题栏
 import Divider from '../components/Divider.js' //分隔线
 import StateStore from '../stores/StateStore.js'; //天气状态数据库
+import WeatherStore from '../stores/WeatherStore.js';//天气存储数据库
 
 export default class MorePage extends Component {
     static navigationOptions = { //页面标题
@@ -46,6 +47,9 @@ export default class MorePage extends Component {
         this.setState({
             locationAble: !this.state.locationAble
         });
+        if (StateStore.isLocaton) { //定位开启
+            WeatherStore.getLocation(); //进行定位
+        }
     };
 
     //改变语音按钮的状态
