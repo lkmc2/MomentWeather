@@ -19,11 +19,6 @@ class WeatherStore {
     @observable currentCityName = '北京';
     @observable currentCityNameEng = 'Beijing';
     @observable currentCityInfo = null; //当前城市信息
-    @observable currentPosition = 'unknown';
-    @observable lastPosition = 'unknown';
-    @observable watchId = 'unknown';
-    @observable aqiList = [];
-    @observable lifeList = [];
     @observable loading = true;
 
     /**
