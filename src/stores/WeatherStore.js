@@ -3,19 +3,14 @@
  */
 'use strict';
 import { observable, computed, asMap, autorun } from 'mobx';
-import { ListView, NetInfo } from 'react-native';
-import Weather from '../model/WeatherInfo.js'; //天气信息
-import AqiItem from '../model/AqiItemInfo.js'; //空气质量数据
-import SuggestionInfo from '../model/SuggestionInfo.js'; //今日生活指数
+import { NetInfo, Alert } from 'react-native';
 import CityItemInfo from '../model/CityItemInfo.js'; //城市天气信息子控件
 import StateStore from './StateStore.js'; //天气状态
 import { Geolocation } from 'react-native-baidu-map'; //定位器
-import ApiConfig from '../config/WebConfig'
 // import MscSpeech from 'react-native-msc-speech'
 
 class WeatherStore {
 
-    @observable weatherMap = observable.map();
     @observable currentCityName = '北京';
     @observable currentCityNameEng = 'Beijing';
     @observable currentCityInfo = null; //当前城市信息
