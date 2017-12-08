@@ -69,6 +69,11 @@ class WeatherStore {
         this.currentCityName = cityName;
         this.currentCityNameEng = StateStore.getFullCityName(cityName);
 
+        this.checkIfHaveDataInList(cityName); //检查城市名否在数据库中存在
+    };
+
+    //检查城市名否在数据库中存在，存在则替换数据
+    checkIfHaveDataInList = (cityName) => {
         let flag = -1;
         for (let i = 0; i < StateStore.cityList.length; i++) {
             if (StateStore.cityList[i].cityName === cityName) {
@@ -169,9 +174,6 @@ class WeatherStore {
 
         console.log("key="+weatherData.basic.location+",value="+weatherData);
 
-        // this.weatherMap.set(weatherData.basic.location, new Weather(weatherData));
-        // this.convertAqiToList(weatherData);
-        // this.convertSuggestionList(weatherData);
         this.saveCityItem(weatherData);
         let voiceContent = weatherData.basic.location + '现在' + weatherData.cond_txt + ',气温' +
             weatherData.now.tmp + '度';
@@ -221,32 +223,6 @@ class WeatherStore {
         }
         StateStore.saveLocalCityData();
     };
-
-
-    convertAqiToList = (weatherData) => {
-        this.aqiList = [];
-        let aqi = weatherData.aqi.city;
-        this.aqiList.push(new AqiItem('CO', aqi.co, '一氧化碳', 'mg/m³'));
-        this.aqiList.push(new AqiItem('NO2', aqi.no2, '二氧化氮', 'μg/m³'));
-        this.aqiList.push(new AqiItem('O³', aqi.o3, '臭氧', 'μg/m³'));
-        this.aqiList.push(new AqiItem('PM10', aqi.pm10, '可吸入颗粒物', 'μg/m²'));
-        this.aqiList.push(new AqiItem('PM2.5', aqi.pm25, '可入肺颗粒', 'μg/m³'));
-        this.aqiList.push(new AqiItem('PM10', aqi.so2, '二氧化硫', 'μg/m³'));
-    };
-
-    convertSuggestionList = (weatherData) => {
-        this.lifeList = [];
-        let suggestion = weatherData.lifestyle;
-
-        const title = ['舒适指数','洗车指数','穿衣指数','感冒指数','运动指数','旅游指数','紫外线指数','空气污染指数'];
-
-        suggestion.map((item, index) => {
-            this.lifeList.push(new SuggestionInfo(title[index], item.brf, item.txt));
-        });
-    };
-
-
-
 
 }
 
