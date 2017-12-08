@@ -4,7 +4,7 @@
 'use strict';
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, Image, ActivityIndicator} from 'react-native';
-import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
+import WeatherStore from '../../stores/WeatherStore.js'; //天气存储数据库
 import {observer} from 'mobx-react/native';
 
 //生活指数项
@@ -13,11 +13,12 @@ export default class SuggestionItem extends Component {
 
     render() {
         let itemIndex=this.props.index;
+        let weatherData = WeatherStore.getCurrentCityWeather;
 
-        if (WeatherStore.loading) {
+        if (WeatherStore.loading || weatherData === null) {
             return this.renderLoading();
         } else {
-            return this.renderContent(WeatherStore.lifeList[itemIndex]);
+            return this.renderContent(weatherData.lifestyle[itemIndex], itemIndex);
         }
     }
 
@@ -29,10 +30,12 @@ export default class SuggestionItem extends Component {
         )
     };
 
-    renderContent = (item) => {
+    renderContent = (item, index) => {
+        const title = ['舒适指数','洗车指数','穿衣指数','感冒指数','运动指数','旅游指数','紫外线指数','空气污染指数'];
+
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>{item.type}:{item.brf}</Text>
+                <Text style={styles.title}>{title[index]}:{item.brf}</Text>
                 <Text style={[styles.title,styles.textBottom]}>{item.txt}</Text>
                 <View style={styles.divider}/>
             </View>

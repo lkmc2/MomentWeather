@@ -12,7 +12,7 @@ import TitleBar from '../components/TitleBar.js'; //标题栏
 import MaxWeatherView from '../components/MaxWeatherView.js';  //大视野天气展示窗口
 import WeeklyList from '../components/weekly/WeeklyList.js'; //一周天气列表
 import HourlyForecast from "../components/hourly/HourlyForecast.js"; //逐小时天气预报
-import LifeSuggestion from "../components/LifeSuggestion.js"; //生活指数
+import LifeSuggestion from "../components/suggetion/LifeSuggestion.js"; //生活指数
 import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
 import StateStore from '../stores/StateStore.js'; //状态存储数据库
 import {observer} from 'mobx-react/native';

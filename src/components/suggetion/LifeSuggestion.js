@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         color: '#000',
         flex: 1,
         backgroundColor: 'transparent',
-        marginLeft:10,
-        marginBottom:10,
+        marginLeft: 10,
+        marginBottom: 10,
     },
 });

@@ -18,6 +18,7 @@ class WeatherStore {
     @observable weatherMap = observable.map();
     @observable currentCityName = '北京';
     @observable currentCityNameEng = 'Beijing';
+    @observable currentCityInfo = null; //当前城市信息
     @observable currentPosition = 'unknown';
     @observable lastPosition = 'unknown';
     @observable watchId = 'unknown';
@@ -30,7 +31,7 @@ class WeatherStore {
      * @returns 一周天气预报
      */
     @computed get dailyDataSource() {
-        let data = this.getCurrentCityWeather();
+        let data = this.getCurrentCityWeather;
         if (data !== null) {
             return data.daily_forecast;
         } else {
@@ -43,13 +44,21 @@ class WeatherStore {
      * @returns 每3小时的天气信息
      */
     @computed get hourlyDataSource() {
-        let data = this.getCurrentCityWeather();
+        let data = this.getCurrentCityWeather;
         if (data !== null) {
             return data.hourly;
         } else {
             return [];
         }
     }
+
+    /**
+     * 获取当前城市天气数据
+     * @returns 当前城市天气数据
+     */
+    @computed get getCurrentCityWeather(){
+        return this.currentCityInfo;
+    };
 
 
     /**
@@ -59,6 +68,17 @@ class WeatherStore {
     changeCurrentCityName = (cityName) => {
         this.currentCityName = cityName;
         this.currentCityNameEng = StateStore.getFullCityName(cityName);
+
+        let flag = -1;
+        for (let i = 0; i < StateStore.cityList.length; i++) {
+            if (StateStore.cityList[i].cityName === cityName) {
+                flag = i;
+                break;
+            }
+        }
+        if (flag !== -1) {
+            this.currentCityInfo = StateStore.cityList[flag];
+        }
     };
 
     //获取位置
@@ -149,9 +169,9 @@ class WeatherStore {
 
         console.log("key="+weatherData.basic.location+",value="+weatherData);
 
-        this.weatherMap.set(weatherData.basic.location, new Weather(weatherData));
+        // this.weatherMap.set(weatherData.basic.location, new Weather(weatherData));
         // this.convertAqiToList(weatherData);
-        this.convertSuggestionList(weatherData);
+        // this.convertSuggestionList(weatherData);
         this.saveCityItem(weatherData);
         let voiceContent = weatherData.basic.location + '现在' + weatherData.cond_txt + ',气温' +
             weatherData.now.tmp + '度';
@@ -192,8 +212,8 @@ class WeatherStore {
                 break;
             }
         }
-        let weatherItem = new CityItemInfo(weatherData.basic.location,
-            weatherData.now, weatherData.daily_forecast);
+        let weatherItem = new CityItemInfo(weatherData);
+        this.currentCityInfo = weatherItem;
         if (flag !== -1) {
             StateStore.cityList[flag] = weatherItem;
         } else {
@@ -225,41 +245,7 @@ class WeatherStore {
         });
     };
 
-    /**
-     * 通过名字获取天气预报信息
-     * @param name
-     * @returns {null}
-     */
-    getWeatherDataByName = (name) => {
-        if (!this.weatherMap.has(name)) {
-            return null;
-        } else {
-            return this.weatherMap.get(name);
-        }
-    };
 
-
-    // /**
-    //  * 改变当前城市名
-    //  * @param name
-    //  */
-    // changeCurrentCityName = (name) => {
-    //     this.currentCityName = name;
-    //     if (this.getCurrentCityWeather() !== null) {
-    //         this.convertSuggestionList(this.getCurrentCityWeather());
-    //         // this.convertAqiToList(this.getCurrentCityWeather());
-    //     } else {
-    //         this.requestWeatherByName(name);
-    //     }
-    // };
-
-    /**
-     * 获取当前城市天气数据
-     * @returns 当前城市天气数据
-     */
-    getCurrentCityWeather = () => {
-        return this.getWeatherDataByName(this.currentCityName);
-    };
 
 
 }

@@ -18,7 +18,7 @@ import DateUtil from '../util/DateUtil.js'; //日期工具类
 export default class MaxWeatherView extends Component {
 
     render() {
-        let weatherData = WeatherStore.getCurrentCityWeather();
+        let weatherData = WeatherStore.getCurrentCityWeather;
         if (weatherData === null) {
             return this._renderLoading();
         } else {
