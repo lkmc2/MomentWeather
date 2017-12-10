@@ -8,6 +8,7 @@ import CityItemInfo from '../model/CityItemInfo.js'; //城市天气信息子控�
 import StateStore from './StateStore.js'; //天气状态
 import { Geolocation } from 'react-native-baidu-map'; //定位器
 import WebConfig from '../config/WebConfig.js'; //网络配置
+import TodayPage from '../pages/TodayPage.js'; //今天页面
 // import MscSpeech from 'react-native-msc-speech'
 
 class WeatherStore {
@@ -73,7 +74,7 @@ class WeatherStore {
             }
         }
         if (flag !== -1) {
-            this.currentCityInfo = StateStore.cityList[flag];
+            StateStore.saveCurrentCityInfo(StateStore.cityList[flag]); //保存当前城市信息
         }
     };
 
@@ -81,9 +82,8 @@ class WeatherStore {
     getLocation = () => {
         Geolocation.getCurrentPosition().then(
             (data) => {
-                // Alert.alert('提示', '城市:'+data.city+'\n'+'精度:'+data.longitude+'\n纬度:'+data.latitude+'\n地址:'+data.address);
-                this.requestWeatherByLongitudeAndLatitude(this.getRightPoint(data.longitude),
-                    this.getRightPoint(data.latitude)); //根据经纬度进行天气请求
+                this.requestWeatherByLongitudeAndLatitude(this.getPoint(data.longitude),
+                    this.getPoint(data.latitude)); //根据经纬度进行天气请求
             }
         ).catch(error => {
             Alert.alert('提示', '定位失败');
@@ -95,7 +95,7 @@ class WeatherStore {
      * 获取正确的坐标
      * @param str 字符串
      */
-    getRightPoint = (str) => {
+    getPoint = (str) => {
         let point = str.toString();
         return point.substring(0, point.indexOf('.') + 4);
     };
@@ -205,7 +205,7 @@ class WeatherStore {
             }
         }
         let weatherItem = new CityItemInfo(weatherData);
-        this.currentCityInfo = weatherItem;
+        StateStore.saveCurrentCityInfo(weatherItem); //保存当前城市信息
         if (flag !== -1) {
             StateStore.cityList[flag] = weatherItem;
         } else {

@@ -27,13 +27,11 @@ export default class TodayPage extends Component {
     };
 
     async componentWillMount() {
+        await StateStore.loadCurrentCityInfo(); //加载当前城市信息
         await StateStore.loadSettingData(); //加载设置信息
         await StateStore.loadLocalCityData(); //等待加载本地数据
-        if (StateStore.isLocation) { //开启定位
-            WeatherStore.getLocation(); //进行定位
-        } else { //未开启定位
-            this.refreshWeatherData(); //刷新天气数据
-        }
+
+        this.refreshWeatherData(); //刷新天气数据
     }
 
     //刷新天气数据
@@ -42,8 +40,18 @@ export default class TodayPage extends Component {
         // WeatherStore.requestAllCityWeather(); //请求所有天气的数据
     };
 
+    //检查定位状态
+    checkLocation = () => {
+        if(StateStore.isLoadingEnd && StateStore.isLocation && StateStore.isFirstLoad) { //开启了定位
+            WeatherStore.getLocation(); //启动定位
+            StateStore.cancelIsFirstLoad(); //标记取消第一次加载
+        }
+    };
+
     render() {
         const {navigate} = this.props.navigation; //获取导航工具
+
+        this.checkLocation(); //检查定位状态
 
         return (
             <View style={styles.container}>

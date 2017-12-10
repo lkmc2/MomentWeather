@@ -15,6 +15,8 @@ class StateStore {
     @observable cityList = []; //城市列表
     @observable locate = true; //是否定位
     @observable speak = true; //是否开启语音
+    @observable isLoadingEnd = false; //状态加载完成
+    @observable isFirstLoad = true; //第一次加载数据
 
     /**
      * 获取城市数据
@@ -25,7 +27,7 @@ class StateStore {
     }
 
     //获取是否定位
-    @computed get isLocation() {
+    @computed  get isLocation() {
         return this.locate;
     }
 
@@ -34,6 +36,11 @@ class StateStore {
         return this.speak;
     }
 
+
+    //设置标记取消第一次加载
+    cancelIsFirstLoad = () => {
+          this.isFirstLoad = false;
+    };
 
     /**
      * 根据名字移除城市
@@ -60,19 +67,6 @@ class StateStore {
             WeatherStore.changeCurrentCityName(this.cityList[0].cityName); //改变当前城市名
             stateStore.saveLocalCityData(); //存储当前城市列表数据
         }
-    };
-
-    /**
-     * 保存本地城市信息
-     */
-    saveLocalCityData = () => {
-        AsyncStorage.setItem('cities', JSON.stringify(this.cityList), (error) => {
-            if (error) {
-                Alert.alert('提示', '存储数据失败!');
-            } else {
-                Alert.alert('提示', '数据存储成功');
-            }
-        });
     };
 
     /**
@@ -130,6 +124,53 @@ class StateStore {
     };
 
     /**
+     * 保存所有本地城市信息
+     */
+    saveLocalCityData = () => {
+        AsyncStorage.setItem('cities', JSON.stringify(this.cityList), (error) => {
+            if (error) {
+                Alert.alert('提示', '存储数据失败!');
+            } else {
+                Alert.alert('提示', '数据存储成功');
+            }
+        });
+    };
+
+    /**
+     * 保存当前城市信息
+     */
+    saveCurrentCityInfo = (info) => {
+        WeatherStore.currentCityInfo = info; //设置当前城市信息
+
+        AsyncStorage.setItem('currentCity', JSON.stringify(info), (error) => { //保存当前城市信息
+            if (error) {
+                Alert.alert('提示', '存储当前城市数据失败!');
+            } else {
+                Alert.alert('提示', '存储当前城市数据成功');
+            }
+        });
+    };
+
+    /**
+     * 加载当前城市信息
+     */
+    loadCurrentCityInfo = () => {
+        return AsyncStorage.getItem('currentCity', (error, result) => {
+            if (error) {
+                Alert.alert('提示', '当前城市数据获取失败!');
+            } else {
+                Alert.alert('提示', '当前城市数据获取成功!');
+                const  data = JSON.parse(result); //解析数据
+
+                if (data !== undefined && data !== null) { //数据非空
+                    WeatherStore.currentCityInfo = data; //设置当前城市数据
+                    WeatherStore.currentCityName = data.cityName; //设置当前城市名称
+                }
+            }
+        }).done();
+    };
+
+    /**
      * 保存设置信息
      * @param isLocate 是否定位
      * @param isSpeak 是否开启语音
@@ -147,33 +188,19 @@ class StateStore {
     //加载设置信息
     loadSettingData = () => {
         AsyncStorage.multiGet(['isLocate', 'isSpeak'], (err, stores) => {
-            stores.map((result, index) => {
-                const state = result[1] === "true";
-                if (index === 0) {
-                    this.locate = state;
-                } else {
-                    this.speak = state;
-                }
-            });
-        });
+            if(!err) {
+                stores.map((result, index) => {
+                    const state = result[1] === "true";
+                    if (index === 0) {
+                        this.locate = state;
+                    } else {
+                        this.speak = state;
+                    }
+                });
+                this.isLoadingEnd = true;
+            }
+        }).done();
     };
-
-    // /**
-    //  * 移除数据中重复的项目
-    //  * @param array 数组
-    //  * @returns 移除重复项目后的数据
-    //  */
-    // removeDuplicatedItem(array) {
-    //     let ret = [];
-    //
-    //     array.forEach((value, index, ar) => {
-    //         if (ar.indexOf(value) === index) {
-    //             ret.push(value);
-    //         }
-    //     });
-    //
-    //     return ret;
-    // }
 
 }
 
