@@ -27,7 +27,7 @@ export default class MorePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            locationAble: StateStore.isLocaton,
+            locationAble: StateStore.isLocation,
             voiceAble: true
         }
     }
@@ -47,7 +47,7 @@ export default class MorePage extends Component {
         this.setState({
             locationAble: !this.state.locationAble
         });
-        if (StateStore.isLocaton) { //定位开启
+        if (StateStore.isLocation) { //定位开启
             WeatherStore.getLocation(); //进行定位
         }
     };

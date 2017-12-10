@@ -24,7 +24,7 @@ class StateStore {
         return this.cityList.slice(0);
     }
 
-    @computed get isLocaton() {
+    @computed get isLocation() {
         return this.locate;
     }
 
