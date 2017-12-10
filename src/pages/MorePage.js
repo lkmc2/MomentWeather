@@ -17,7 +17,10 @@ import TitleBar from '../components/custom/TitleBar.js'; //标题栏
 import Divider from '../components/custom/Divider.js' //分隔线
 import StateStore from '../stores/StateStore.js'; //天气状态数据库
 import WeatherStore from '../stores/WeatherStore.js';//天气存储数据库
+import {observer} from 'mobx-react/native'
 
+//更多页面（设置界面）
+@observer
 export default class MorePage extends Component {
     static navigationOptions = { //页面标题
         title: '更多', //标题栏文字
@@ -43,10 +46,7 @@ export default class MorePage extends Component {
 
     //改变定位按钮的状态
     changeLocationSwitchState = () => {
-        StateStore.locate = !this.state.locationAble;
-        this.setState({
-            locationAble: !this.state.locationAble
-        });
+        StateStore.changeLocateState(); //转换定位状态
         if (StateStore.isLocation) { //定位开启
             WeatherStore.getLocation(); //进行定位
         }
@@ -54,9 +54,7 @@ export default class MorePage extends Component {
 
     //改变语音按钮的状态
     changeVoiceSwitchState = () => {
-        this.setState({
-            voiceAble: !this.state.voiceAble
-        })
+        StateStore.changeSpeakState(); //转换语音播报状态
     };
 
     render() {
@@ -68,7 +66,7 @@ export default class MorePage extends Component {
                         <View style={[styles.itemContainer, {marginTop: 20}]}>
                             <Text style={styles.title}>自动定位</Text>
                             <Switch style={styles.itemRight}
-                                    value={this.state.locationAble}
+                                    value={StateStore.isLocation}
                                     onValueChange={this.changeLocationSwitchState}/>
                         </View>
                         <Divider dividerHeight={1}/>
@@ -76,7 +74,7 @@ export default class MorePage extends Component {
                             <Text style={styles.title}>自动语音播报</Text>
                             <Switch
                                 style={styles.itemRight}
-                                value={this.state.voiceAble}
+                                value={StateStore.isSpeak}
                                 onValueChange={this.changeVoiceSwitchState}/>
                         </View>
                         <Divider dividerHeight={1}/>

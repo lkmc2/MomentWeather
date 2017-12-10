@@ -17,8 +17,10 @@ export default class SuggestionItem extends Component {
 
         if (WeatherStore.loading || weatherData === null) {
             return this.renderLoading();
-        } else {
+        } else if(weatherData.lifestyle !== null && weatherData.lifestyle !== undefined) {
             return this.renderContent(weatherData.lifestyle[itemIndex], itemIndex);
+        } else {
+            return null;
         }
     }
 

@@ -14,6 +14,7 @@ class StateStore {
 
     @observable cityList = []; //城市列表
     @observable locate = true; //是否定位
+    @observable speak = true; //是否开启语音
 
     /**
      * 获取城市数据
@@ -23,8 +24,14 @@ class StateStore {
         return this.cityList.slice(0);
     }
 
+    //获取是否定位
     @computed get isLocation() {
         return this.locate;
+    }
+
+    //获取是否开启语音
+    @computed get isSpeak() {
+        return this.speak;
     }
 
 
@@ -88,6 +95,19 @@ class StateStore {
         return fullCityName;
     };
 
+    //转换定位状态
+    changeLocateState = () => {
+        const state = !this.locate;
+        this.locate = state;
+        this.saveSettingData(state, this.speak);
+    };
+
+    //转换语音状态
+    changeSpeakState = () => {
+        const state = !this.speak;
+        this.speak = state;
+        this.saveSettingData(state, this.speak);
+    };
 
     /**
      * 加载本地城市信息
@@ -99,6 +119,9 @@ class StateStore {
             } else {
                 Alert.alert('提示', '数据库获取成功!');
                 let array = JSON.parse(result);
+
+                if (array === null || array === undefined) return;
+
                 for (let i = 0; i < array.length; i++) {
                     this.cityList.push(array[i]);
                 }
@@ -106,8 +129,33 @@ class StateStore {
         }).done();
     };
 
-    saveSettingData = () => {
+    /**
+     * 保存设置信息
+     * @param isLocate 是否定位
+     * @param isSpeak 是否开启语音
+     */
+    saveSettingData = (isLocate, isSpeak) => {
+        AsyncStorage.multiSet([["isLocate",isLocate.toString()], ["isSpeak", isSpeak.toString()]], (error) => {
+           if (error) {
+               Alert.alert('提示', '设置保存失败!');
+           } else {
+               Alert.alert('提示', '设置保存成功!');
+           }
+        });
+    };
 
+    //加载设置信息
+    loadSettingData = () => {
+        AsyncStorage.multiGet(['isLocate', 'isSpeak'], (err, stores) => {
+            stores.map((result, index) => {
+                const state = result[1] === "true";
+                if (index === 0) {
+                    this.locate = state;
+                } else {
+                    this.speak = state;
+                }
+            });
+        });
     };
 
     // /**

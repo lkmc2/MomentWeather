@@ -27,6 +27,7 @@ export default class TodayPage extends Component {
     };
 
     async componentWillMount() {
+        await StateStore.loadSettingData(); //加载设置信息
         await StateStore.loadLocalCityData(); //等待加载本地数据
         if (StateStore.isLocation) { //开启定位
             WeatherStore.getLocation(); //进行定位

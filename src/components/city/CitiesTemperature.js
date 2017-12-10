@@ -10,6 +10,7 @@ import {
     Image,
     FlatList,
     ScrollView,
+    Alert,
     TouchableHighlight,
 } from 'react-native';
 import WeeklyTemperature from '../weekly/WeeklyTemperature.js'; //每周天气控件
@@ -86,8 +87,12 @@ export default class CitiesTemperature extends Component {
      * @param weatherData 天气信息
      */
     renderTitle = (weatherData) => {
-        if (weatherData !== null && weatherData.length > 0) {
-            return weatherData[0].daily_forecast.map(item =>
+        if (weatherData === null || weatherData === undefined || weatherData.length <= 0) return;
+
+        const data = weatherData[0].daily_forecast;
+
+        if (data !== null && data !== undefined) {
+            return data.map(item =>
                 <WeeklyDate date={item.date} key={item.date}/>
             );
         }
