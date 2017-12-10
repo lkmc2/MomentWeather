@@ -10,9 +10,9 @@ import {
     Image,
 } from 'react-native';
 import {observer} from 'mobx-react/native'
-import WeatherStore from '../stores/WeatherStore.js'; //引入天气存储数据库
-import IconUtil from '../util/IconUtil.js'; //图标工具类
-import DateUtil from '../util/DateUtil.js'; //日期工具类
+import WeatherStore from '../../stores/WeatherStore.js'; //引入天气存储数据库
+import IconUtil from '../../util/IconUtil.js'; //图标工具类
+import DateUtil from '../../util/DateUtil.js'; //日期工具类
 
 @observer
 export default class MaxWeatherView extends Component {
@@ -29,7 +29,7 @@ export default class MaxWeatherView extends Component {
     _renderLoading = () => {
         return (
             <View style={styles.container}>
-                <Image source={require('../images/weather/unknown.png')} style={styles.weatherIcon}/>
+                <Image source={require('../../images/weather/unknown.png')} style={styles.weatherIcon}/>
                 <Text style={styles.updateTime}>Loading</Text>
                 <Text style={styles.temperature}>Loading</Text>
                 <Text style={styles.weatherDescription}>Loading</Text>

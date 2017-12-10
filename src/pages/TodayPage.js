@@ -8,8 +8,8 @@ import {
     Alert
 } from 'react-native';
 
-import TitleBar from '../components/TitleBar.js'; //标题栏
-import MaxWeatherView from '../components/MaxWeatherView.js';  //大视野天气展示窗口
+import TitleBar from '../components/custom/TitleBar.js'; //标题栏
+import MaxWeatherView from '../components/today/MaxWeatherView.js';  //大视野天气展示窗口
 import WeeklyList from '../components/weekly/WeeklyList.js'; //一周天气列表
 import HourlyForecast from "../components/hourly/HourlyForecast.js"; //逐小时天气预报
 import LifeSuggestion from "../components/suggetion/LifeSuggestion.js"; //生活指数

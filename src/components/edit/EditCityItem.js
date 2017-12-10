@@ -12,7 +12,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import IconUtil from '../../util/IconUtil.js'; //图标工具
-import Divider from "../Divider"; //图标工具
+import Divider from "../custom/Divider"; //图标工具
 import StateStore from '../../stores/StateStore.js'; //天气状态数据库
 const deviceWidth = Dimensions.get('window').width; //屏幕宽
 

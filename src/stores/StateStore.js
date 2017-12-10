@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import WeatherStore from './WeatherStore.js';//天气存储数据库
 import pinyin from 'pinyin'; //汉字转英文工具
-
+import DefaultWeather from '../util/DefaultWeather.js'; //默认天气数据
 
 class StateStore {
 
@@ -105,6 +105,10 @@ class StateStore {
                 }
             }
         }).done();
+    };
+
+    saveSettingData = () => {
+
     };
 
     // /**

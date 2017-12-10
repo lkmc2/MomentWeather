@@ -9,7 +9,7 @@ import {
     View
 } from 'react-native';
 
-import TitleBar from '../components/TitleBar.js'; //标题栏
+import TitleBar from '../components/custom/TitleBar.js'; //标题栏
 import CitiesTemperature from "../components/city/CitiesTemperature";
 
 export default class MyPage extends Component {
