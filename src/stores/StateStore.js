@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import WeatherStore from './WeatherStore.js';//天气存储数据库
 import pinyin from 'pinyin'; //汉字转英文工具
-import DefaultWeather from '../util/DefaultWeather.js'; //默认天气数据
 
 class StateStore {
 
@@ -82,9 +81,9 @@ class StateStore {
 
         if (array !== undefined && array.length > 0) {
             let word = array[0].toString();
-            array[0] = word[0].toUpperCase() + word.slice(1);
+            array[0] = word[0].toUpperCase() + word.slice(1); //将城市英文名第一个字母变成大写
 
-            fullCityName = array.join("");
+            fullCityName = array.join(""); //拼接城市名
         }
         return fullCityName;
     };

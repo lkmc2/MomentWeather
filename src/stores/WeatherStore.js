@@ -7,6 +7,7 @@ import { NetInfo, Alert } from 'react-native';
 import CityItemInfo from '../model/CityItemInfo.js'; //城市天气信息子控件
 import StateStore from './StateStore.js'; //天气状态
 import { Geolocation } from 'react-native-baidu-map'; //定位器
+import WebConfig from '../config/WebConfig.js'; //网络配置
 // import MscSpeech from 'react-native-msc-speech'
 
 class WeatherStore {
@@ -106,8 +107,7 @@ class WeatherStore {
      */
     requestWeatherByLongitudeAndLatitude = (longitude, latitude) => {
         this.loading = true;
-        return fetch("https://free-api.heweather.com/s6/weather?key=3ad94afdc775428fb9da709e66d62581&location="
-            + longitude + ',' + latitude)
+        return fetch(WebConfig.weatherApi + longitude + ',' + latitude) //请求天气数据
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -127,7 +127,7 @@ class WeatherStore {
      */
     requestWeatherByName = (cityName) => {
         this.loading = true;
-        return fetch("https://free-api.heweather.com/s6/weather?key=3ad94afdc775428fb9da709e66d62581&location=" + cityName)
+        return fetch(WebConfig.weatherApi + cityName)  //请求天气数据
             .then((response) => {
                 if (response.ok) {
                     return response.json();

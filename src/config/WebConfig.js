@@ -1,6 +1,4 @@
-
 export default {
-    weatherApi:'https://free-api.heweather.com/v5/weather?key=19713447578c4afe8c12a351d46ea922',
-    iconApi:'https://cdn.heweather.com/cond_icon/',
-    backgroundWallpaper:'https://bing.ioliu.cn/v1?w=720&h=1280',
+    //天气数据请求网址
+    weatherApi:'https://free-api.heweather.com/s6/weather?key=3ad94afdc775428fb9da709e66d62581&location=',
 }
