@@ -7,6 +7,7 @@ import {View} from 'react-native'
 import {observer} from 'mobx-react/native'
 import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
 import CitySelect from '../components/city/CitySelect.js'; //城市选择器
+import InputTool from "../components/custom/InputTool"; //输入框工具
 
 //城市选择界面
 @observer
@@ -31,6 +32,7 @@ export default class CitySelected extends Component {
     render() {
         return (
             <View style={{flex: 1}}>
+                <InputTool/>
                 <CitySelect
                     header={false}
                     selectCity={this.handleCitySelect}

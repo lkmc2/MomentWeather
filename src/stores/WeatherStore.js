@@ -104,7 +104,7 @@ class WeatherStore {
      * @param latitude 纬度
      */
     requestWeatherByLongitudeAndLatitude = (longitude, latitude) => {
-        this.loading = true;
+        this.loading = true; //启动加载
         return fetch(WebConfig.weatherApi + longitude + ',' + latitude) //请求天气数据
             .then((response) => {
                 if (response.ok) {
@@ -114,7 +114,7 @@ class WeatherStore {
             .then((jsonData) => {
                 this.changeCurrentCityName(jsonData.HeWeather6[0].basic.location); //改变当前城市名
                 this.saveWeatherData(jsonData); //保存天气数据
-                this.loading = false;
+                this.loading = false; //加载完成
             })
             .done();
     };
@@ -124,7 +124,7 @@ class WeatherStore {
      * @param cityName 城市名
      */
     requestWeatherByName = (cityName) => {
-        this.loading = true;
+        this.loading = true; //启动加载
         return fetch(WebConfig.weatherApi + cityName)  //请求天气数据
             .then((response) => {
                 if (response.ok) {
@@ -132,8 +132,16 @@ class WeatherStore {
                 }
             })
             .then((jsonData) => {
-                this.saveWeatherData(jsonData);
-                this.loading = false;
+                if (jsonData.HeWeather6[0].status === 'unknown city') { //当前城市名未知
+                    Alert.alert('提示', '城市名未知，请重新输入', [{
+                        text: '确定', onPress: () => {
+                        }
+                    }]);
+                } else {
+                    this.changeCurrentCityName(cityName); //改变当前城市名
+                    this.saveWeatherData(jsonData); //保存天气数据
+                }
+                this.loading = false; //加载完成
             })
             .done();
     };
