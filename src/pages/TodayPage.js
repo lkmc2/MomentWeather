@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import {
     StyleSheet,
-    Text,
     View,
     ScrollView,
     RefreshControl,
-    Alert,
     NetInfo,
 } from 'react-native';
 

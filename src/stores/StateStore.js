@@ -14,7 +14,6 @@ class StateStore {
 
     @observable cityList = []; //城市列表
     @observable locate = true; //是否定位
-    @observable speak = true; //是否开启语音
     @observable isLoadingEnd = false; //状态加载完成
     @observable isFirstLoad = true; //第一次加载数据
 
@@ -30,12 +29,6 @@ class StateStore {
     @computed  get isLocation() {
         return this.locate;
     }
-
-    //获取是否开启语音
-    @computed get isSpeak() {
-        return this.speak;
-    }
-
 
     //设置标记取消第一次加载
     cancelIsFirstLoad = () => {

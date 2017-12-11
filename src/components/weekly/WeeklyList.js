@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
-    Text,
-    View,
-    Image,
     FlatList,
 } from 'react-native';
 
@@ -41,10 +37,3 @@ export default class WeeklyList extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#ffad26',
-        alignItems: 'center',
-    },
-});

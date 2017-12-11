@@ -3,7 +3,7 @@
  */
 'use strict';
 import React, {Component,} from 'react';
-import {View, StatusBar,} from 'react-native'
+import {View} from 'react-native'
 import {observer} from 'mobx-react/native'
 import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
 import CitySelect from '../components/city/CitySelect.js'; //城市选择器

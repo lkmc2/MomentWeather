@@ -3,18 +3,16 @@
  */
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
     Text,
     View,
     Image,
-    FlatList,
 } from 'react-native';
 
 //逐小时天气子项
 export default class HourlyItem extends Component {
     render() {
-        const {time, txt, temp, icon, rainrate} = this.props; //获取星期几、日期
+        const {time, txt, temp, icon} = this.props; //获取星期几、日期
 
         return (
             <View style={styles.container}>

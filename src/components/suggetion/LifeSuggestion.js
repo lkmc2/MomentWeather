@@ -3,7 +3,7 @@
  */
 'use strict';
 import React, {Component} from 'react'
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import SuggestionItem from './SuggestionItem';
 import {observer} from 'mobx-react/native';
 

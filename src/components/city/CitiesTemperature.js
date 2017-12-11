@@ -3,15 +3,12 @@
  */
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
-    Text,
     View,
-    Image,
     FlatList,
     ScrollView,
-    Alert,
     TouchableHighlight,
+    RefreshControl,
 } from 'react-native';
 import WeeklyTemperature from '../weekly/WeeklyTemperature.js'; //每周天气控件
 import WeeklyDate from "../weekly/WeeklyDate.js"; //每周日期控件

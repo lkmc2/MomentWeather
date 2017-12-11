@@ -3,7 +3,7 @@
  */
 'use strict';
 import { observable, computed, asMap, autorun } from 'mobx';
-import { NetInfo, Alert } from 'react-native';
+import { Alert } from 'react-native';
 import CityItemInfo from '../model/CityItemInfo.js'; //城市天气信息子控件
 import StateStore from './StateStore.js'; //天气状态
 import { Geolocation } from 'react-native-baidu-map'; //定位器
@@ -83,7 +83,7 @@ class WeatherStore {
                 this.requestWeatherByLongitudeAndLatitude(this.getPoint(data.longitude),
                     this.getPoint(data.latitude)); //根据经纬度进行天气请求
             }
-        ).catch(error => {
+        ).catch((error) => {
             Alert.alert('提示', '定位失败');
             this.requestWeatherByName(WeatherStore.currentCityName); //根据设置的城市名进行天气请求
         });
@@ -158,13 +158,10 @@ class WeatherStore {
      * @param jsonData 天气数据
      */
     saveWeatherData = (jsonData) => {
-        let weatherData = jsonData.HeWeather6[0];
+        let weatherData = jsonData.HeWeather6[0]; //取出天气信息
+        this.saveCityItem(weatherData); //保存天气子项
 
-        console.log("key="+weatherData.basic.location+",value="+weatherData);
-
-        this.saveCityItem(weatherData);
-        let voiceContent = weatherData.basic.location + '现在' + weatherData.cond_txt + ',气温' +
-            weatherData.now.tmp + '度';
+        console.log("key=" + weatherData.basic.location+",value=" + weatherData);
     };
 
     /**
@@ -188,7 +185,6 @@ class WeatherStore {
         }
         StateStore.saveLocalCityData();
     };
-
 }
 
 const weatherStore = new WeatherStore();

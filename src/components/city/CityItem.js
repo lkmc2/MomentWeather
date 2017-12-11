@@ -3,12 +3,10 @@
  */
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
     Text,
     View,
     Image,
-    FlatList,
     TouchableHighlight
 } from 'react-native';
 import IconUtil from '../../util/IconUtil.js'; //图标工具类

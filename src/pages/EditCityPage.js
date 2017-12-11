@@ -3,9 +3,7 @@
  */
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
-    Text,
     View
 } from 'react-native';
 import EditCityList from "../components/edit/EditCityList.js"; //编辑城市列表

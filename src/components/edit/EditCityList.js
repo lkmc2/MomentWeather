@@ -3,11 +3,7 @@
  */
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
-    Text,
-    View,
-    Image,
     FlatList,
 } from 'react-native';
 import {observer} from 'mobx-react/native';
@@ -44,12 +40,3 @@ export default class EditCityList extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#ffb4a2',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flex: 1,
-    },
-});

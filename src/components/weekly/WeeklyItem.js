@@ -3,12 +3,8 @@
  */
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
-    Text,
     View,
-    Image,
-    FlatList,
 } from 'react-native';
 
 import WeeklyDate from "./WeeklyDate";

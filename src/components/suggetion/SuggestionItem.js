@@ -3,7 +3,7 @@
  */
 'use strict';
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Image, ActivityIndicator} from 'react-native';
+import {StyleSheet, View, Text, ActivityIndicator} from 'react-native';
 import WeatherStore from '../../stores/WeatherStore.js'; //天气存储数据库
 import {observer} from 'mobx-react/native';
 
