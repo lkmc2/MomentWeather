@@ -91,16 +91,9 @@ class StateStore {
 
     //转换定位状态
     changeLocateState = () => {
-        const state = !this.locate;
-        this.locate = state;
-        this.saveSettingData(state, this.speak);
-    };
-
-    //转换语音状态
-    changeSpeakState = () => {
-        const state = !this.speak;
-        this.speak = state;
-        this.saveSettingData(state, this.speak);
+        const state = !this.locate; //获取定位状态
+        this.locate = state; //设置是否定位
+        this.saveSettingData(state); //保存设置数据
     };
 
     /**
@@ -173,10 +166,9 @@ class StateStore {
     /**
      * 保存设置信息
      * @param isLocate 是否定位
-     * @param isSpeak 是否开启语音
      */
-    saveSettingData = (isLocate, isSpeak) => {
-        AsyncStorage.multiSet([["isLocate",isLocate.toString()], ["isSpeak", isSpeak.toString()]], (error) => {
+    saveSettingData = (isLocate) => {
+        AsyncStorage.multiSet([["isLocate",isLocate.toString()]], (error) => {
            if (error) {
                Alert.alert('提示', '设置保存失败!');
            } else {
@@ -187,17 +179,10 @@ class StateStore {
 
     //加载设置信息
     loadSettingData = () => {
-        AsyncStorage.multiGet(['isLocate', 'isSpeak'], (err, stores) => {
-            if(!err) {
-                stores.map((result, index) => {
-                    const state = result[1] === "true";
-                    if (index === 0) {
-                        this.locate = state;
-                    } else {
-                        this.speak = state;
-                    }
-                });
-                this.isLoadingEnd = true;
+        AsyncStorage.multiGet(['isLocate'], (error, stores) => {
+            if(!error) {
+                this.locate = stores[0] === "true"; //获取定位状态
+                this.isLoadingEnd = true; //设置加载结束
             }
         }).done();
     };

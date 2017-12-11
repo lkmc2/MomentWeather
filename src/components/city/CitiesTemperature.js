@@ -98,6 +98,12 @@ export default class CitiesTemperature extends Component {
         }
     };
 
+    //刷新天气数据
+    refreshWeatherData = () => {
+        WeatherStore.requestWeatherByName(WeatherStore.currentCityName); //根据当前设置的城市名请求数据
+        WeatherStore.requestAllCityWeather(); //请求所有天气的数据
+    };
+
     render() {
         const {navigate} = this.props; //获取导航器
         const weatherData = StateStore.cityDataSource; //获取城市数据
@@ -109,7 +115,12 @@ export default class CitiesTemperature extends Component {
                     <DateItem/>
                     {this.renderTitle(weatherData)}
                 </View>
-                <ScrollView>
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={WeatherStore.loading}
+                            onRefresh={this.refreshWeatherData} />
+                    }>
                     <View style={styles.rowView}>
                         <CityList navigate={navigate} style={styles.cityList}/>
                         <View style={styles.wrapperView}>

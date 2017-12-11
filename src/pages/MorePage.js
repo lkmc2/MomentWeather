@@ -30,8 +30,7 @@ export default class MorePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            locationAble: StateStore.isLocation,
-            voiceAble: true
+            locationAble: StateStore.isLocation, //是否开启定位
         }
     }
 
@@ -52,11 +51,6 @@ export default class MorePage extends Component {
         }
     };
 
-    //改变语音按钮的状态
-    changeVoiceSwitchState = () => {
-        StateStore.changeSpeakState(); //转换语音播报状态
-    };
-
     render() {
         return (
             <View style={styles.container}>
@@ -70,14 +64,6 @@ export default class MorePage extends Component {
                                     onValueChange={this.changeLocationSwitchState}/>
                         </View>
                         <Divider dividerHeight={1}/>
-                        <View style={styles.itemContainer}>
-                            <Text style={styles.title}>自动语音播报</Text>
-                            <Switch
-                                style={styles.itemRight}
-                                value={StateStore.isSpeak}
-                                onValueChange={this.changeVoiceSwitchState}/>
-                        </View>
-                        <Divider dividerHeight={1}/>
                         <TouchableOpacity onPress={this.showClearDialog}>
                             <View style={styles.itemContainer}>
                                 <Text style={styles.title}>清除缓存</Text>
@@ -85,10 +71,12 @@ export default class MorePage extends Component {
                             </View>
                         </TouchableOpacity>
 
+                        <View style={[{marginTop: 40}]}>
+                            <Text style={styles.title}>关于软件</Text>
+                        </View>
                         <Divider dividerHeight={1}/>
-                        <View style={[styles.itemContainer, {marginTop: 40}]}>
-                            <Text style={styles.title}>关于我们</Text>
-                            <Image source={require('../images/icon/ic_arrow_right.png')} style={styles.arrow}/>
+                        <View style={[styles.itemContainer]}>
+                            <Text style={styles.title}>应用名称：烟云天气</Text>
                         </View>
                         <Divider dividerHeight={1}/>
                         <View style={styles.itemContainer}>
@@ -110,7 +98,6 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         fontSize: 15
     },
-
     itemContainer: {
         flexDirection: 'row',
         height: 40,

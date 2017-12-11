@@ -8,8 +8,6 @@ import CityItemInfo from '../model/CityItemInfo.js'; //城市天气信息子控�
 import StateStore from './StateStore.js'; //天气状态
 import { Geolocation } from 'react-native-baidu-map'; //定位器
 import WebConfig from '../config/WebConfig.js'; //网络配置
-import TodayPage from '../pages/TodayPage.js'; //今天页面
-// import MscSpeech from 'react-native-msc-speech'
 
 class WeatherStore {
 
@@ -167,30 +165,7 @@ class WeatherStore {
         this.saveCityItem(weatherData);
         let voiceContent = weatherData.basic.location + '现在' + weatherData.cond_txt + ',气温' +
             weatherData.now.tmp + '度';
-        // this.speakWeather(voiceContent);
     };
-
-    /**
-     * 进行语音输出
-     * android端采用讯飞云语音合成，ios端采用自带的tts合成
-     * @param content 语音输出内容
-     */
-    // speakWeather = (content) => {
-    //     if (!__ANDROID__) {
-    //         MscSpeech.speak(true, content, () => {
-    //             console.log('ios输出!')
-    //         });
-    //     } else {
-    //         NetInfo.isConnected.fetch().done((isConnected) => {
-    //             if (isConnected)
-    //                 MscSpeech.speak(false, content, () => {
-    //                     console.log('android输出')
-    //                 });
-    //             else
-    //                 alert('Android需要连接网络才能语音播报!')
-    //         });
-    //     }
-    // };
 
     /**
      * 存储天气数据
