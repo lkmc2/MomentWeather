@@ -94,16 +94,13 @@ class StateStore {
      */
     loadLocalCityData = () => {
         return AsyncStorage.getItem('cities', (error, result) => {
-            if (error) {
-                Alert.alert('提示', '数据获取失败!');
-            } else {
-                Alert.alert('提示', '数据库获取成功!');
-                let array = JSON.parse(result);
+            if (!error) { //获取信息正确
+                let array = JSON.parse(result); //解析成数组
 
-                if (array === null || array === undefined) return;
+                if (array === null || array === undefined) return; //数组非空
 
                 for (let i = 0; i < array.length; i++) {
-                    this.cityList.push(array[i]);
+                    this.cityList.push(array[i]); //将数据填充到城市列表
                 }
             }
         }).done();
@@ -113,13 +110,7 @@ class StateStore {
      * 保存所有本地城市信息
      */
     saveLocalCityData = () => {
-        AsyncStorage.setItem('cities', JSON.stringify(this.cityList), (error) => {
-            if (error) {
-                Alert.alert('提示', '存储数据失败!');
-            } else {
-                Alert.alert('提示', '数据存储成功');
-            }
-        });
+        AsyncStorage.setItem('cities', JSON.stringify(this.cityList)); //保存城市列表到数据库
     };
 
     /**
@@ -127,14 +118,7 @@ class StateStore {
      */
     saveCurrentCityInfo = (info) => {
         WeatherStore.currentCityInfo = info; //设置当前城市信息
-
-        AsyncStorage.setItem('currentCity', JSON.stringify(info), (error) => { //保存当前城市信息
-            if (error) {
-                Alert.alert('提示', '存储当前城市数据失败!');
-            } else {
-                Alert.alert('提示', '存储当前城市数据成功');
-            }
-        });
+        AsyncStorage.setItem('currentCity', JSON.stringify(info)); //保存当前城市信息
     };
 
     /**
@@ -142,15 +126,12 @@ class StateStore {
      */
     loadCurrentCityInfo = () => {
         return AsyncStorage.getItem('currentCity', (error, result) => {
-            if (error) {
-                Alert.alert('提示', '当前城市数据获取失败!');
-            } else {
-                Alert.alert('提示', '当前城市数据获取成功!');
+            if (!error) { //获取信息正确
                 const  data = JSON.parse(result); //解析数据
 
                 if (data !== undefined && data !== null) { //数据非空
                     WeatherStore.currentCityInfo = data; //设置当前城市数据
-                    WeatherStore.currentCityName = data.cityName; //设置当前城市名称
+                    WeatherStore.changeCurrentCityName(data.cityName); //设置当前城市名称
                 }
             }
         }).done();
@@ -161,18 +142,12 @@ class StateStore {
      * @param isLocate 是否定位
      */
     saveSettingData = (isLocate) => {
-        AsyncStorage.multiSet([["isLocate",isLocate.toString()]], (error) => {
-           if (error) {
-               Alert.alert('提示', '设置保存失败!');
-           } else {
-               Alert.alert('提示', '设置保存成功!');
-           }
-        });
+        AsyncStorage.multiSet([["isLocate",isLocate.toString()]]); //设置定位信息
     };
 
     //加载设置信息
     loadSettingData = () => {
-        AsyncStorage.multiGet(['isLocate'], (error, stores) => {
+        AsyncStorage.multiGet(['isLocate'], (error, stores) => { //加载定位信息
             if(!error) {
                 this.locate = stores[0] === "true"; //获取定位状态
                 this.isLoadingEnd = true; //设置加载结束

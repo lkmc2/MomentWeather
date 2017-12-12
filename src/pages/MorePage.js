@@ -71,12 +71,11 @@ export default class MorePage extends Component {
                             </View>
                         </TouchableOpacity>
 
-                        <View style={[{marginTop: 40}]}>
-                            <Text style={styles.title}>关于软件</Text>
-                        </View>
+                        <Text style={[styles.title,styles.hintText]}>关于软件</Text>
                         <Divider dividerHeight={1}/>
                         <View style={[styles.itemContainer]}>
-                            <Text style={styles.title}>应用名称：烟云天气</Text>
+                            <Text style={styles.title}>应用名称</Text>
+                            <Text style={[styles.title, {marginRight: 20}]}>烟云天气</Text>
                         </View>
                         <Divider dividerHeight={1}/>
                         <View style={styles.itemContainer}>
@@ -113,4 +112,9 @@ const styles = StyleSheet.create({
         height: 20,
         marginRight: 20,
     },
+    hintText: {
+        textAlign: 'left',
+        marginTop: 30,
+        marginBottom: 5,
+    }
 });

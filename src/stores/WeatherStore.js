@@ -85,7 +85,7 @@ class WeatherStore {
             }
         ).catch((error) => {
             Alert.alert('提示', '定位失败');
-            this.requestWeatherByName(WeatherStore.currentCityName); //根据设置的城市名进行天气请求
+            this.requestWeatherByName(WeatherStore.currentCityName, true); //根据设置的城市名进行天气请求
         });
     };
 
@@ -122,8 +122,9 @@ class WeatherStore {
     /**
      * 根据城市名获取天气
      * @param cityName 城市名
+     * @param isCurrent 是否当前城市名
      */
-    requestWeatherByName = (cityName) => {
+    requestWeatherByName = (cityName, isCurrent) => {
         this.loading = true; //启动加载
         return fetch(WebConfig.weatherApi + cityName)  //请求天气数据
             .then((response) => {
@@ -138,8 +139,10 @@ class WeatherStore {
                         }
                     }]);
                 } else {
-                    this.changeCurrentCityName(cityName); //改变当前城市名
-                    this.saveWeatherData(jsonData); //保存天气数据
+                    if (isCurrent) { //是否当前城市名
+                        this.changeCurrentCityName(cityName); //改变当前城市名
+                    }
+                    this.saveWeatherData(jsonData, isCurrent); //保存天气数据
                 }
                 this.loading = false; //加载完成
             })
@@ -149,25 +152,22 @@ class WeatherStore {
     /**
      * 请求所有城市的天气预报
      */
-    requestAllCityWeather = async () => {
+    requestAllCityWeather = () => {
         const cityList = StateStore.cityDataSource; //获取城市数据列表
 
-        for (let [cityName] of cityList) {
-            await this.requestWeatherByName(cityName);
+        for (let i = 0; i < cityList.length; i++) {
+            this.requestWeatherByName(cityList[i].cityName, false);
         }
-
-        // cityList.map((data) => {
-        //     this.requestWeatherByName(data.cityName);
-        // })
     };
 
     /**
      * 存储天气信息
      * @param jsonData 天气数据
+     * @param isCurrent 是否改变当前城市名
      */
-    saveWeatherData = (jsonData) => {
+    saveWeatherData = (jsonData, isCurrent) => {
         let weatherData = jsonData.HeWeather6[0]; //取出天气信息
-        this.saveCityItem(weatherData); //保存天气子项
+        this.saveCityItem(weatherData, isCurrent); //保存天气子项
 
         console.log("key=" + weatherData.basic.location+",value=" + weatherData);
     };
@@ -175,8 +175,9 @@ class WeatherStore {
     /**
      * 存储天气数据
      * @param  weatherData  单项天气数据
+     * @param isCurrent 是否改变当前城市名
      */
-    saveCityItem = (weatherData) => {
+    saveCityItem = (weatherData, isCurrent) => {
         let flag = -1;
         for (let i = 0; i < StateStore.cityList.length; i++) {
             if (StateStore.cityList[i].cityName === weatherData.basic.location) {
@@ -184,14 +185,17 @@ class WeatherStore {
                 break;
             }
         }
-        let weatherItem = new CityItemInfo(weatherData);
-        StateStore.saveCurrentCityInfo(weatherItem); //保存当前城市信息
-        if (flag !== -1) {
-            StateStore.cityList[flag] = weatherItem;
-        } else {
-            StateStore.cityList.push(weatherItem);
+        let weatherItem = new CityItemInfo(weatherData); //生成城市项信息
+        if (isCurrent) { //要改变当前城市名
+            StateStore.saveCurrentCityInfo(weatherItem); //保存当前城市信息
         }
-        StateStore.saveLocalCityData();
+
+        if (flag !== -1) {
+            StateStore.cityList[flag] = weatherItem; //替换列表中的城市
+        } else {
+            StateStore.cityList.push(weatherItem); //将城市插入列表中
+        }
+        StateStore.saveLocalCityData(); //保存本地城市数据
     };
 }
 

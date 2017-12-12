@@ -5,6 +5,7 @@ import {
     ScrollView,
     RefreshControl,
     NetInfo,
+    Alert,
 } from 'react-native';
 
 import TitleBar from '../components/custom/TitleBar.js'; //标题栏
@@ -28,12 +29,13 @@ export default class TodayPage extends Component {
     async componentWillMount() {
         await StateStore.loadCurrentCityInfo(); //加载当前城市信息
         await StateStore.loadSettingData(); //加载设置信息
+        await StateStore.loadLocalCityData(); //等待加载本地数据
 
         NetInfo.isConnected.fetch().done((isConnected) => { //获取当前网络状态
             if (isConnected) { //网络已连接
                 this.refreshWeatherData(); //刷新天气数据
             } else { //网络未连接
-                StateStore.loadLocalCityData(); //等待加载本地数据
+                Alert.alert('提示', '网络未连接!', [{text: '确定', onPress: () => {}}]);
             }
         });
 
@@ -41,7 +43,7 @@ export default class TodayPage extends Component {
 
     //刷新天气数据
     refreshWeatherData = () => {
-        WeatherStore.requestWeatherByName(WeatherStore.currentCityName); //根据当前设置的城市名请求数据
+        WeatherStore.requestWeatherByName(WeatherStore.currentCityName, true); //根据当前设置的城市名请求数据
         WeatherStore.requestAllCityWeather(); //请求所有天气的数据
     };
 

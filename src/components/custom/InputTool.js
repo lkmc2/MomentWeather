@@ -24,7 +24,7 @@ export default class InputTool extends Component {
     searchForCityName = () => {
         const cityName = this.state.text; //获取输入框中的文字
         if (cityName !== '') { //城市名非空
-            WeatherState.requestWeatherByName(cityName); //根据城市名请求天气预报
+            WeatherState.requestWeatherByName(cityName, true); //根据城市名请求天气预报
         }
     };
 

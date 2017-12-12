@@ -23,8 +23,7 @@ export default class CitySelected extends Component {
      * @param cityObj 城市对象
      */
     handleCitySelect = (cityObj) => {
-        WeatherStore.changeCurrentCityName(cityObj.cityName); //改变当前城市名
-        WeatherStore.requestWeatherByName(cityObj.cityName); //用城市名请求天气数据
+        WeatherStore.requestWeatherByName(cityObj.cityName, true); //用城市名请求天气数据
         let navigation = this.props.navigation; //获取导航工具
         navigation.goBack(); //返回上一页
     };

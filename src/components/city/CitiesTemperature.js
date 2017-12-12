@@ -97,7 +97,7 @@ export default class CitiesTemperature extends Component {
 
     //刷新天气数据
     refreshWeatherData = () => {
-        WeatherStore.requestWeatherByName(WeatherStore.currentCityName); //根据当前设置的城市名请求数据
+        WeatherStore.requestWeatherByName(WeatherStore.currentCityName, true); //根据当前设置的城市名请求数据
         WeatherStore.requestAllCityWeather(); //请求所有天气的数据
     };
 
