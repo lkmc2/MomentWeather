@@ -10,9 +10,11 @@ import {
 } from 'react-native';
 import IconUtil from '../../util/IconUtil.js'; //图片工具类
 
+//每周天气组件
 export default class WeeklyTemperature extends Component {
 
     render() {
+        //天气代码、最高温度、最低温度
         const {weatherCode, maxTemp, minTemp} = this.props;
 
         return (

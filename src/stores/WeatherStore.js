@@ -3,12 +3,13 @@
  */
 'use strict';
 import { observable, computed, asMap, autorun } from 'mobx';
-import { Alert } from 'react-native';
+import { Alert, NetInfo } from 'react-native';
 import CityItemInfo from '../model/CityItemInfo.js'; //城市天气信息子控件
 import StateStore from './StateStore.js'; //天气状态
 import { Geolocation } from 'react-native-baidu-map'; //定位器
 import WebConfig from '../config/WebConfig.js'; //网络配置
 
+//天气存储数据库
 class WeatherStore {
 
     @observable currentCityName = '北京';
@@ -78,14 +79,20 @@ class WeatherStore {
 
     //获取位置
     getLocation = () => {
-        Geolocation.getCurrentPosition().then(
-            (data) => {
-                this.requestWeatherByLongitudeAndLatitude(this.getPoint(data.longitude),
-                    this.getPoint(data.latitude)); //根据经纬度进行天气请求
+        NetInfo.isConnected.fetch().done((isConnected) => { //获取当前网络状态
+            if (isConnected) { //网络已连接
+                Geolocation.getCurrentPosition().then(
+                    (data) => {
+                        this.requestWeatherByLongitudeAndLatitude(this.getPoint(data.longitude),
+                            this.getPoint(data.latitude)); //根据经纬度进行天气请求
+                    }
+                ).catch((error) => {
+                    Alert.alert('提示', '定位失败');
+                    this.requestWeatherByName(WeatherStore.currentCityName, true); //根据设置的城市名进行天气请求
+                });
+            } else { //网络未连接
+                Alert.alert('提示', '网络未连接!', [{text: '确定', onPress: () => {}}]);
             }
-        ).catch((error) => {
-            Alert.alert('提示', '定位失败');
-            this.requestWeatherByName(WeatherStore.currentCityName, true); //根据设置的城市名进行天气请求
         });
     };
 
@@ -113,7 +120,7 @@ class WeatherStore {
             })
             .then((jsonData) => {
                 this.changeCurrentCityName(jsonData.HeWeather6[0].basic.location); //改变当前城市名
-                this.saveWeatherData(jsonData); //保存天气数据
+                this.saveWeatherData(jsonData, true); //保存天气数据
                 this.loading = false; //加载完成
             })
             .done();

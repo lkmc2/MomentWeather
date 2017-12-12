@@ -20,7 +20,7 @@ const sectionItemHeight = (deviceHeight - 56 - 40 - statusHeight - sectionTopBot
 const touchDownBGColor = '#999999';
 const touchUpBGColor = 'transparent';
 
-
+//城市选择控件
 export default class CitySelect extends Component {
     constructor(props) {
         super(props);

@@ -11,12 +11,13 @@ import {
 } from 'react-native';
 import DateUtil from '../../util/DateUtil.js'; //日期工具类
 
+//每周天气的日期子项
 export default class WeeklyDate extends Component {
     render() {
         const {date} = this.props; //获取日期
 
-        const day = DateUtil.getTimeInDate(date);
-        const date1 = DateUtil.getWeekdayByDate(date);
+        const day = DateUtil.getTimeInDate(date); //获取日期
+        const date1 = DateUtil.getWeekdayByDate(date); //星期几
 
         return (
             <View style={styles.container}>

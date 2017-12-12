@@ -103,7 +103,7 @@ loadMaxWeatherIcon = (weatherCode) => {
         case "901":
             icon = require('../images/weather/warning.png');
             break;
-        default:
+        default: //未知
             icon = require('../images/weather/unknown.png');
             break;
     }

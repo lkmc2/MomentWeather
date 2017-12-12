@@ -10,12 +10,13 @@ import {
 import WeatherStore from './WeatherStore.js';//天气存储数据库
 import pinyin from 'pinyin'; //汉字转英文工具
 
+//天气状态数据库
 class StateStore {
 
     @observable cityList = []; //城市列表
     @observable locate = true; //是否定位
     @observable isLoadingEnd = false; //状态加载完成
-    @observable isFirstLoad = true; //第一次加载数据
+    @observable isFirstLocation = true; //第一次定位
 
     /**
      * 获取城市数据
@@ -30,9 +31,9 @@ class StateStore {
         return this.locate;
     }
 
-    //设置标记取消第一次加载
-    cancelIsFirstLoad = () => {
-          this.isFirstLoad = false;
+    //设置标记取消第一次定位
+    cancelIsFirstLocate = () => {
+          this.isFirstLocation = false;
     };
 
     /**
@@ -148,8 +149,8 @@ class StateStore {
     //加载设置信息
     loadSettingData = () => {
         AsyncStorage.multiGet(['isLocate'], (error, stores) => { //加载定位信息
-            if(!error) {
-                this.locate = stores[0] === "true"; //获取定位状态
+            if(!error) { //加载正确
+                this.locate = stores[0][1] === null || stores[0][1] === "true"; //获取定位状态
                 this.isLoadingEnd = true; //设置加载结束
             }
         }).done();

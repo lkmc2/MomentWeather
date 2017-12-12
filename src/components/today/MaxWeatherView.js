@@ -17,18 +17,18 @@ import DateUtil from '../../util/DateUtil.js'; //日期工具类
 export default class MaxWeatherView extends Component {
 
     render() {
-        let weatherData = WeatherStore.getCurrentCityWeather;
-        if (weatherData === null) {
-            return this._renderLoading();
+        let weatherData = WeatherStore.getCurrentCityWeather; //获取城市天气数据
+        if (weatherData === null) { //数据为空
+            return this.renderLoading(); //显示加载图标
         } else {
-            return this._renderHeader(weatherData);
+            return this.renderHeader(weatherData); //加载界面
         }
     }
 
-    _renderLoading = () => {
+    renderLoading = () => {
         return (
             <View style={styles.container}>
-                <Image source={require('../../images/weather/unknown.png')} style={styles.weatherIcon}/>
+                <Image source={require('../../images/weather/rain.png')} style={styles.weatherIcon}/>
                 <Text style={styles.updateTime}>Loading</Text>
                 <Text style={styles.temperature}>Loading</Text>
                 <Text style={styles.weatherDescription}>Loading</Text>
@@ -37,10 +37,10 @@ export default class MaxWeatherView extends Component {
         )
     };
 
-    _renderHeader = (weatherData) => {
+    renderHeader = (weatherData) => {
         const {
-            now:{cond_code, cond_txt, tmp, hum},
-            update:{ loc },
+            now:{cond_code, cond_txt, tmp, hum}, //天气代码，天气描述，温度，空气质量
+            update:{ loc }, //更新时间
         } = weatherData;
 
 

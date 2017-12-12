@@ -35,6 +35,7 @@ export default class EditCityList extends Component {
                             cityName={item.cityName}
                             tmp={item.now.tmp}
                             weatherCode={item.now.cond_code}
+                            time={item.update.loc}
                         />
                 }
             />

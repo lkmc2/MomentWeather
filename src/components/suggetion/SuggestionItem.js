@@ -15,22 +15,12 @@ export default class SuggestionItem extends Component {
         let itemIndex=this.props.index;
         let weatherData = WeatherStore.getCurrentCityWeather;
 
-        if (WeatherStore.loading || weatherData === null) {
-            return this.renderLoading();
-        } else if(weatherData.lifestyle !== null && weatherData.lifestyle !== undefined) {
+        if (weatherData !== null && weatherData.lifestyle !== null && weatherData.lifestyle !== undefined) { //天气非空
             return this.renderContent(weatherData.lifestyle[itemIndex], itemIndex);
         } else {
             return null;
         }
     }
-
-    renderLoading = () => {
-        return (
-            <View style={styles.container}>
-                <ActivityIndicator/>
-            </View>
-        )
-    };
 
     renderContent = (item, index) => {
         const title = ['舒适指数','洗车指数','穿衣指数','感冒指数','运动指数','旅游指数','紫外线指数','空气污染指数'];

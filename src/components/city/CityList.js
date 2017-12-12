@@ -26,6 +26,7 @@ export default class CityList extends Component {
                     cityName={item.cityName}
                     air={item.now.hum}
                     key={item.cityName}
+                    time={item.update.loc}
                     navigate={navigate}
                     weatherCode={item.now.cond_code}
                     temperature={item.now.tmp}

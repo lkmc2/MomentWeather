@@ -13,6 +13,7 @@ import {
 import WeatherStore from '../../stores/WeatherStore.js'; //天气存储数据库
 import {observer} from 'mobx-react/native'
 
+//标题栏
 @observer
 export default class TitleBar extends Component {
 
@@ -36,9 +37,9 @@ export default class TitleBar extends Component {
                 title: cityName,
                 subtitle: cityEngName,
                 leftIcon: require('../../images/icon/ic_my.png'), //标题栏左图标
-                rightIcon: require('../../images/icon/ic_share.png'), //标题栏右图标
+                // rightIcon: require('../../images/icon/ic_share.png'), //标题栏右图标
                 onPressLeft: () => navigate('MyPage', {}), //点击左边按钮事件
-                onPressRight: () => navigate('MyPage', {}), //点击右按钮事件
+                // onPressRight: () => navigate('MyPage', {}), //点击右按钮事件
             }
         } else if (index === 2) { //我的页面
             return {

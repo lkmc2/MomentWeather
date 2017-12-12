@@ -10,6 +10,7 @@ import {
 import TitleBar from '../components/custom/TitleBar.js'; //标题栏
 import CitiesTemperature from "../components/city/CitiesTemperature";
 
+//我的页面
 export default class MyPage extends Component {
     static navigationOptions = { //页面标题
         title: '我的', //标题栏文字

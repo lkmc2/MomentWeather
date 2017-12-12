@@ -7,6 +7,7 @@ import {StyleSheet, View, Text} from 'react-native';
 import SuggestionItem from './SuggestionItem';
 import {observer} from 'mobx-react/native';
 
+//今日生活指数
 @observer
 export default class LifeSuggestion extends Component {
 

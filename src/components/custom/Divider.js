@@ -5,10 +5,11 @@
 import React, {Component} from 'react'
 import {StyleSheet, View} from 'react-native';
 
+//分隔线
 export default class Divider extends Component {
 
     render() {
-        let dividerHeight = this.props.dividerHeight;
+        let dividerHeight = this.props.dividerHeight; //分隔线高度
         if (dividerHeight === null)
             dividerHeight=1;
         return (

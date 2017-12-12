@@ -14,19 +14,19 @@ const MyTab = TabNavigator({ //利用导航底栏生成界面
     MyPage: {screen: MyPage}, //我的界面
     MorePage: {screen: MorePage}, //更多界面
 }, {
-    tabBarPosition: 'bottom',
-    animationEnabled: true,
+    tabBarPosition: 'bottom', //标题栏的位置
+    animationEnabled: true, //是否开启动画
     tabBarOptions: {
-        activeTintColor: '#000',
-        inactiveTintColor: '#a0a0a0',
+        activeTintColor: '#000', //标签激活颜色
+        inactiveTintColor: '#a0a0a0', //未激活标签颜色
         labelStyle: {
-            fontSize: 16,
+            fontSize: 16, //字体大小
         },
         style: {
-            backgroundColor: '#fff',
+            backgroundColor: '#fff', //标题栏背景颜色
         },
         indicatorStyle: {
-            backgroundColor: '#ffd700',
+            backgroundColor: '#ffd700', //下标条背景色
         },
     },
 });

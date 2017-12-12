@@ -10,7 +10,6 @@ import {
     TextInput,
     Alert,
 } from 'react-native';
-import WeatherState from '../../stores/WeatherStore.js'; //天气存储数据库
 
 //输入框工具
 export default class InputTool extends Component {
@@ -40,7 +39,6 @@ export default class InputTool extends Component {
                     style={styles.input}
                     placeholder="搜索城市名"
                     underlineColorAndroid='transparent'
-                    returnKeyLabel="确定"
                     onSubmitEditing={() => this.searchForCityName()}
                     onChangeText={(text) => this.setState({text})}/>
             </View>
@@ -51,17 +49,16 @@ export default class InputTool extends Component {
 const styles = StyleSheet.create({
     container: {
         height: 40,
-        flexDirection: 'row',
         backgroundColor: '#f4f4f4',
-        alignItems: 'center',
     },
     input: {
-        height: 34,
+        height: 36,
         flex: 1,
         marginLeft: 10,
         marginRight: 10,
         backgroundColor: '#fff',
-        fontSize: 16,
+        marginTop: 2,
+        fontSize: 14,
         textAlign: 'center',
     },
     button: {

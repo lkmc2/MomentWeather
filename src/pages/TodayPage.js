@@ -17,7 +17,7 @@ import WeatherStore from '../stores/WeatherStore.js'; //天气存储数据库
 import StateStore from '../stores/StateStore.js'; //状态存储数据库
 import {observer} from 'mobx-react/native';
 
-
+//今天页面
 @observer
 export default class TodayPage extends Component {
 
@@ -29,29 +29,31 @@ export default class TodayPage extends Component {
     async componentWillMount() {
         await StateStore.loadCurrentCityInfo(); //加载当前城市信息
         await StateStore.loadSettingData(); //加载设置信息
-        await StateStore.loadLocalCityData(); //等待加载本地数据
+        if (!StateStore.isLoadingEnd) { //如果是第一次加载
+            await StateStore.loadLocalCityData(); //等待加载本地数据
+        }
 
+        this.refreshWeatherData(); //刷新天气数据
+    }
+
+
+    //刷新天气数据
+    refreshWeatherData = () => {
         NetInfo.isConnected.fetch().done((isConnected) => { //获取当前网络状态
             if (isConnected) { //网络已连接
-                this.refreshWeatherData(); //刷新天气数据
+                WeatherStore.requestWeatherByName(WeatherStore.currentCityName, true); //根据当前设置的城市名请求数据
+                WeatherStore.requestAllCityWeather(); //请求所有天气的数据
             } else { //网络未连接
                 Alert.alert('提示', '网络未连接!', [{text: '确定', onPress: () => {}}]);
             }
         });
-
-    }
-
-    //刷新天气数据
-    refreshWeatherData = () => {
-        WeatherStore.requestWeatherByName(WeatherStore.currentCityName, true); //根据当前设置的城市名请求数据
-        WeatherStore.requestAllCityWeather(); //请求所有天气的数据
     };
 
     //检查定位状态
     checkLocation = () => {
-        if(StateStore.isLoadingEnd && StateStore.isLocation && StateStore.isFirstLoad) { //开启了定位
+        if(StateStore.isLoadingEnd && StateStore.isLocation && StateStore.isFirstLocation) { //开启了定位
             WeatherStore.getLocation(); //启动定位
-            StateStore.cancelIsFirstLoad(); //标记取消第一次加载
+            StateStore.cancelIsFirstLocate(); //标记取消第一次定位
         }
     };
 
@@ -84,6 +86,6 @@ export default class TodayPage extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#f8f6f7',
     },
 });

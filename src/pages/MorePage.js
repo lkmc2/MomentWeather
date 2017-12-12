@@ -51,7 +51,6 @@ export default class MorePage extends Component {
         }
     };
 
-    //rgb(239,238,244)
     render() {
         return (
             <View style={styles.container}>
