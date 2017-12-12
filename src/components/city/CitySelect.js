@@ -16,7 +16,7 @@ const deviceHeight = Dimensions.get('window').height;
 const statusHeight = 20;
 const sectionWidth = 20;
 const sectionTopBottomHeight = 50;
-const sectionItemHeight = (deviceHeight - 56 - statusHeight - sectionTopBottomHeight * 2) / CITYDATA.length;
+const sectionItemHeight = (deviceHeight - 56 - 40 - statusHeight - sectionTopBottomHeight * 2) / CITYDATA.length;
 const touchDownBGColor = '#999999';
 const touchUpBGColor = 'transparent';
 
@@ -123,10 +123,10 @@ export default class CitySelect extends Component {
         const touch = event.nativeEvent.touches[0];
 
         // 手指滑动范围 从 A-Q  范围从50 到 50 + sectionItemHeight * cities.length
-        if (touch.pageY - statusHeight - 56 >= sectionTopBottomHeight && touch.pageY <= statusHeight + 56 + sectionTopBottomHeight + sectionItemHeight * CITYDATA.length) {
+        if (touch.pageY - statusHeight - 40 - 56 >= sectionTopBottomHeight && touch.pageY <= statusHeight + 40 + 56 + sectionTopBottomHeight + sectionItemHeight * CITYDATA.length) {
 
             //touch.pageY 从顶部开始，包括导航条 iOS 如此，如果是android 则具体判断
-            const index = (touch.pageY - statusHeight - 56 - sectionTopBottomHeight) / sectionItemHeight;
+            const index = (touch.pageY - statusHeight - 40 - 56 - sectionTopBottomHeight) / sectionItemHeight;
 
             console.log(parseInt(index));
 

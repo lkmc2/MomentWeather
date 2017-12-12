@@ -8,7 +8,7 @@ import {
     StyleSheet,
     View,
     TextInput,
-    Button,
+    Alert,
 } from 'react-native';
 import WeatherState from '../../stores/WeatherStore.js'; //天气存储数据库
 
@@ -24,7 +24,12 @@ export default class InputTool extends Component {
     searchForCityName = () => {
         const cityName = this.state.text; //获取输入框中的文字
         if (cityName !== '') { //城市名非空
-            WeatherState.requestWeatherByName(cityName, true); //根据城市名请求天气预报
+            this.props.selectCity(cityName);
+        } else { //城市名为空
+            Alert.alert('提示', '城市名不能为空!', [{
+                text: '确定', onPress: () => {
+                }
+            }]);
         }
     };
 
@@ -34,11 +39,10 @@ export default class InputTool extends Component {
                 <TextInput
                     style={styles.input}
                     placeholder="搜索城市名"
+                    underlineColorAndroid='transparent'
+                    returnKeyLabel="确定"
+                    onSubmitEditing={() => this.searchForCityName()}
                     onChangeText={(text) => this.setState({text})}/>
-                <Button
-                    style={styles.button}
-                    title="确认"
-                    onPress={() => this.searchForCityName()}/>
             </View>
         )
     }
@@ -46,16 +50,22 @@ export default class InputTool extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height: 40,
         flexDirection: 'row',
-        backgroundColor: 'rgba(100,100,100,0.1)'
+        backgroundColor: '#f4f4f4',
+        alignItems: 'center',
     },
     input: {
-        height: 40,
-        flex: 5,
+        height: 34,
+        flex: 1,
+        marginLeft: 10,
+        marginRight: 10,
+        backgroundColor: '#fff',
+        fontSize: 16,
+        textAlign: 'center',
     },
     button: {
-        height: 40,
-        flex: 2,
+        height: 30,
+        marginRight: 10,
     }
 });
