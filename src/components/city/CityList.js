@@ -49,7 +49,6 @@ export default class CityList extends Component {
 const styles = StyleSheet.create({
     container: {
         width: 60,
-        backgroundColor: '#ffb4a2',
         justifyContent: 'center',
         alignItems: 'center',
     },

@@ -51,12 +51,13 @@ export default class MorePage extends Component {
         }
     };
 
+    //rgb(239,238,244)
     render() {
         return (
             <View style={styles.container}>
                 <TitleBar index={3}/>
                 <ScrollView>
-                    <View style={{flex: 1, backgroundColor: 'rgb(239,238,244)'}}>
+                    <View style={styles.container}>
                         <View style={[styles.itemContainer, {marginTop: 20}]}>
                             <Text style={styles.title}>自动定位</Text>
                             <Switch style={styles.itemRight}
@@ -92,6 +93,10 @@ export default class MorePage extends Component {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#e9e8ee'
+    },
     title: {
         textAlign: 'center',
         marginLeft: 20,

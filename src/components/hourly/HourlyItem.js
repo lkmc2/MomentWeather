@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     container: { //主容器
         height: 40,
         flexDirection: 'row',
-        backgroundColor: '#dfc752',
+        backgroundColor: '#f5f3f4',
         alignItems: 'center',
     },
     subView: { //子界面

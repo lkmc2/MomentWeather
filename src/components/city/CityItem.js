@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import IconUtil from '../../util/IconUtil.js'; //图标工具类
 import WeatherStore from '../../stores/WeatherStore.js'; //天气存储数据库
-import StateStore from '../../stores/StateStore.js'; //天气状态数据库
 
+//城市子项
 export default class CityItem extends Component {
 
     /**
@@ -21,8 +21,7 @@ export default class CityItem extends Component {
      * @param navigate 导航器
      */
     chooseCityWeather = (cityName, navigate) => {
-        WeatherStore.currentCityName = cityName;
-        WeatherStore.currentCityNameEng = StateStore.getFullCityName(cityName);
+        WeatherStore.changeCurrentCityName(cityName); //改变当前城市名
         navigate('TodayPage', {}); //跳转到今天页面
     };
 
@@ -53,9 +52,10 @@ const styles = StyleSheet.create({
     container: {
         width: 60,
         height: 90,
-        backgroundColor: '#ffb4a2',
+        backgroundColor: '#fbfbfb',
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 1,
     },
     city: {
         fontSize: 16,

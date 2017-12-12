@@ -53,6 +53,7 @@ export default class CitiesTemperature extends Component {
                     key={data.cityName}
                     activeOpacity={0.7}
                     underlayColor='green'
+                    style={{marginTop: 1}}
                     onPress={() => this.chooseCityWeather(data, navigate)}>
                     <FlatList
                         data={data.daily_forecast}
@@ -132,7 +133,8 @@ export default class CitiesTemperature extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#ffad26',
+        backgroundColor: '#efeef4',
+        paddingTop: 1,
     },
     rowView: {
         flexDirection: 'row',
@@ -141,7 +143,6 @@ const styles = StyleSheet.create({
         flex: 3,
     },
     wrapperView: {
-        backgroundColor: '#666',
         flex: 1,
     },
     scrollView: {

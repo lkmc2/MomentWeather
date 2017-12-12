@@ -60,7 +60,7 @@ export default class MaxWeatherView extends Component {
 const styles = StyleSheet.create({
     container: {
         height: 370,
-        backgroundColor: '#ff9e7e',
+        backgroundColor: '#f8f6f7',
         alignItems: 'center',
     },
     weatherIcon: { //天气图标

@@ -26,6 +26,7 @@ export default class EditCityList extends Component {
 
         return (
             <FlatList
+                style={{marginTop: 1}}
                 data={weatherData}
                 keyExtractor={this.createKeyExtractor}
                 renderItem={

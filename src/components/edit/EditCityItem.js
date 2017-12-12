@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     subContainer: {
         height: 60,
         flexDirection: 'row',
-        backgroundColor: '#ffb82d',
+        backgroundColor: '#fbfbfb',
         alignItems: 'center',
     },
     subView: { //子界面

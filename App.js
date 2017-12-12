@@ -17,16 +17,16 @@ const MyTab = TabNavigator({ //利用导航底栏生成界面
     tabBarPosition: 'bottom',
     animationEnabled: true,
     tabBarOptions: {
-        activeTintColor: '#0390EB',
-        inactiveTintColor: '#fff',
+        activeTintColor: '#000',
+        inactiveTintColor: '#a0a0a0',
         labelStyle: {
             fontSize: 16,
         },
         style: {
-            backgroundColor: '#9fbbff',
+            backgroundColor: '#fff',
         },
         indicatorStyle: {
-            backgroundColor: '#fbff59',
+            backgroundColor: '#ffd700',
         },
     },
 });

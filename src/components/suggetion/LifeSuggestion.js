@@ -29,7 +29,7 @@ export default class LifeSuggestion extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#dbda9a',
+        backgroundColor: '#fbfbfb',
         paddingTop: 20,
         paddingBottom: 20,
     },
