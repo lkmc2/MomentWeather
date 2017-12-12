@@ -30,7 +30,7 @@ export default class CitiesTemperature extends Component {
      */
     chooseCityWeather = (data, navigate) => {
         WeatherStore.changeCurrentCityName(data.cityName); //改变当前城市名
-        // WeatherStore.requestWeatherByName(data.cityName); //请求当前城市天气信息
+        // WeatherStore.requestWeatherByName(data.cityName, true); //请求当前城市天气信息
         navigate('TodayPage', {}); //跳转到今天页面
     };
 
@@ -51,8 +51,8 @@ export default class CitiesTemperature extends Component {
             return weatherData.map(data =>
                 <TouchableHighlight
                     key={data.cityName}
-                    activeOpacity={0.7}
-                    underlayColor='green'
+                    activeOpacity={0.9}
+                    underlayColor='#000'
                     style={{marginTop: 1}}
                     onPress={() => this.chooseCityWeather(data, navigate)}>
                     <FlatList
@@ -125,6 +125,7 @@ export default class CitiesTemperature extends Component {
                             {this.renderWeeklyTempList(weatherData, navigate)}
                         </View>
                     </View>
+                    <View style={{height:115}}/>
                 </ScrollView>
             </View>
         );

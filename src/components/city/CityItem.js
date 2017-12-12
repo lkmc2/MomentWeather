@@ -33,7 +33,7 @@ export default class CityItem extends Component {
             <TouchableHighlight
                 key={cityName}
                 activeOpacity={0.7}
-                underlayColor='green'
+                underlayColor='#000'
                 onPress={() => this.chooseCityWeather(cityName, navigate)}>
                 <View style={styles.container}>
                     <Text style={styles.city}>{cityName}</Text>
@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
     },
     air: {
         fontSize: 12,
-        backgroundColor: '#b9db62',
         borderRadius: 3,
         marginTop: 5,
         marginBottom: 5,
