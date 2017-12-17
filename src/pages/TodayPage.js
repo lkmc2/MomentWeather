@@ -26,13 +26,12 @@ export default class TodayPage extends Component {
         header: null, //隐藏标题栏
     };
 
-    async componentWillMount() {
+    async componentWillMount() { //页面加载完成时调用
         await StateStore.loadCurrentCityInfo(); //加载当前城市信息
         await StateStore.loadSettingData(); //加载设置信息
         if (!StateStore.isLoadingEnd) { //如果是第一次加载
             await StateStore.loadLocalCityData(); //等待加载本地数据
         }
-
         this.refreshWeatherData(); //刷新天气数据
     }
 

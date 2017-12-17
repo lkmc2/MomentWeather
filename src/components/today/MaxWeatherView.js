@@ -13,6 +13,7 @@ import WeatherStore from '../../stores/WeatherStore.js'; //引入天气存储数
 import IconUtil from '../../util/IconUtil.js'; //图标工具类
 import DateUtil from '../../util/DateUtil.js'; //日期工具类
 
+//当前城市大图标信息展示控件
 @observer
 export default class MaxWeatherView extends Component {
 
@@ -42,8 +43,6 @@ export default class MaxWeatherView extends Component {
             now:{cond_code, cond_txt, tmp, hum}, //天气代码，天气描述，温度，空气质量
             update:{ loc }, //更新时间
         } = weatherData;
-
-
 
         return (
             <View style={styles.container}>
