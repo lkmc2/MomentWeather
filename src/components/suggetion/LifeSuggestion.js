@@ -4,8 +4,9 @@
 'use strict';
 import React, {Component} from 'react'
 import {StyleSheet, View, Text} from 'react-native';
-import SuggestionItem from './SuggestionItem';
+import SuggestionItem from './SuggestionItem.js'; //生活指数子项
 import {observer} from 'mobx-react/native';
+import TraditionItem from './TraditionItem.js'; //农历子项
 
 //今日生活指数
 @observer
@@ -22,6 +23,8 @@ export default class LifeSuggestion extends Component {
                 <SuggestionItem index={4}/>
                 <SuggestionItem index={5}/>
                 <SuggestionItem index={6}/>
+                <SuggestionItem index={7}/>
+                <TraditionItem/>
             </View>
         )
     }

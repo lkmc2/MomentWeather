@@ -17,6 +17,7 @@ class StateStore {
     @observable locate = true; //是否定位
     @observable isLoadingEnd = false; //状态加载完成
     @observable isFirstLocation = true; //第一次定位
+    @observable traditionInfo; //农历信息
 
     /**
      * 获取城市数据
@@ -133,6 +134,28 @@ class StateStore {
                 if (data !== undefined && data !== null) { //数据非空
                     WeatherStore.currentCityInfo = data; //设置当前城市数据
                     WeatherStore.changeCurrentCityName(data.cityName); //设置当前城市名称
+                }
+            }
+        }).done();
+    };
+
+    /**
+     * 保存农历信息
+     */
+    saveTraditionInfo = () => {
+        AsyncStorage.setItem('tradition', JSON.stringify(this.traditionInfo)); //保存农历信息
+    };
+
+    /**
+     * 加载农历信息
+     */
+    loadTraditionInfo = () => {
+        return AsyncStorage.getItem('tradition', (error, result) => {
+            if (!error) { //获取信息正确
+                const  data = JSON.parse(result); //解析数据
+
+                if (data !== undefined && data !== null) { //数据非空
+                    this.traditionInfo = data; //设置农历信息
                 }
             }
         }).done();

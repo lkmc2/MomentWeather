@@ -167,6 +167,31 @@ class WeatherStore {
         }
     };
 
+    requestTraditionInfo = () => {
+        return fetch(WebConfig.traditionApi)  //请求农历信息
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((jsonData) => {
+                if (jsonData.status === 500) { //当前城市名未知
+                    Alert.alert('提示', '农历数据未知', [{
+                        text: '确定', onPress: () => {
+                        }
+                    }]);
+                } else {
+                    //hyear:丁酉(年), cnmonth:正(月), cnday:初六
+                    const {hyear, cnmonth, cnday, suit, taboo} = jsonData.data;
+                    const yearDescription = hyear + '年' + cnmonth + '月' + cnday; //年份描述
+
+                    StateStore.traditionInfo = {yearDescription, suit, taboo}; //设置农历信息
+                   StateStore.saveTraditionInfo() //保存农历信息
+                }
+            })
+            .done();
+    };
+
     /**
      * 存储天气信息
      * @param jsonData 天气数据
