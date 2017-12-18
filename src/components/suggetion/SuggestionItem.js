@@ -12,8 +12,8 @@ import {observer} from 'mobx-react/native';
 export default class SuggestionItem extends Component {
 
     render() {
-        let itemIndex=this.props.index;
-        let weatherData = WeatherStore.getCurrentCityWeather;
+        let itemIndex = this.props.index;
+        let weatherData = WeatherStore.getCurrentCityWeather; //获取当前城市天气信息
 
         if (weatherData !== null && weatherData.lifestyle !== null && weatherData.lifestyle !== undefined) { //天气非空
             return this.renderContent(weatherData.lifestyle[itemIndex], itemIndex);

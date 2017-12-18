@@ -29,6 +29,7 @@ export default class TodayPage extends Component {
     async componentWillMount() { //页面加载完成时调用
         await StateStore.loadCurrentCityInfo(); //加载当前城市信息
         await StateStore.loadSettingData(); //加载设置信息
+        await StateStore.loadTraditionInfo(); //加载农历信息
         if (!StateStore.isLoadingEnd) { //如果是第一次加载
             await StateStore.loadLocalCityData(); //等待加载本地数据
         }
@@ -42,6 +43,7 @@ export default class TodayPage extends Component {
             if (isConnected) { //网络已连接
                 WeatherStore.requestWeatherByName(WeatherStore.currentCityName, true); //根据当前设置的城市名请求数据
                 WeatherStore.requestAllCityWeather(); //请求所有天气的数据
+                WeatherStore.requestTraditionInfo(); //请求农历信息
             } else { //网络未连接
                 Alert.alert('提示', '网络未连接!', [{text: '确定', onPress: () => {}}]);
             }

@@ -12,13 +12,37 @@ import StateStore from '../../stores/StateStore.js'; //天气状态存储器
 export default class TraditionItem extends Component {
 
     render() {
-        const {yearDescription, suit, taboo} = StateStore.traditionInfo; //获取农历信息
+        const traditionInfo = StateStore.getTraditionInfo; //获取农历信息
+        if (traditionInfo !== null && traditionInfo !== undefined) { //农历信息非空
+            return this.renderContent(traditionInfo); //生成界面内容
+        } else {
+            return this.renderEmpty(); //加载空界面
+        }
+    }
+
+    /**
+     * 生成界面内容
+     */
+    renderEmpty = () => {
+        return (
+            <View style={styles.container}>
+                <ActivityIndicator/>
+            </View>
+        )
+    };
+
+    /**
+     * 生成界面内容
+     * @param traditionInfo 农历信息
+     */
+    renderContent = (traditionInfo) => {
+        const {yearDescription, suit, taboo} = traditionInfo; //获取农历信息
 
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>农历:{yearDescription}</Text>
-                <Text style={[styles.title,styles.textBottom]}>{suit}</Text>
-                <Text style={[styles.title,styles.textBottom]}>{taboo}</Text>
+                <Text style={styles.title}>农历指数:{yearDescription}</Text>
+                <Text style={[styles.title,styles.textBottom]}>宜:{suit}</Text>
+                <Text style={[styles.title,styles.textBottom]}>忌:{taboo}</Text>
                 <View style={styles.divider}/>
             </View>
         )

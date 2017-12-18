@@ -12,21 +12,11 @@ loadMaxWeatherIcon = (weatherCode) => {
 
     switch (weatherCode) {
         case "100": //晴天
-            hour = new Date().getHours(); //获取时间
-            if (hour < 18) { //白天
-                icon = require('../images/weather/sunny.png');
-            } else { //黑夜
-                icon = require('../images/weather/sunny_night.png');
-            }
+            icon = require('../images/weather/sunny.png');
             break;
         case "101": //多云的
         case "102":
-            hour = new Date().getHours(); //获取时间
-            if (hour < 18) { //白天
-                icon = require('../images/weather/cloudy.png');
-            } else { //黑夜
-                icon = require('../images/weather/cloudy_night.png');
-            }
+            icon = require('../images/weather/cloudy.png');
             break;
         case "103": //晴转多云
             icon = require('../images/weather/partly_cloudy.png');

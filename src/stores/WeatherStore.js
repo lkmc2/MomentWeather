@@ -167,6 +167,9 @@ class WeatherStore {
         }
     };
 
+    /**
+     * 请求农历信息
+     */
     requestTraditionInfo = () => {
         return fetch(WebConfig.traditionApi)  //请求农历信息
             .then((response) => {

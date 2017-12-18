@@ -17,7 +17,7 @@ class StateStore {
     @observable locate = true; //是否定位
     @observable isLoadingEnd = false; //状态加载完成
     @observable isFirstLocation = true; //第一次定位
-    @observable traditionInfo; //农历信息
+    @observable traditionInfo = null; //农历信息
 
     /**
      * 获取城市数据
@@ -30,6 +30,11 @@ class StateStore {
     //获取是否定位
     @computed  get isLocation() {
         return this.locate;
+    }
+
+    //获取农历信息
+    @computed get getTraditionInfo() {
+        return this.traditionInfo;
     }
 
     //设置标记取消第一次定位
